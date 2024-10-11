@@ -31,18 +31,18 @@ Before you begin, ensure you have met the following requirements:
 
 ### Run Locally
 
-To run **Smith-portfolio** locally, run this command on your git bash:
+To run **portfolio** locally, run this command on your git bash:
 
 Linux and macOS:
 
 ```bash
-sudo git clone https://github.com/codewithsadee/smith-portfolio.git
+sudo git clone https://github.com/mcowino20/portfolio.git
 ```
 
 Windows:
 
 ```bash
-git clone https://github.com/codewithsadee/smith-portfolio.git
+git clone https://github.com/mcowino20/portfolio.git
 ```
 
 ### Contact

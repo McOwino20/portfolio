@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--reCAPCHA-->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
   <title>McOwino - Creative Designer Based In UK</title>
 
   <!-- 
@@ -710,6 +714,9 @@
               class="input-field">
 
             <textarea name="message" aria-label="message" placeholder="Message" required class="input-field"></textarea>
+            
+            <!--reCAPTCHA field-->
+            <div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div> <!-- replace with your recaptcha SITE key not secret key -->
 
             <button type="submit" class="submit-btn">
               <span class="span">Submit</span>

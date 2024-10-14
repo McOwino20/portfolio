@@ -773,7 +773,7 @@
 
           </div>
 
-          <form action="https://formspree.io/f/mgegvboj" method="POST" class="contact-form">
+          <form action="https://formspree.io/f/mgegvboj" method="POST" class="contact-form" onsubmit="return confirmSubmission(event)">
 
             <input type="text" name="name" aria-label="name" placeholder="Name" required class="input-field">
 
@@ -909,6 +909,25 @@ cb=googleTranslateElementInit">
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
+<!--script for dialogue box on-submit-->
+  <script>
+  function confirmSubmission(event) {
+    // Display a confirmation dialog
+    const userConfirmed = confirm("Are you sure you want to submit the form?");
+    
+    // If user clicks "OK", proceed with form submission
+    if (userConfirmed) {
+      return true; // This allows the form to be submitted
+    }
+    
+    // If user clicks "Cancel", prevent form submission
+    event.preventDefault();
+    return false;
+  }
+  </script>
+  
+  <!--end of script for dialogue box on-submit-->
+  
 </body>
 
 </html>

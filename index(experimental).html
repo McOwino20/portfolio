@@ -556,6 +556,9 @@
                 <h3 class="card-title">WordPress Development</h3>
 
                 <data class="card-price" value="500">$500</data>
+
+                <button onclick="showCustomDialog('Are you sure you want to delete this item?', 'https://example.com/info-delete', 'https://www.isa9.xyz')" class="btn">Delete Item</button>
+                
               </div>
             </li>
 
@@ -566,6 +569,9 @@
                 <h3 class="card-title">HTML Development</h3>
 
                 <data class="card-price" value="400">$400</data>
+
+                <button onclick="showCustomDialog('Would you like to proceed with payment?', 'https://example.com/info-payment', 'https://example.com/confirm-payment')" class="btn">Proceed to Payment</button>
+
               </div>
             </li>
 
@@ -576,6 +582,9 @@
                 <h3 class="card-title">Content Writing</h3>
 
                 <data class="card-price" value="300">$300</data>
+
+                <button onclick="showCustomDialog('Do you want to learn more about this feature?', 'https://example.com/info-learn-more', 'https://example.com/confirm-learn')" class="btn">Learn More</button>
+
               </div>
             </li>
 
@@ -586,6 +595,9 @@
                 <h3 class="card-title">Brand Identity</h3>
 
                 <data class="card-price" value="200">$200</data>
+
+                <button onclick="showCustomDialog('Would you like to subscribe to our newsletter?', 'https://example.com/info-subscribe', 'https://example.com/confirm-subscribe')" class="btn">Subscribe</button>
+
               </div>
             </li>
 
@@ -596,6 +608,9 @@
                 <h3 class="card-title">PSD Design</h3>
 
                 <data class="card-price" value="100">$100</data>
+
+                <button onclick="showCustomDialog('Are you sure you want to reset your password?', 'https://example.com/info-reset-password', 'https://example.com/confirm-reset')" class="btn">Reset Password</button>
+
               </div>
             </li>
 
@@ -854,12 +869,8 @@ cb=googleTranslateElementInit">
 
 
   <!-- Buttons triggering different dialogs -->
-  <button onclick="showCustomDialog('Are you sure you want to delete this item?', 'https://example.com/info-delete', 'https://www.isa9.xyz')" class="btn">Delete Item</button>
-  <button onclick="showCustomDialog('Would you like to proceed with payment?', 'https://example.com/info-payment', 'https://example.com/confirm-payment')" class="btn">Proceed to Payment</button>
-  <button onclick="showCustomDialog('Do you want to learn more about this feature?', 'https://example.com/info-learn-more', 'https://example.com/confirm-learn')" class="btn">Learn More</button>
-  <button onclick="showCustomDialog('Would you like to subscribe to our newsletter?', 'https://example.com/info-subscribe', 'https://example.com/confirm-subscribe')" class="btn">Subscribe</button>
-  <button onclick="showCustomDialog('Are you sure you want to reset your password?', 'https://example.com/info-reset-password', 'https://example.com/confirm-reset')" class="btn">Reset Password</button>
-  <button onclick="showCustomDialog('Do you want to save your progress?', 'https://example.com/info-save-progress', 'https://example.com/confirm-save')" class="btn">Save Progress</button>
+
+  <button onclick="showCustomDialog('Do you want to save your progress?', 'https://example.com/info-save-progress', 'https://example.com/confirm-save')" class="btn">Save Progress</button>          
   <button onclick="showCustomDialog('Are you sure you want to sign out?', 'https://example.com/info-sign-out', 'https://example.com/confirm-signout')" class="btn">Sign Out</button>
   <button onclick="showCustomDialog('Do you want to upgrade to the premium plan?', 'https://example.com/info-upgrade', 'https://example.com/confirm-upgrade')" class="btn">Upgrade Plan</button>
   <button onclick="showCustomDialog('Do you need help with this feature?', 'https://example.com/info-help', 'https://example.com/confirm-help')" class="btn">Help</button>

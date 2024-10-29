@@ -19,6 +19,11 @@
       text-align: justify;
       max-width: 400px;
       margin: auto;
+
+
+
+     max-height: 80vh; /* or any desired max height */
+     overflow-y: auto;         
     }
 
     .modal-content p {

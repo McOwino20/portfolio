@@ -93,3 +93,17 @@
 .modal-content::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Darker color on hover */
     }
+
+
+
+/* Flex layout for equal-width buttons */
+.modal-content {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-content button {
+    flex: 1; /* Each button takes equal space */
+    padding: 10px;
+    margin: 5px;
+}

@@ -96,14 +96,9 @@
 
 
 
-/* Flex layout for equal-width buttons */
-.modal-content {
-    display: flex;
-    justify-content: center;
-}
-
 .modal-content button {
-    flex: 1; /* Each button takes equal space */
-    padding: 10px;
-    margin: 5px;
-}
+    min-width: 80px; /* Smaller width for uniformity without being too large */
+    padding: 5px; /* Smaller padding for reduced button height */
+    margin: 5px; /* Adds a bit of space between buttons */
+    font-size: 14px; /* Adjust font size to match button size */
+   }

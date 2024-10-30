@@ -122,6 +122,8 @@
   cursor: pointer;
   font-size: 20px;
   color: #ff4d4d; 
+  background-color: #ff4d4d; /* Circle color */
+  border-radius: 50%; /* Makes the button circular */
   transition: all 0.3s ease;
 }
   .dismissable-text .close-btn:hover {

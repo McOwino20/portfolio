@@ -114,6 +114,7 @@
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 5px;
+  text-align: justify;
 }
 .dismissable-text .close-btn {
   position: absolute;
@@ -127,3 +128,7 @@
   .dismissable-text .close-btn:hover {
    color: #555;
 }
+
+.dismissable-text .li {
+    color: crimpson;
+    }

@@ -186,6 +186,14 @@
 
 <body>
 
+  <!--Dismissable text-->
+  <div id="dismissableText" class="dismissable-text">
+  <span><b>ProSpectacular60 - Get 60% Off Now! - Elevate your journey with our premium services.<a href="Offer-page/Offer-page().html">Claim Your Offer!</a></b></span>
+  <span class="close-btn">&times;</span>
+  </div>
+  <!--End of Dismissable text-->
+
+  
   <!-- 
     - #HEADER
   -->
@@ -1264,6 +1272,19 @@ cb=googleTranslateElementInit">
   </script>
 
 
+<!--Start of script for dismissable text-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+    document.getElementById("dismissableText").style.display = "block";
+  }, 60000); // 1 minutes in milliseconds
+});
+
+document.querySelector(".close-btn").addEventListener("click", function() {
+  document.getElementById("dismissableText").style.display = "none";
+});
+  </script>
+  <!--End of script for dismissable text-->
 </body>
 
 </html>

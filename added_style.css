@@ -123,6 +123,8 @@
   font-size: 20px;
   color: #ff4d4d; 
   background-color: #ff4d4d; /* Circle color */
+  width: 24px; /* Equal width and height for a perfect circle */
+  height: 24px;
   border-radius: 50%; /* Makes the button circular */
   transition: all 0.3s ease;
 }

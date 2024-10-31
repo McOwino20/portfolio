@@ -129,3 +129,20 @@
 }
 
 
+
+
+
+
+/* Styling for the link inside the dismissable text */
+#dismissableText a {
+  color: #007bff; /* Link color */
+  text-decoration: none; /* Removes underline */
+  font-weight: bold; /* Makes the link bold */
+  margin-left: 5px;
+}
+
+#dismissableText a:hover {
+  color: #0056b3; /* Darkens link color on hover */
+  text-decoration: underline; /* Adds underline on hover */
+        }
+                             

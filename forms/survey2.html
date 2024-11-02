@@ -185,6 +185,24 @@
         <label>5d. If the matter was not reported, kindly give a reason:</label>
         <textarea name="reason" id="reason" placeholder="Your comments..."></textarea>
 
+
+        <label>6. How often do you feel unsafe in your community?</label>
+        <select name="safety-frequency" id="safety-frequency">
+            <option value="" disabled selected>Select frequency</option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+
+
+
+
+        <label>7. What should the police and the University (Bomet university College) do to improve security  in the area:</label>
+        <textarea name="comments" id="comments" placeholder="Your comments..."></textarea>
+                
+
         <div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div> <!-- Replace with your reCAPTCHA site key -->
 
         <button type="submit">Submit</button>
@@ -194,7 +212,7 @@
 <script>
     // Function to confirm submission
     function confirmSubmission(event) {
-        const confirmed = confirm("Are you sure you want to submit this form?");
+        const confirmed = confirm("Are you sure you want to submit the form?  If yes, you acknowledge that the information you provided is solely for Educational purposes. And therefore you need to provide the correct  information for infrmed decisions.");
         if (!confirmed) {
             event.preventDefault(); // Prevents form submission if user cancels
         }

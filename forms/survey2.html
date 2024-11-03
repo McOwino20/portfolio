@@ -221,7 +221,7 @@ Join us in using knowledge to make a difference in our community. Your input mat
 
         <div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div> <!-- Replace with your reCAPTCHA site key -->
 
-                <label class="inline-label"><input type="checkbox" id="Consent" name="consen_field" value="Consent_tick"> I acknowledge that this form is solely for educational purposes</label>
+                <label class="inline-label"><input type="checkbox" id="Consent" name="consen_field" value="Consent_tick" required> I acknowledge that this form is solely for educational purposes</label>
         <button type="submit">Submit</button>
     </form>
 </div>
@@ -229,7 +229,7 @@ Join us in using knowledge to make a difference in our community. Your input mat
 <script>
     // Function to confirm submission
     function confirmSubmission(event) {
-        const confirmed = confirm("Are you sure you want to submit the form?  If yes, you acknowledge that the information you provided is solely for Educational purposes. And therefore you need to provide the correct  information for infrmed decisions.");
+        const confirmed = confirm("Are you sure you want to submit the form?  If yes, you acknowledge that the information you provided is solely for Educational purposes. And therefore you need to provide the correct  information for informed decisions.");
         if (!confirmed) {
             event.preventDefault(); // Prevents form submission if user cancels
         }

@@ -229,6 +229,9 @@ Join us in using knowledge to make a difference in our community. Your input mat
                 <label class="inline-label"><input type="checkbox" id="Consent" name="consen_field" value="Consent_tick" required> I acknowledge that this form is solely for educational purposes</label>
         <button type="submit">Submit</button>
     </form>
+    <!--Display successful or error message-->
+    <div id="responseMessage" class="message"></div>
+    
 </div>
 
 <script>
@@ -242,5 +245,40 @@ Join us in using knowledge to make a difference in our community. Your input mat
     }
 </script>
 
+    <script>
+        // Handle form submission to Google sheet 
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+
+            // Get form data
+            var formData = new FormData(this);
+            var responseMessage = document.getElementById('responseMessage');
+
+            // Send data using AJAX
+            fetch("https://script.google.com/macros/s/AKfycby6L3-gAf-j-pj0Rwu3L0rzIAM7SB8qMwmF2Hft4qNsb6lPlmxdl96vHZAgyADmwR3g/exec", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Display success message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message success';
+                } else {
+                    // Display error message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message error';
+                }
+                responseMessage.style.display = 'block';
+            })
+            .catch(error => {
+                // Display error message if there's an issue with the request
+                responseMessage.textContent = 'There was an error submitting the form.';
+                responseMessage.className = 'message error';
+                responseMessage.style.display = 'block';
+            });
+        });
+    </script>
 </body>
 </html>

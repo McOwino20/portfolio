@@ -90,14 +90,21 @@
             margin-bottom: 20px;
         }
 
+            h1 {
+            font-size: 14px;
+            color: white;
+            text-align: justify;
+            background: green;
+            margin-bottom: 20px;
+            }
+
         .thin-slanted-text {
             font-style: italic;    /* This makes the text slanted */
             font-weight: 300;      /* This makes the text thin */
             font-family: Arial, sans-serif; /* Use a readable font */
+            font-size: 20px;
+            text-align: center;            
         }
-
-
-
 
         /* Responsive Styles */
         @media (max-width: 600px) {
@@ -119,44 +126,37 @@
         }
     </style>
     
-
-  <!--reCAPCHA-->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
 <div class="container">
     <h2>Crime Mapping Survey</h2>
+    <hr>
+    <hr>
     <p class="note">Your responses will remain anonymous.</p>
-    
 
-<p class="thin-slanted-text">All of this text will appear slanted and thin because of the applied styles.</p>
-
-  
+    <p class="thin-slanted-text">All of this text will appear slanted and thin because of the applied styles.</p>
     
- <form action="https://formspree.io/f/mgegvboj" method="POST" class="contact-form" onsubmit="return confirmSubmission(event)">     
-        <label>1. Which year are you in your undergraduate course ?</label>
-        <select name="safety-frequency" id="safety-frequency">
+    <h1>We invite you to participate in an educational project to map crime patterns in our community. This initiative aims to identify areas of concern and enhance our understanding of safety issues around us.
+
+By sharing your insights, you’ll help create a valuable educational tool to raise awareness and promote proactive safety measures. Your responses will be kept completely anonymous to ensure your privacy.
+<br>
+Join us in using knowledge to make a difference in our community. Your input matters!</h1>
+    
+    <form action="https://formspree.io/f/mgegvboj" method="POST" class="contact-form" onsubmit="return confirmSubmission(event)">     
+        <label>1. Which year are you in your undergraduate course?</label>
+        <select name="year-of-study" id="year-of-study" required>
             <option value="" disabled selected>Select your year of study</option>
-            <option value="Never">First Year</option></option>
-            <option value="Rarely">Second Year</option>
-            <option value="Sometimes">Third Year</option>
-            <option value="Often">Fourth Year</option>
+            <option value="First Year">First Year</option>
+            <option value="Second Year">Second Year</option>
+            <option value="Third Year">Third Year</option>
+            <option value="Fourth Year">Fourth Year</option>
         </select>      
-      
 
-
-
-
-
-       <label>2.Your Place Of Residence:</label>
-            <input type="text" id="other-crime-text" name="other-crime-text" placeholder="Specify where you live e.g Chebirir,Mosonik etc" required>      
-      
-      
-      
-
-
+        <label>2. Your Place Of Residence:</label>
+        <input type="text" id="place-of-residence" name="place-of-residence" placeholder="Specify where you live e.g. Chebirir, Mosonik etc" required>      
 
         <label>3. Please select the types of crimes you have observed or heard about in the area (check all that apply):</label>
         <div class="checkbox-group">
@@ -170,55 +170,38 @@
             <label class="inline-label"><input type="checkbox" id="other-crime" name="crime" value="Other"> Other (please specify):</label>
             <input type="text" id="other-crime-text" name="other-crime-text" placeholder="Specify other crime">
         </div>
-      
 
         <label>4. What time of day do you believe crime is most likely to occur? (select one):</label>
         <div class="radio-group">
-            <label class="inline-label"><input type="radio" id="morning" name="time" value="Morning"> Morning (6 AM - 12 PM)</label>
-            <label class="inline-label"><input type="radio" id="afternoon" name="time" value="Afternoon"> Afternoon (12 PM - 6 PM)</label>
-            <label class="inline-label"><input type="radio" id="evening" name="time" value="Evening"> Evening (6 PM - 12 AM)</label>
-            <label class="inline-label"><input type="radio" id="night" name="time" value="Night"> Night (12 AM - 6 AM)</label>
+            <label class="inline-label"><input type="radio" id="morning" name="crime-time" value="Morning"> Morning (6 AM - 12 PM)</label>
+            <label class="inline-label"><input type="radio" id="afternoon" name="crime-time" value="Afternoon"> Afternoon (12 PM - 6 PM)</label>
+            <label class="inline-label"><input type="radio" id="evening" name="crime-time" value="Evening"> Evening (6 PM - 12 AM)</label>
+            <label class="inline-label"><input type="radio" id="night" name="crime-time" value="Night"> Night (12 AM - 6 AM)</label>
         </div>      
-      
 
-
-
-      <label>5. Have you been a victim ? (select one):</label>
+        <label>5. Have you been a victim? (select one):</label>
         <div class="radio-group">
-            <label class="inline-label"><input type="radio" id="morning" name="time" value="Morning">Yes</label>
-            <label class="inline-label"><input type="radio" id="afternoon" name="time" value="Afternoon"> No</label>
-
+            <label class="inline-label"><input type="radio" id="victim-yes" name="victim" value="Yes"> Yes</label>
+            <label class="inline-label"><input type="radio" id="victim-no" name="victim" value="No"> No</label>
         </div>
-      
-       <label>5a. If <b>Yes</b>,did you report the matter to authorities ? (select one):</label>
-        <div class="radio-group">
-            <label class="inline-label"><input type="radio" id="morning" name="time" value="Morning">Yes</label>
-            <label class="inline-label"><input type="radio" id="afternoon" name="time" value="Afternoon"> No</label>
 
+        <label>5a. If Yes, did you report the matter to authorities? (select one):</label>
+        <div class="radio-group">
+            <label class="inline-label"><input type="radio" id="reported-yes" name="reported" value="Yes"> Yes</label>
+            <label class="inline-label"><input type="radio" id="reported-no" name="reported" value="No"> No</label>
         </div>  
-      
-        <label>5b. If the matter was reported, where ? (select one):</label>
+
+        <label>5b. If the matter was reported, where?</label>
         <div class="radio-group">
-            <label class="inline-label"><input type="radio" id="morning" name="time" value="Morning">Police Station</label>
-            <label class="inline-label"><input type="radio" id="afternoon" name="time" value="Afternoon"> Bomet University Security Office</label>
-
+            <label class="inline-label"><input type="radio" id="police-station" name="report-location" value="Police Station"> Police Station</label>
+            <label class="inline-label"><input type="radio" id="university-security" name="report-location" value="Bomet University Security Office"> Bomet University Security Office</label>
         </div>    
-      
 
-       <label>5c. What was the response after reporting ?</label>
-        <textarea name="comments" id="comments" placeholder="Your comments... " required></textarea>      
-      
+        <label>5c. What was the response after reporting?</label>
+        <textarea name="response" id="response" placeholder="Your comments..."></textarea>      
 
-
-       <label>5d. If the matter was not reported kindly give a reason:</label>
-        <textarea name="comments" id="comments" placeholder="Kindly shade light as to why you did not report the matter to relevant authorities here... " required></textarea>      
-      
-
-
-
-
-      
-      
+        <label>5d. If the matter was not reported, kindly give a reason:</label>
+        <textarea name="reason" id="reason" placeholder="Your comments..."></textarea>
 
 
         <label>6. How often do you feel unsafe in your community?</label>
@@ -236,34 +219,28 @@
 
         <label>7. What should the police and the University (Bomet university College) do to improve security  in the area:</label>
         <textarea name="comments" id="comments" placeholder="Your comments..."></textarea>
-        
-        
-            <!--reCAPTCHA field-->
-            <div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div> <!-- replace with your recaptcha SITE key not secret key -->
-            <br>        
+                
 
+        <label>8. Having an additional information ? Worry less. we've got you covered.</label>
+        <textarea name="additional_infornation" id="additional_information" placeholder="Your additional information goes here..."></textarea>       
+        
+        <div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div> <!-- Replace with your reCAPTCHA site key -->
+
+                <label class="inline-label"><input type="checkbox" id="Consent" name="consen_field" value="Consent_tick" required> I acknowledge that this form is solely for educational purposes</label>
         <button type="submit">Submit</button>
     </form>
 </div>
 
-<!--script for dialogue box on-submit-->
-  <script>
-  function confirmSubmission(event) {
-    // Display a confirmation dialog
-    const userConfirmed = confirm("Are you sure you want to submit the form?  If yes, you acknowledge that the information you provided is solely for contact purposes. And therefore you need to provide the correct contact details so that I can get back to you.");
-    
-    // If user clicks "OK", proceed with form submission
-    if (userConfirmed) {
-      return true; // This allows the form to be submitted
+<script>
+    // Function to confirm submission
+    function confirmSubmission(event) {
+        const confirmed = confirm("Are you sure you want to submit the form?  If yes, you acknowledge that the information you provided is solely for Educational purposes. And therefore you need to provide the correct  information for informed decisions.");
+        if (!confirmed) {
+            event.preventDefault(); // Prevents form submission if user cancels
+        }
+        return confirmed;
     }
-    
-    // If user clicks "Cancel", prevent form submission
-    event.preventDefault();
-    return false;
-  }
-  </script>
-  
-  <!--end of script for dialogue box on-submit-->
-  
+</script>
+
 </body>
 </html>

@@ -146,3 +146,65 @@
   text-decoration: underline; /* Adds underline on hover */
 }
 
+
+        /* Base colors for light mode */
+        :root {
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --accent-color: #007bff;
+            --border-color: #dddddd;
+        }
+
+        /* Dark mode colors */
+        [data-theme="dark"] {
+            --background-color: #121212;
+            --text-color: #f0f0f0;
+            --accent-color: #bb86fc;
+            --border-color: #333333;
+        }
+
+        /* Apply theme colors */
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Toggle Button Style */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .theme-toggle:hover {
+            opacity: 0.9;
+        }
+
+        /* Example content */
+        .card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }

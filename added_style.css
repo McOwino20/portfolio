@@ -145,3 +145,26 @@
   color: #0056b3; /* Darkens link color on hover */
   text-decoration: underline; /* Adds underline on hover */
 }
+
+        /* Base Alert Styling */
+        .alert {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 8px;
+            border: 1px solid transparent;
+            font-size: 1rem;
+        }
+        .alert-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        /* Color Variants */
+        .bg-info { background-color: #d1ecf1; color: #0c5460; border-color: #bee5eb; }
+        
+        /* Icon Variants */
+        .icon-info { color: #17a2b8; }
+        

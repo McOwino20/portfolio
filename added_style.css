@@ -146,25 +146,23 @@
   text-decoration: underline; /* Adds underline on hover */
 }
 
-        /* Base Alert Styling */
-        .alert {
+        .alert-container {
             display: flex;
             align-items: center;
-            padding: 12px;
+            padding: 10px;
+            background-color: #fffbeb; /* Light yellow background */
+            border: 1px solid #f7d574; /* Border color */
             border-radius: 5px;
+            color: #856404;
             font-family: Arial, sans-serif;
-            margin-bottom: 8px;
-            border: 1px solid transparent;
-            font-size: 1rem;
         }
+
         .alert-icon {
             font-size: 1.5rem;
             margin-right: 10px;
+            color: #856404; /* Icon color */
         }
 
-        /* Color Variants */
-        .bg-info { background-color: #d1ecf1; color: #0c5460; border-color: #bee5eb; }
-        
-        /* Icon Variants */
-        .icon-info { color: #17a2b8; }
-        
+        .alert-text {
+            font-size: 1rem;
+        }

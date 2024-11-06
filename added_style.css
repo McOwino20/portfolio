@@ -165,7 +165,7 @@
 
         .alert-text {
             font-size: 1rem;
-            text-align: left;
+            font-weight: bold;
             
         }
 
@@ -177,3 +177,6 @@
         .alert-text a:active {
         color: #d9534f; /* Color when clicked (soft red) */
         }
+   .alert-text a:hover {
+    color: #ff8800; /* Color on hover (orange) */
+    }

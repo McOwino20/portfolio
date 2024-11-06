@@ -165,6 +165,12 @@
 
         .alert-text {
             font-size: 1rem;
+            text-align: justify;
             
         }
 
+        /* Link styling inside alert */
+        .alert-text a {
+            color: #0056b3; /* Link color */
+            text-decoration: underline;
+           }

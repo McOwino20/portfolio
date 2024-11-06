@@ -147,7 +147,7 @@
 }
 
 
-        /* Base colors for light mode */
+            /* Base styles for light mode */
         :root {
             --background-color: #ffffff;
             --text-color: #333333;
@@ -155,11 +155,11 @@
             --border-color: #dddddd;
         }
 
-        /* Dark mode colors */
+        /* Dark mode styles */
         [data-theme="dark"] {
             --background-color: #121212;
             --text-color: #f0f0f0;
-            --accent-color: #bb86fc;
+            --accent-color: #ffcc00;
             --border-color: #333333;
         }
 
@@ -168,38 +168,55 @@
             background-color: var(--background-color);
             color: var(--text-color);
             font-family: Arial, sans-serif;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
+        /* Toggle Button Container Style */
+        .theme-toggle-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 30px;
+            border-radius: 50px;
+            background-color: var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 5px;
+            cursor: move;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Slider for toggle animation */
+        .slider {
+            width: 25px;
+            height: 25px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            position: relative;
+            transition: transform 0.4s ease;
+        }
+
+        /* Sun and Moon icons */
+        .icon {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        /* Position the slider for dark mode */
+        [data-theme="dark"] .slider {
+            transform: translateX(30px);
+        }
+
+        /* Example content */
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
-
-        /* Toggle Button Style */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--accent-color);
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .theme-toggle:hover {
-            opacity: 0.9;
-        }
-
-        /* Example content */
         .card {
             background-color: var(--background-color);
             border: 1px solid var(--border-color);
@@ -207,4 +224,4 @@
             border-radius: 5px;
             margin-top: 20px;
             transition: background-color 0.3s, border-color 0.3s;
-        }
+            }

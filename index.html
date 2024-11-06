@@ -224,16 +224,6 @@
   <header class="header" data-header>
     <div class="container">
 
-    <button class="theme-toggle" id="theme-toggle">
-    <i id="theme-icon" class="fas fa-sun"></i>
-    </button>
-      
-
-    <div class="card">
-
-    
-    
-
       <a href="#" class="logo">McOwino</a>
 
       <nav class="navbar" data-navbar>
@@ -1221,7 +1211,6 @@ cb=googleTranslateElementInit">
 
     </div>
     
-  </div>
   </footer>
 
 
@@ -1322,24 +1311,7 @@ document.querySelector(".close-btn").addEventListener("click", function() {
   <!--End of script for dismissable text-->
 
   <!--script for dark/light mode-->
-  <script>
-        // Get stored theme or default to light mode
-        const currentTheme = localStorage.getItem("theme") || "light";
-        document.documentElement.setAttribute("data-theme", currentTheme);
-        
-        // Set icon based on theme
-        const themeToggleButton = document.getElementById("theme-toggle");
-        const themeIcon = document.getElementById("theme-icon");
-        themeIcon.className = currentTheme === "dark" ? "fas fa-moon" : "fas fa-sun";
-
-        // Toggle theme function
-        themeToggleButton.addEventListener("click", () => {
-            const newTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-            document.documentElement.setAttribute("data-theme", newTheme);
-            localStorage.setItem("theme", newTheme);
-            themeIcon.className = newTheme === "dark" ? "fas fa-moon" : "fas fa-sun";
-        });
-    </script>
+  
 </body>
 
 </html>

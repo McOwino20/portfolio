@@ -927,6 +927,53 @@ cb=googleTranslateElementInit">
   </script>
   
   <!--end of script for dialogue box on-submit-->
+
+<!--end of script for dark/light theme-->
+      <script>
+        // Load saved theme from localStorage
+        const currentTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", currentTheme);
+
+        // Set initial slider position based on theme
+        const themeContainer = document.getElementById("theme-toggle-container");
+        const themeSlider = document.getElementById("theme-slider");
+
+        // Toggle theme and save preference
+        themeContainer.addEventListener("click", () => {
+            const newTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+        });
+
+        // Make the toggle container draggable
+        themeContainer.onmousedown = function(event) {
+            // Get initial cursor position
+            let shiftX = event.clientX - themeContainer.getBoundingClientRect().left;
+            let shiftY = event.clientY - themeContainer.getBoundingClientRect().top;
+
+            function moveAt(pageX, pageY) {
+                themeContainer.style.left = pageX - shiftX + 'px';
+                themeContainer.style.top = pageY - shiftY + 'px';
+            }
+
+            // Move the container on mousemove
+            function onMouseMove(event) {
+                moveAt(event.pageX, event.pageY);
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+
+            // Drop the container on mouseup
+            themeContainer.onmouseup = function() {
+                document.removeEventListener('mousemove', onMouseMove);
+                themeContainer.onmouseup = null;
+            };
+        };
+
+        themeContainer.ondragstart = function() {
+            return false; // Prevents default drag behavior
+        };
+    </script>
   
 </body>
 

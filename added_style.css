@@ -150,19 +150,21 @@
             display: flex;
             align-items: center;
             padding: 10px;
-            background-color: #fffbeb; /* Light yellow background */
+            background-color: #d1ecf1; /* Light yellow background */
             border: 1px solid #f7d574; /* Border color */
             border-radius: 5px;
-            color: #856404;
+            color:  #0c5460;
             font-family: Arial, sans-serif;
         }
 
         .alert-icon {
             font-size: 1.5rem;
             margin-right: 10px;
-            color: #856404; /* Icon color */
+            color:  #17a2b8; /* Icon color */
         }
 
         .alert-text {
             font-size: 1rem;
+            
         }
+

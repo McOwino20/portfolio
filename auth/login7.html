@@ -242,7 +242,7 @@
             const response = await fetch(apiUrl + `?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
             const result = await response.text();
             if (result === "Success") {
-                window.location.href = "redirect_page_url"; // Redirect to a page after successful login
+                window.location.href = "https://isa9.xyz"; // Redirect to a page after successful login
             } else {
                 document.getElementById("loginResult").innerText = result;
             }

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration, Login, and Password Recovery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 300px;
+            margin-bottom: 20px;
+            display: none; /* All sections hidden by default */
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        p {
+            text-align: center;
+            color: #333;
+        }
+
+        a {
+            color: #5cb85c;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .link-container {
+            text-align: center;
+        }
+
+        #registerResult, #loginResult, #recoverResult, #recoverPasswordResult, #changePasswordResult, #updateResult {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Our Website</h1>
+
+    <!-- Registration Section -->
+    <div id="registrationSection" class="form-container">
+        <h2>Register</h2>
+        <form id="registerForm" onsubmit="event.preventDefault(); registerUser();">
+            <input type="text" id="regUsername" placeholder="Username" required>
+            <input type="password" id="regPassword" placeholder="Password" required>
+            <input type="email" id="regEmail" placeholder="Email" required>
+            <button type="submit">Register</button>
+        </form>
+        <p id="registerResult"></p>
+    </div>
+
+    <!-- Links for other sections -->
+    <div class="link-container">
+        <h3>Already have an account? <a href="#" onclick="toggleSection('login')">Login</a></h3>
+        <h3>Forgot your username? <a href="#" onclick="toggleSection('recoverUsername')">Recover Username</a></h3>
+        <h3>Forgot your password? <a href="#" onclick="toggleSection('recoverPassword')">Recover Password</a></h3>
+        <h3>Want to change your password? <a href="#" onclick="toggleSection('changePassword')">Change Password</a></h3>
+        <h3>Want to update your username? <a href="#" onclick="toggleSection('updateUsername')">Update Username</a></h3>
+    </div>
+
+    <!-- Login Section -->
+    <div id="loginSection" class="form-container">
+        <h2>Login</h2>
+        <input type="text" id="loginUsername" placeholder="Username" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <button onclick="loginUser()">Login</button>
+        <p id="loginResult"></p>
+        <button onclick="toggleSection('registration')">Back to Registration</button>
+    </div>
+
+    <!-- Recover Username Section -->
+    <div id="recoverUsernameSection" class="form-container">
+        <h2>Forgot Username?</h2>
+        <input type="email" id="recoverEmail" placeholder="Enter your email to recover username" required>
+        <button onclick="recoverUsername()">Recover Username</button>
+        <p id="recoverResult"></p>
+        <button onclick="toggleSection('registration')">Back to Registration</button>
+    </div>
+
+    <!-- Recover Password Section -->
+    <div id="recoverPasswordSection" class="form-container">
+        <h2>Forgot Password?</h2>
+        <input type="email" id="recoverPasswordEmail" placeholder="Enter your email to recover password" required>
+        <button onclick="recoverPassword()">Recover Password</button>
+        <p id="recoverPasswordResult"></p>
+        <button onclick="toggleSection('registration')">Back to Registration</button>
+    </div>
+
+    <!-- Change Password Section -->
+    <div id="changePasswordSection" class="form-container">
+        <h2>Change Password</h2>
+        <input type="email" id="changePasswordEmail" placeholder="Enter your email" required>
+        <input type="password" id="newPassword" placeholder="New Password" required>
+        <button onclick="changePassword()">Change Password</button>
+        <p id="changePasswordResult"></p>
+        <button onclick="toggleSection('registration')">Back to Registration</button>
+    </div>
+
+    <!-- Update Username Section -->
+    <div id="updateUsernameSection" class="form-container">
+        <h2>Update Username</h2>
+        <input type="text" id="oldUsername" placeholder="Old Username" required>
+        <input type="text" id="newUsername" placeholder="New Username" required>
+        <button onclick="updateUsername()">Update Username</button>
+        <p id="updateResult"></p>
+        <button onclick="toggleSection('registration')">Back to Registration</button>
+    </div>
+
+    <script>
+        // Google Apps Script Web App URL
+        const apiUrl = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL"; // Replace with your Google Apps Script URL
+
+        // Function to toggle between different sections
+        function toggleSection(section) {
+            // Hide all sections
+            const sections = ["registration", "login", "recoverUsername", "recoverPassword", "changePassword", "updateUsername"];
+            sections.forEach(s => {
+                const element = document.getElementById(s + "Section");
+                element.style.display = "none";
+            });
+
+            // Show the selected section
+            const activeSection = document.getElementById(section + "Section");
+            activeSection.style.display = "block";
+        }
+
+        // Default: Show the registration section when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleSection('registration');
+        });
+
+        // Register User Function
+        async function registerUser() {
+            const username = document.getElementById("regUsername").value;
+            const password = document.getElementById("regPassword").value;
+            const email = document.getElementById("regEmail").value;
+
+            if (!username || !password || !email) {
+                document.getElementById("registerResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to register user
+            const response = await fetch(apiUrl + `?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&email=${encodeURIComponent(email)}`);
+            const result = await response.text();
+            document.getElementById("registerResult").innerText = result;
+        }
+
+        // Login User Function
+        async function loginUser() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            if (!username || !password) {
+                document.getElementById("loginResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to log in user
+            const response = await fetch(apiUrl + `?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+            const result = await response.text();
+
+            if (result === "Login successful") {
+                window.location.href = "redirect-page.html"; // Replace with your redirect page URL
+            } else {
+                document.getElementById("loginResult").innerText = result;
+            }
+        }
+
+        // Update Username Function
+        async function updateUsername() {
+            const oldUsername = document.getElementById("oldUsername").value;
+            const newUsername = document.getElementById("newUsername").value;
+
+            if (!oldUsername || !newUsername) {
+                document.getElementById("updateResult").innerText = "Please fill in both the old and new username fields.";
+                return;
+            }
+
+            // API call to update the username
+            const response = await fetch(apiUrl + `?action=updateUsername&oldUsername=${encodeURIComponent(oldUsername)}&newUsername=${encodeURIComponent(newUsername)}`);
+            const result = await response.text();
+            document.getElementById("updateResult").innerText = result;
+        }
+
+        // Recover Username Function
+        async function recoverUsername() {
+            const email = document.getElementById("recoverEmail").value;
+            if (!email) {
+                document.getElementById("recoverResult").innerText = "Please enter an email address.";
+                return;
+            }
+
+            // API call to recover username
+            const response = await fetch(apiUrl + `?action=recoverUsername&email=${encodeURIComponent(email)}`);
+            const result = await response.text();
+            document.getElementById("recoverResult").innerText = result;
+        }
+
+        // Recover Password Function
+        async function recoverPassword() {
+            const email = document.getElementById("recoverPasswordEmail").value;
+            if (!email) {
+                document.getElementById("recoverPasswordResult").innerText = "Please enter an email address.";
+                return;
+            }
+
+            // API call to recover password
+            const response = await fetch(apiUrl + `?action=recoverPassword&email=${encodeURIComponent(email)}`);
+            const result = await response.text();
+            document.getElementById("recoverPasswordResult").innerText = result;
+        }
+
+        // Change Password Function
+        async function changePassword() {
+            const email = document.getElementById("changePasswordEmail").value;
+            const newPassword = document.getElementById("newPassword").value;
+
+            if (!email || !newPassword) {
+                document.getElementById("changePasswordResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to change password
+            const response = await fetch(apiUrl + `?action=changePassword&email=${encodeURIComponent(email)}&newPassword=${encodeURIComponent(newPassword)}`);
+            const result = await response.text();
+            document.getElementById("changePasswordResult").innerText = result;
+        }
+    </script>
+</body>
+</html>

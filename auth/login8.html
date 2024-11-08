@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration & Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://via.placeholder.com/1500x1000'); /* Set your background image URL here */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 8px;
+            width: 400px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .form-container p {
+            text-align: center;
+        }
+        .form-container a {
+            color: #ffdd57;
+        }
+    </style>
+</head>
+<body>
+    <div id="form-container" class="form-container">
+        <h2 id="formTitle">Register</h2>
+        
+        <!-- Registration Form -->
+        <div id="registerForm">
+            <input type="text" id="registerUsername" placeholder="Username" required>
+            <input type="password" id="registerPassword" placeholder="Password" required>
+            <input type="email" id="registerEmail" placeholder="Email Address" required>
+            <button onclick="registerUser()">Register</button>
+            <p>Already have an account? <a href="#" onclick="showLoginForm()">Login here</a></p>
+            <p id="registerResult"></p>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" style="display:none;">
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button onclick="loginUser()">Login</button>
+            <p>Forgot username? <a href="#" onclick="recoverUsername()">Recover</a></p>
+            <p>Forgot password? <a href="#" onclick="recoverPassword()">Recover</a></p>
+            <p id="loginResult"></p>
+        </div>
+        
+        <!-- Password Recovery -->
+        <div id="passwordRecoveryForm" style="display:none;">
+            <input type="email" id="recoverEmail" placeholder="Enter your email" required>
+            <button onclick="recoverPassword()">Recover Password</button>
+            <p id="recoverResult"></p>
+        </div>
+
+        <!-- Username Recovery -->
+        <div id="usernameRecoveryForm" style="display:none;">
+            <input type="email" id="recoverUsernameEmail" placeholder="Enter your email" required>
+            <button onclick="recoverUsername()">Recover Username</button>
+            <p id="recoverUsernameResult"></p>
+        </div>
+    </div>
+
+    <script>
+        const apiUrl = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';  // Replace with your Google Apps Script Web App URL
+
+        // Show Login Form
+        function showLoginForm() {
+            document.getElementById("registerForm").style.display = 'none';
+            document.getElementById("loginForm").style.display = 'block';
+            document.getElementById("formTitle").innerHTML = "Login";
+        }
+
+        // Show Registration Form
+        function showRegisterForm() {
+            document.getElementById("loginForm").style.display = 'none';
+            document.getElementById("registerForm").style.display = 'block';
+            document.getElementById("formTitle").innerHTML = "Register";
+        }
+
+        // Register User
+        function registerUser() {
+            const username = document.getElementById("registerUsername").value;
+            const password = document.getElementById("registerPassword").value;
+            const email = document.getElementById("registerEmail").value;
+
+            const params = new URLSearchParams({
+                action: 'register',
+                username: username,
+                password: password,
+                email: email
+            });
+
+            fetch(apiUrl + '?' + params.toString())
+                .then(response => response.text())
+                .then(result => {
+                    document.getElementById("registerResult").innerText = result;
+                });
+        }
+
+        // Login User
+        function loginUser() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            const params = new URLSearchParams({
+                action: 'login',
+                username: username,
+                password: password
+            });
+
+            fetch(apiUrl + '?' + params.toString())
+                .then(response => response.text())
+                .then(result => {
+                    document.getElementById("loginResult").innerText = result;
+                });
+        }
+
+        // Recover Password
+        function recoverPassword() {
+            const email = document.getElementById("recoverEmail").value;
+
+            const params = new URLSearchParams({
+                action: 'recoverPassword',
+                email: email
+            });
+
+            fetch(apiUrl + '?' + params.toString())
+                .then(response => response.text())
+                .then(result => {
+                    document.getElementById("recoverResult").innerText = result;
+                });
+        }
+
+        // Recover Username
+        function recoverUsername() {
+            const email = document.getElementById("recoverUsernameEmail").value;
+
+            const params = new URLSearchParams({
+                action: 'recoverUsername',
+                email: email
+            });
+
+            fetch(apiUrl + '?' + params.toString())
+                .then(response => response.text())
+                .then(result => {
+                    document.getElementById("recoverUsernameResult").innerText = result;
+                });
+        }
+    </script>
+</body>
+</html>

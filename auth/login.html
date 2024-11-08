@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration and Login System</title>
+</head>
+<body>
+    <h1>Welcome to Our Website</h1>
+
+    <!-- Registration Section -->
+    <h2>Register</h2>
+    <input type="text" id="regUsername" placeholder="Username">
+    <input type="password" id="regPassword" placeholder="Password">
+    <input type="email" id="regEmail" placeholder="Email">
+    <button onclick="registerUser()">Register</button>
+    <p id="registerResult"></p>
+
+    <!-- Login Section -->
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="loginUser()">Login</button>
+    <p id="loginResult"></p>
+
+    <script>
+        // Google Apps Script Web App URL
+        const apiUrl = "https://script.google.com/macros/s/AKfycbzl3RBUS7KARNQlzy21KgUvpUOGKgO2-z5FFsfpLYqwYZYg0JaOHWXRoga3F_0SaGacsw/exec"; // Replace with your Google Apps Script URL
+
+        // Register User Function
+        async function registerUser() {
+            const username = document.getElementById("regUsername").value;
+            const password = document.getElementById("regPassword").value;
+            const email = document.getElementById("regEmail").value;
+
+            if (!username || !password || !email) {
+                document.getElementById("registerResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to register user
+            const response = await fetch(apiUrl + `?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&email=${encodeURIComponent(email)}`);
+            const result = await response.text();
+            document.getElementById("registerResult").innerText = result;
+        }
+
+        // Login User Function
+        async function loginUser() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            if (!username || !password) {
+                document.getElementById("loginResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to log in user
+            const response = await fetch(apiUrl + `?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+            const result = await response.text();
+
+            if (result === "Login successful") {
+                window.location.href = "redirect-page.html"; // Replace with your redirect page URL
+            } else {
+                document.getElementById("loginResult").innerText = result;
+            }
+        }
+    </script>
+</body>
+</html>

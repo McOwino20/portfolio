@@ -1,0 +1,29 @@
+<!-- Booking Form -->
+<form id="bookingForm">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="email" id="email" placeholder="Your Email" required>
+  <select id="service">
+    <option value="Multilingual Website Setup">Multilingual Website Setup</option>
+    <option value="HTML Development">HTML Development</option>
+    <!-- Add more options for your services here -->
+  </select>
+  <input type="date" id="date" required>
+  <button type="button" onclick="redirectToPayment()">Book Now</button>
+</form>
+
+<script>
+  // Redirect user to payment
+  function redirectToPayment() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const service = document.getElementById("service").value;
+    const date = document.getElementById("date").value;
+
+    // Save booking info temporarily to local storage
+    localStorage.setItem("bookingData", JSON.stringify({ name, email, service, date }));
+
+    // Redirect to IntaSend payment page with your hosted link
+    const paymentLink = "https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/";
+    window.location.href = paymentLink;
+  }
+</script>

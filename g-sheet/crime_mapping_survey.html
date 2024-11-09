@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Mapping Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+        .container:hover {
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        .inline-label {
+            display: inline-block;
+            margin-right: 15px;
+        }
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+            box-sizing: border-box; /* Ensures padding is included in width */
+        }
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            border: 1px solid #28a745;
+            outline: none;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical; /* Allow vertical resizing only */
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+            margin-top: 10px; /* Add margin to button */
+        }
+        button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        .checkbox-group,
+        .radio-group {
+            margin-bottom: 20px;
+        }
+        .note {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            h1 {
+            font-size: 14px;
+            color: white;
+            text-align: justify;
+            background: green;
+            margin-bottom: 20px;
+            }
+
+        .thin-slanted-text {
+            font-style: italic;    /* This makes the text slanted */
+            font-weight: 300;      /* This makes the text thin */
+            font-family: Arial, sans-serif; /* Use a readable font */
+            font-size: 20px;
+            text-align: center;            
+        }
+
+        .message {
+            display: none;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+            input[type="text"],
+            textarea,
+            select {
+                font-size: 14px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+    
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Crime Mapping Survey</h2>
+    <hr>
+    <hr>
+    <p class="note">Your responses will remain anonymous.</p>
+
+    <p class="thin-slanted-text"> 📢 Calling All Students! Join our mission to understand campus safety issues.<br>"Riurwok E Teko" ✊</p>
+    
+    <h1>We invite you to participate in an educational project to map crime patterns in our community. This initiative aims to identify areas of concern and enhance our understanding of safety issues around us.
+
+By sharing your insights, you’ll help create a valuable educational tool to raise awareness and promote proactive safety measures. Your responses will be kept completely anonymous to ensure your privacy.
+<br>
+Join us in using knowledge to make a difference in our community. Your input matters!</h1>
+    
+    <!--<form id="contactForm" class="contact-form" onsubmit="return confirmSubmission(event)">-->
+     <form id="contactForm" class="contact-form" onsubmit="return confirmSubmission(event)" action="https://script.google.com/macros/s/AKfycbxwt-m-ynBr2GPr49SmMSslSQr13O7rrL3JXAbfvazcoxiSqGb6int_8UTSLr2OaYNWrg/exec" method="POST">   
+        <label>1. Which year are you in your undergraduate course?</label>
+        <select name="year-of-study" id="year-of-study" required>
+            <option value="" disabled selected>Select your year of study</option>
+            <option value="First Year">First Year</option>
+            <option value="Second Year">Second Year</option>
+            <option value="Third Year">Third Year</option>
+            <option value="Fourth Year">Fourth Year</option>
+        </select>      
+
+        <label>2. Your Place Of Residence:</label>
+        <input type="text" id="place-of-residence" name="place-of-residence" placeholder="Specify where you live e.g. Chebirir, Mosonik etc" required>      
+
+        <label>3. Please select the types of crimes you have observed or heard about in the area (check all that apply):</label>
+        <div class="checkbox-group">
+            <label class="inline-label"><input type="checkbox" id="theft" name="crime" value="Theft"> Theft</label>
+            <label class="inline-label"><input type="checkbox" id="burglary" name="crime" value="Burglary"> Burglary</label>
+            <label class="inline-label"><input type="checkbox" id="vandalism" name="crime" value="Vandalism"> Vandalism</label>
+            <label class="inline-label"><input type="checkbox" id="assault" name="crime" value="Assault"> Assault</label>
+            <label class="inline-label"><input type="checkbox" id="drug-offenses" name="crime" value="Drug-related offenses"> Drug-related offenses</label>
+            <label class="inline-label"><input type="checkbox" id="domestic-violence" name="crime" value="Domestic violence"> Domestic violence</label>
+            <label class="inline-label"><input type="checkbox" id="cybercrime" name="crime" value="Cybercrime"> Cybercrime</label>
+            <label class="inline-label"><input type="checkbox" id="other-crime" name="crime" value="Other"> Other (please specify):</label>
+            <input type="text" id="other-crime-text" name="other-crime-text" placeholder="Specify other crime">
+        </div>
+
+        <label>4. What time of day do you believe crime is most likely to occur? (select one):</label>
+        <div class="radio-group">
+            <label class="inline-label"><input type="radio" id="morning" name="crime-time" value="Morning"> Morning (6 AM - 12 PM)</label>
+            <label class="inline-label"><input type="radio" id="afternoon" name="crime-time" value="Afternoon"> Afternoon (12 PM - 6 PM)</label>
+            <label class="inline-label"><input type="radio" id="evening" name="crime-time" value="Evening"> Evening (6 PM - 12 AM)</label>
+            <label class="inline-label"><input type="radio" id="night" name="crime-time" value="Night"> Night (12 AM - 6 AM)</label>
+        </div>      
+
+        <label>5. Have you been a victim? (select one):</label>
+        <div class="radio-group">
+            <label class="inline-label"><input type="radio" id="victim-yes" name="victim" value="Yes"> Yes</label>
+            <label class="inline-label"><input type="radio" id="victim-no" name="victim" value="No"> No</label>
+        </div>
+
+        <label>5a. If Yes, did you report the matter to authorities? (select one):</label>
+        <div class="radio-group">
+            <label class="inline-label"><input type="radio" id="reported-yes" name="reported" value="Yes"> Yes</label>
+            <label class="inline-label"><input type="radio" id="reported-no" name="reported" value="No"> No</label>
+        </div>  
+
+        <label>5b. If the matter was reported, where?</label>
+        <div class="radio-group">
+            <label class="inline-label"><input type="radio" id="police-station" name="report-location" value="Police Station"> Police Station</label>
+            <label class="inline-label"><input type="radio" id="university-security" name="report-location" value="Bomet University Security Office"> Bomet University Security Office</label>
+        </div>    
+
+        <label>5c. What was the response after reporting?</label>
+        <textarea name="response_upon_reporting" id="response_upon_reporting" placeholder="Your comments..."></textarea>      
+
+        <label>5d. If the matter was not reported, kindly give a reason:</label>
+        <textarea name="reason_for_not_reporting" id="reason_for_not_reporting" placeholder="Your comments..."></textarea>
+
+
+        <label>6. How often do you feel unsafe in your place of residence ?</label>
+        <select name="safety-frequency" id="safety-frequency">
+            <option value="" disabled selected>Select frequency</option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+
+
+
+
+        <label>7. What should the police and the University (Bomet university College) do to improve security  in the area:</label>
+        <textarea name="your_suggestions" id="your_suggestions" placeholder="Your comments..."></textarea>
+                
+
+        <label>8. Having an additional information ? Worry less. we've got you covered.</label>
+        <textarea name="additional_information" id="additional_information" placeholder="Your additional information goes here..."></textarea>       
+        
+        <!--<div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div>--> <!-- Replace with your reCAPTCHA site key -->
+
+                <label class="inline-label"><input type="checkbox" id="Consent" name="consent_field" value="✅" required> I acknowledge that this form is solely for educational purposes</label>
+        <button type="submit">Submit</button>
+    </form>
+    <!--Display successful or error message-->
+    <div id="responseMessage" class="message"></div>
+    
+</div>
+
+<script>
+    // Function to confirm submission
+    function confirmSubmission(event) {
+        const confirmed = confirm("Are you sure you want to submit the form?  If yes, you acknowledge that the information you provided is solely for Educational purposes. And therefore you need to provide the correct  information for informed decisions.ANONYMITY OF THE FORM SUBMISSIONS is guaranteed ✅-McOwino.");
+        if (!confirmed) {
+            event.preventDefault(); // Prevents form submission if user cancels
+        }
+        return confirmed;
+    }
+</script>
+
+    <script>
+        // Handle form submission to Google sheet 
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+
+            // Get form data
+            var formData = new FormData(this);
+            var responseMessage = document.getElementById('responseMessage');
+
+            // Send data using AJAX
+            fetch("https://script.google.com/macros/s/AKfycbxwt-m-ynBr2GPr49SmMSslSQr13O7rrL3JXAbfvazcoxiSqGb6int_8UTSLr2OaYNWrg/exec", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Display success message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message success';
+                } else {
+                    // Display error message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message error';
+                }
+                responseMessage.style.display = 'block';
+            })
+            .catch(error => {
+                // Display error message if there's an issue with the request
+                responseMessage.textContent = 'There was an error submitting the form.';
+                responseMessage.className = 'message error';
+                responseMessage.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
+
+

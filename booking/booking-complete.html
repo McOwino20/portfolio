@@ -7,7 +7,7 @@
   const bookingData = JSON.parse(localStorage.getItem("bookingData"));
 
   // Send booking data to Google Sheets endpoint
-  fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwzZRRhLMfBLpQkH1nAWJfrWswUkeiCexBLVp4wXD2ONhtYMjYb1V4IPF1J11DMW4eh/exec", {
     method: "POST",
     body: JSON.stringify({
       status: "success",

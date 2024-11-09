@@ -1,0 +1,36 @@
+<!-- Booking Completion Page -->
+<h2>Thank you for your payment!</h2>
+<p>Your booking is being processed.</p>
+
+<script>
+  // Retrieve saved booking info from local storage
+  const bookingData = JSON.parse(localStorage.getItem("bookingData"));
+
+  // Send booking data to Google Sheets endpoint
+  fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      status: "success",
+      name: bookingData.name,
+      email: bookingData.email,
+      service: bookingData.service,
+      date: bookingData.date
+    }),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === "Booking confirmed") {
+      document.querySelector("p").innerText = "Your booking is confirmed!";
+    } else {
+      document.querySelector("p").innerText = "There was an issue with your booking.";
+    }
+
+    // Clear the stored data from local storage
+    localStorage.removeItem("bookingData");
+  })
+  .catch(error => {
+    document.querySelector("p").innerText = "An error occurred. Please contact support.";
+    console.error(error);
+  });
+</script>

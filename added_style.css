@@ -146,6 +146,7 @@
   text-decoration: underline; /* Adds underline on hover */
 }
 
+/* styling for price alert box below header-page in development...*/
         .alert-container {
             display: flex;
             align-items: center;
@@ -180,3 +181,52 @@
    .alert-text a:hover {
     color: #ff8800; /* Color on hover (orange) */
     }
+
+/* styling for price info circle*/
+        .price-info {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 5px;
+            font-size: 14px;
+            width: 16px;
+            height: 16px;
+            color: white;
+            background-color: #007bff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: justify;
+            border-radius: 5px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .price-info:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+       }

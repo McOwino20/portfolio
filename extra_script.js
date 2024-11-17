@@ -1,4 +1,3 @@
-  <script>
     const progressBar = document.getElementById('progressBar');
     const percentText = document.getElementById('percent');
     const loader = document.getElementById('loader');
@@ -20,4 +19,4 @@
         }, 500); // Matches fade-out duration
       }
     }, 100); // Adjust speed of loading
-  </script>
+

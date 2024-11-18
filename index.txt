@@ -1,4 +1,4 @@
-Smith - Creative Designer Based In UK
+McOwino - Creative Designer Based In Kenya
 
 
 
@@ -20,9 +20,8 @@ aria-label = toggle menu
 
 #---------- HERO ----------#
 
-alt = Bernard Smith
-
-Bernard Smith
+alt = McOwino
+McOwino 
 
 Creative Designer Based In UK
 

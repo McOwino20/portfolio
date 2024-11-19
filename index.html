@@ -1295,7 +1295,7 @@ cb=googleTranslateElementInit">
   <div id="customDialog" class="modal">
     <div class="modal-content">
       <p id="dialogMessage">This is a default message.</p>
-      <a id="dialogLink" href="#" target="_blank" rel="noopener noreferrer">Get in touch here for any query.</a>
+      <a id="dialogLink" href="#" target="_blank" rel="noopener noreferrer">Click here for more info</a>
       <br><br>
       <button id="confirmButton" class="confirm-btn">Book Service</button>
       <button class="cancel-btn" onclick="closeDialog()">Back to Home</button>
@@ -1388,7 +1388,7 @@ cb=googleTranslateElementInit">
       // Update the content of the dialog
       document.getElementById('dialogMessage').innerText = message;
       document.getElementById('dialogLink').href = link;
-      document.getElementById('dialogLink').innerText = "Get in touch here for any query.";
+      document.getElementById('dialogLink').innerText = "Click here for more info";
       
       // Set the redirect URL for the "Yes" button
       document.getElementById("confirmButton").onclick = function() {

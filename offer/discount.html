@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Services - McOwino</title>
+    <script src="https://unpkg.com/intasend-inlinejs-sdk@4.0.1/build/intasend-inline.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            background-color: #2A9DF4;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        main {
+            max-width: 700px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        select, input, button {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #2A9DF4;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2386D0;
+        }
+
+        .service {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .service span {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .grand-total {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2A9DF4;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .service .discount {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .service .original-price {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header>
+        <h1>Order Our Services</h1>
+        <p>Select services, review discounts, and proceed with payment</p>
+    </header>
+
+    <main>
+        <form id="order-form">
+            <label for="services">Select Services:</label>
+            <select id="services" multiple required>
+                <option value="Multilingual Website Setup" data-price="1500" data-discount="20">Multilingual Website Setup</option>
+                <option value="Website Development" data-price="3500" data-discount="40">Website Development</option>
+                <option value="Content Writing" data-price="500" data-discount="20">Content Writing</option>
+                <option value="Identity and Security Solutions" data-price="1200" data-discount="20">Identity and Security Solutions</option>
+                <option value="Online Payment API Integration" data-price="1800" data-discount="30">Online Payment API Integration</option>
+                <option value="Domain Name Acquisition & Setup" data-price="1200" data-discount="20">Domain Name Acquisition & Setup</option>
+                <option value="Search Engine Optimization" data-price="1500" data-discount="20">Search Engine Optimization</option>
+                <option value="Social Media Integration" data-price="1200" data-discount="20">Social Media Integration</option>
+                <option value="Forms Integration" data-price="1000" data-discount="20">Forms Integration</option>
+                <option value="Google Sheets Integration" data-price="1400" data-discount="20">Google Sheets Integration</option>
+                <option value="Online Chat Services" data-price="1200" data-discount="20">Online Chat Services</option>
+                <option value="Email Marketing Automation" data-price="1600" data-discount="30">Email Marketing Automation</option>
+            </select>
+
+            <label for="quantity">Quantity for each selected service:</label>
+            <input type="number" id="quantity" min="1" value="1" required>
+
+            <div id="selected-services"></div>
+
+            <div class="grand-total">
+                Grand Total: <span id="grand-total">Ksh 0</span>
+            </div>
+
+            <button type="button" id="pay-button">Pay Now</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 McOwino. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('services').addEventListener('change', updatePrice);
+        document.getElementById('quantity').addEventListener('input', updatePrice);
+        document.getElementById('pay-button').addEventListener('click', processPayment);
+
+        function updatePrice() {
+            const selectedServices = document.getElementById('services').selectedOptions;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            let totalPrice = 0;
+            let discountedPrice = 0;
+
+            const selectedServicesContainer = document.getElementById('selected-services');
+            selectedServicesContainer.innerHTML = '';
+
+            for (let option of selectedServices) {
+                const price = parseInt(option.dataset.price);
+                const discount = parseInt(option.dataset.discount);
+                const serviceTotalPrice = price * quantity;
+                const discountedServicePrice = serviceTotalPrice - (serviceTotalPrice * discount / 100);
+
+                const serviceElement = document.createElement('div');
+                serviceElement.classList.add('service');
+                serviceElement.innerHTML = `
+                    <span>${option.value}</span>
+                    <span class="original-price">Ksh ${serviceTotalPrice}</span>
+                    <span class="discount">Ksh ${discountedServicePrice}</span>
+                `;
+
+                selectedServicesContainer.appendChild(serviceElement);
+
+                totalPrice += serviceTotalPrice;
+                discountedPrice += discountedServicePrice;
+            }
+
+            document.getElementById('grand-total').textContent = `Ksh ${discountedPrice}`;
+        }
+
+        function processPayment() {
+            const selectedServices = document.getElementById('services').selectedOptions;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+
+            if (selectedServices.length === 0) {
+                alert('Please select at least one service.');
+                return;
+            }
+
+            const services = Array.from(selectedServices).map(option => ({
+                name: option.value,
+                price: parseInt(option.dataset.price),
+                discount: parseInt(option.dataset.discount),
+            }));
+
+            const email = prompt('Enter your email:');
+            if (!email) {
+                alert('Email is required to proceed.');
+                return;
+            }
+
+            let totalPrice = 0;
+            let discountedPrice = 0;
+            services.forEach(service => {
+                const serviceTotalPrice = service.price * quantity;
+                totalPrice += serviceTotalPrice;
+                discountedPrice += serviceTotalPrice - (serviceTotalPrice * service.discount / 100);
+            });
+
+            IntaSend.setup({
+                publicAPIKey: 'ISPubKey_live_79fff6a0-2a9e-4e38-b442-d00c56a58789',
+                amount: discountedPrice,
+                currency: 'KES',
+                email: email,
+                reference: `Order-${Date.now()}`,
+                callback: function (response) {
+                    if (response.status === 'SUCCESS') {
+                        alert('Payment successful! Transaction ID: ' + response.transaction_id);
+                        logToGoogleSheets({
+                            services: services.map(service => service.name).join(', '),
+                            quantity: quantity,
+                            price: discountedPrice,
+                            email: email,
+                            transactionId: response.transaction_id,
+                            status: 'Success',
+                        });
+                    } else {
+                        alert('Payment failed.');
+                        logToGoogleSheets({
+                            services: services.map(service => service.name).join(', '),
+                            quantity: quantity,
+                            price: discountedPrice,
+                            email: email,
+                            transactionId: 'N/A',
+                            status: 'Failed',
+                        });
+                    }
+                },
+            });
+        }
+
+        function logToGoogleSheets(orderData) {
+            const googleSheetURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+
+            fetch(googleSheetURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData),
+            })
+                .then((response) => response.json())
+                .then((data) => console.log('Order logged:', data))
+                .catch((error) => console.error('Error logging order:', error));
+        }
+    </script>
+    
+    <!--Appscript
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Orders"); // Adjust the sheet name
+  var data = JSON.parse(e.postData.contents);
+  
+  var timestamp = new Date();
+  var services = data.services;
+  var totalAmount = data.totalAmount;
+  var email = data.email;
+  var transactionId = data.transactionId;
+  var status = data.status;
+
+  sheet.appendRow([timestamp, services, totalAmount, email, transactionId, status]);
+  
+  return ContentService.createTextOutput(JSON.stringify({ result: "success" })).setMimeType(ContentService.MimeType.JSON);
+}
+
+  -->
+   
+   
+</body>
+</html>
+
+
+
+

@@ -1,1 +1,149 @@
-ke
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services Catalog-McOwino</title>
+      <script src="https://unpkg.com/intasend-inlinejs-sdk@4.0.1/build/intasend-inline.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    .catalog {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    h3 {
+      color: #4CAF50;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .service {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<div class="catalog">
+  <h1>Services Catalog-With payments API enabled</h1>
+    <hr>
+    <hr>
+  
+   
+  <p class="intro">For a secure and seamless transaction experience, we have integrated a reliable third-party payment service. <b>Try it out today!</b> And give a feedback <a href="">here</a></p>
+
+  <div class="service">
+    <h3>Multilingual Website Setup</h3>
+    <p><strong>Price:</strong> Ksh 1500+</p>
+    <p><strong>Features:</strong> Localization, multilingual SEO, and translations.</p>
+    <p><strong>Delivery:</strong> Within 1 business days.</p>
+    <button onclick="window.location.href='https://payment.intasend.com/pay/89b7ae19-1f17-44ee-a094-b2d3bce1a291/'">Buy Now</button>
+  </div>
+
+  <div class="service">
+    <h3>Website Development</h3>
+    <p><strong>Price:</strong> Ksh3500+</p>
+    <p><strong>Features:</strong> Custom HTML templates, responsive design, and optimizations.</p>
+    <p><strong>Delivery:</strong> Within 7 business days.</p>
+    <button onclick="window.location.href='https://payment.intasend.com/pay/e1c815de-9183-413c-a444-a5ad42431ecd/'">Buy Now</button>
+  </div>
+
+  <div class="service">
+    <h3>Content Writing</h3>
+    <p><strong>Price:</strong> Ksh 500+</p>
+    <p><strong>Features:</strong> SEO-optimized articles, niche-specific topics, and revisions.</p>
+    <p><strong>Delivery:</strong> Within 3 business days per article.</p>
+        <button onclick="window.location.href='https://payment.intasend.com/pay/e7d112d8-eaaa-4b15-ae91-82ba0394ca8a/'">Buy Now</button>
+                    <!-- button only
+                <div class="category">
+                    <div class="category-title"><button class="intaSendPayButton" data-amount="5000" data-currency="KES">Buy Now</button></div>
+                    -->
+                </div>           
+                
+
+  <div class="service">
+    <h3>Identity and Security solutions</h3>
+    <p><strong>Price:</strong> Ksh 1200+</p>
+    <p><strong>Features:</strong> Seamless Security & Authentication Integration for a Safer, Faster Web</p>
+    <p><strong>Delivery:</strong> Within 2 business days.</p>
+    <button onclick="window.location.href='https://payment.intasend.com/pay/ed1e6cd4-c471-4e61-8136-a5e77f7788fa/'">Buy Now</button>
+  </div>
+
+
+
+
+  <div class="service">
+    <h3>Online Payment API Integration</h3>
+    <p><strong>Price:</strong> Ksh 1800+</p>
+    <p><strong>Features:</strong> Swipe & Smile: Effortless Payment Solutions</p>
+    <p><strong>Delivery:</strong> Within 1 business days.</p>
+    <button onclick="window.location.href='https://payment.intasend.com/pay/a734a959-3d56-4937-9b89-d753ec22a212/'">Buy Now</button>
+  </div>
+
+
+  <div class="service">
+    <h3>Search Engines Optimization</h3>
+    <p><strong>Price:</strong> Ksh 1500+</p>
+    <p><strong>Features:</strong> Strategic mix of keyword magic, on-point optimization, and link-building excellence.</p>
+    <p><strong>Delivery:</strong> Within 1 business days.</p>
+    <button onclick="window.location.href='https://payment.intasend.com/pay/5a13d88b-4f2b-4f54-9641-c36dc9e5f82d/'">Buy Now</button>
+  </div>
+
+
+  <div class="service">
+    <h3>Email Marketing Automation</h3>
+    <p><strong>Price:</strong> Ksh 1600+</p>
+    <p><strong>Features:</strong> Mailchimp/SendGrid integration, analytics, and custom templates.</p>
+    <p><strong>Delivery:</strong> Within 1 business days.</p>
+    <button onclick="window.location.href='https://payment.intasend.com/pay/ef4c5534-e9e3-4c44-beee-d413cd0b9562/'">Buy Now</button>
+  </div>
+
+  <!-- Add more services here -->
+
+  <h2>How It Works</h2>
+  <p>1. Click the <strong>"Buy Now"</strong> button for the desired service.</p>
+  <p>2. Complete the checkout process securely via IntaSend.</p>
+  <p>3. Receive a confirmation email with further instructions.</p>
+</div>
+
+<script>
+
+  new window.IntaSend({
+  publicAPIKey: "ISPubKey_live_79fff6a0-2a9e-4e38-b442-d00c56a58789",
+  live: true //set to true when going live
+  })
+  .on("COMPLETE", (results) => {console.log("Do something on success", results)})
+  .on("FAILED", (results) => {console.log("Do something on failure", results)})
+  .on("IN-PROGRESS", (results) => {console.log("Payment in progress status", results)})
+
+</script>
+</body>
+</html>
+

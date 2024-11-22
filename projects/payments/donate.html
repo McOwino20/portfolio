@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/intasend-inlinejs-sdk@4.0.1/build/intasend-inline.js"></script>
+    <title>Developer support page - McOwino</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg" type="image/x-icon">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+
+
+
+
+/* Button styling */
+button {
+    background: linear-gradient(45deg, #003366, #005cbf); /* Gradient background */
+    color: #fff; /* White text */
+    padding: 14px 28px; /* Increased padding */
+    font-size: 18px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    letter-spacing: 1px; /* Slightly increased letter spacing */
+    border: none; /* Remove default border */
+    border-radius: 50px; /* More rounded button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    position: relative; /* For ripple effect positioning */
+    overflow: hidden; /* Hide ripple effect outside button */
+}
+
+
+
+
+
+/* Button hover effect */
+button:hover {
+    background: linear-gradient(45deg, #005cbf, #007bff); /* Change gradient on hover */
+    transform: translateY(-6px); /* Slight lift effect */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+/* Button active effect (on click) */
+button:active {
+    transform: translateY(2px); /* Slight push-down effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Return to normal shadow */
+}
+
+/* Ripple effect */
+button::before {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    width: 300%; 
+    height: 300%;
+    border-radius: 50%;
+    opacity: 0;
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+button:active::before {
+    width: 0;
+    height: 0;
+    opacity: 1;
+}
+
+/* Button focus (keyboard navigation) */
+button:focus {
+    outline: none; /* Remove outline */
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.3); /* Light blue focus ring */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section {
+            width: 100%;
+            max-width: 900px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .category {
+            background-color: #f4f4f4;
+            padding: 20px;
+            width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .category:hover {
+            background-color: #e6e6e6;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        footer {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+           
+        }
+    
+
+        
+        
+           /* Social media icons*/
+        .social-media {
+         margin-top: 10px;
+         display: flex;
+         justify-content: center;
+         gap: 20px;
+         }
+
+        .social-media a {
+         font-size: 24px;
+         color: #fff;
+         transition: transform 0.3s ease, color 0.3s ease;
+         }
+
+         .social-media a:hover {
+          transform: scale(1.2);
+          color: #ffcc00;
+         }     
+        
+
+
+
+        
+        
+        
+        
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            section h2 {
+                font-size: 22px;
+            }
+
+            .category {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category {
+                width: 100%;
+            }
+        }
+    </style>
+    
+
+    
+    
+    
+    
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Take an initiative to empower us today!</h1>
+        <h4>Take a minute to test one of our integrated payment service below</h4>
+        
+    <!--intasend security badge-->
+<span style="display:block; text-align: center">        <a href="https://intasend.com/security" target="_blank"><img src="https://intasend-prod-static.s3.amazonaws.com/img/trust-badges/intasend-trust-badge-with-mpesa-hr-light.png" width="375px" alt="IntaSend Secure Payments (PCI-DSS Compliant)"></a>        <strong><a style="display: block; color: #454545; text-decoration: none; font-size: 0.8em; margin-top: 0.6em;" href="https://intasend.com/security" target="_blank">Secured by IntaSend Payments</a></strong>        </span>
+<!--end of intasend security badge-->
+    </header>
+<!--developer-key(ISPubKey_test_9d0e2d1d-4b50-4be1-8593-fa0ec5c091af)-->
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>Select a denomination to Donate</h2>
+            <div class="categories">
+                <!-- Facebook Group -->
+
+                <!--intasend security badge-->
+                <div class="category">
+                                                                                                                                 
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="10" data-currency="KES">Donate Ksh 10 💞</button></div>
+                </div>
+
+                <!-- Twitter Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="20" data-currency="KES">Donate Ksh 20 💞</button></div>
+                </div>
+
+                <!-- Instagram Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="30" data-currency="KES">Donate Ksh 30 💞</button></div>
+                </div>
+
+                <!-- LinkedIn Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="50" data-currency="KES">Donate Ksh 50 💞</button></div>
+                </div>
+
+                <!-- WhatsApp Group -->
+                <div class="category">
+                    <div class="category-title"><button class="intaSendPayButton" data-amount="100" data-currency="KES">Donate Ksh 100💞</button></div>
+                </div>
+                
+                
+                <!-- Twitter Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="200" data-currency="KES">Donate Ksh 200 💞</button></div>
+                </div>
+
+                <!-- Instagram Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="300" data-currency="KES">Donate Ksh 300 💞</button></div>
+                </div>
+
+                <!-- LinkedIn Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="400" data-currency="KES">Donate Ksh 400 💞</button></div>
+                </div>
+
+                <!-- WhatsApp Group -->
+                <div class="category">
+                    <div class="category-title"><button class="intaSendPayButton" data-amount="500" data-currency="KES">Donate Ksh 500 💞</button></div>
+                </div>
+                <!-- Twitter Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="1000" data-currency="KES">Donate Ksh 1000 💞</button></div>
+                </div>
+
+                <!-- Instagram Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="2000" data-currency="KES">Donate Ksh 2000 💞</button></div>
+                </div>
+
+                <!-- LinkedIn Group -->
+                <div class="category">
+                    <div class="category-title"> <button class="intaSendPayButton" data-amount="3000" data-currency="KES">Donate Ksh 3000 💞</button></div>
+                </div>
+
+                <!-- WhatsApp Group -->
+                <div class="category">
+                    <div class="category-title"><button class="intaSendPayButton" data-amount="4000" data-currency="KES">Donate Ksh 4000 💞</button></div>
+                </div>           
+                
+
+
+                <!-- WhatsApp Group -->
+                <div class="category">
+                    <div class="category-title"><button class="intaSendPayButton" data-amount="5000" data-currency="KES">Donate Ksh 5000 💞</button></div>
+                </div>           
+                
+
+
+
+
+
+
+                <!-- Telegram Group -->
+                <div class="category">
+                    <div class="category-title"></div> <button class="intaSendPayButton" data-amount="6000" data-currency="KES">Donate Ksh 6000 💞</button></div>
+
+
+<br>              
+<!--intasend security badge-->
+<span style="display:block; text-align: center">        <a href="https://intasend.com/security" target="_blank"><img src="https://intasend-prod-static.s3.amazonaws.com/img/trust-badges/intasend-trust-badge-with-mpesa-hr-light.png" width="375px" alt="IntaSend Secure Payments (PCI-DSS Compliant)"></a>        <strong><a style="display: block; color: #454545; text-decoration: none; font-size: 0.8em; margin-top: 0.6em;" href="https://intasend.com/security" target="_blank">Secured by IntaSend Payments</a></strong>        </span>
+<!--end of intasend security badge-->
+                
+
+                
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      
+         <div class="social-media">
+        <a href="https://Whatsapp.com" target="_blank" class="fab fa-whatsapp"></a>
+        <a href="https://facebook.com" target="_blank" class="fab fa-facebook-f"></a>
+        <a href="https://twitter.com" target="_blank" class="fab fa-twitter"></a>
+        <a href="https://instagram.com" target="_blank" class="fab fa-instagram"></a>
+        <a href="https://linkedin.com" target="_blank" class="fab fa-linkedin-in"></a>
+        <a href="https://tiktok.com" target="_blank" class="fab fa-tiktok"></a>
+        </div>
+        
+        <p>&copy; 2024 McOwino. All Rights Reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a> |
+            <a href="../index">Developer</a>
+        </p>
+        
+    </footer>
+   <script>
+
+  new window.IntaSend({
+  publicAPIKey: "ISPubKey_live_79fff6a0-2a9e-4e38-b442-d00c56a58789",
+  live: true //set to true when going live
+  })
+  .on("COMPLETE", (results) => {console.log("Do something on success", results)})
+  .on("FAILED", (results) => {console.log("Do something on failure", results)})
+  .on("IN-PROGRESS", (results) => {console.log("Payment in progress status", results)})
+
+</script>
+
+
+</body>
+</html>
+

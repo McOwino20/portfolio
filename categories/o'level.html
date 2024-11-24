@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'level resources- LearnElite Hub</title>
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Resetting some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section {
+            width: 100%;
+            max-width: 900px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .category {
+            background-color: #f4f4f4;
+            padding: 20px;
+            width: 200px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #e6e6e6;
+        }
+
+        .category-icon {
+            font-size: 40px;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        footer {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+
+       /* Social media icons*/
+        .social-media {
+         margin-top: 10px;
+         display: flex;
+         justify-content: center;
+         gap: 20px;
+         }
+
+        .social-media a {
+         font-size: 24px;
+         color: #fff;
+         transition: transform 0.3s ease, color 0.3s ease;
+         }
+
+         .social-media a:hover {
+          transform: scale(1.2);
+          color: #ffcc00;
+         } 
+            
+
+            
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            section h2 {
+                font-size: 22px;
+            }
+
+            .category {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>O'level Resources</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>Form 1</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- Constitution of Kenya-->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">Constitution of Kenya 2010</div>
+                </div>
+
+                <!-- The National Assembly Act-->
+                <div class="category" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The National Assembly(Powers and Previlages) Act</div>
+                </div>
+
+                <!-- The County Governments Act-->
+                <div class="category" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The County Governments Act</div>
+                </div>
+
+                <!-- The Public Finance Management Act-->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Public Finance Management Act</div>
+                </div>
+
+                
+                <!-- The Elections Act-->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Elections Act</div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+        <section>
+            <h2>Form 2</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- The Penal code -->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Penal Code</div>
+                </div>
+
+                <!-- The Criminal Procedure code-->
+                <div class="category" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Criminal Procedure Code</div>
+                </div>
+
+                <!-- The Evidence Act-->
+                <div class="category" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Evidence Act</div>
+                </div>
+
+                <!-- The Civil Procedure Act-->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Civil Procedure Act</div>
+                </div>
+
+                <!-- The Marriage Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Marriage Act</div>
+                 </div>
+                
+                   <!-- The Matrimonial Property Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Matrimonial Property Act</div>
+                </div>             
+                <!-- The Sexual Offences Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Sexual Offences Act</div>
+                </div>
+                    
+                <!-- The The Children Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Children Act</div>
+                </div>                
+                
+                
+
+                
+                <!-- The Anti-Corruption and Economic Crimes Act-->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Anti-Corruption and Economic Crimes Act</div>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>Form 3</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- The Companies Act-->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Companies Act</div>
+                </div>
+
+                <!-- The Insolvency Act-->
+                <div class="category" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Insolvency Act</div>
+                </div>
+
+                <!-- The Consumer protection Act-->
+                <div class="category" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Consumer Protection Act</div>
+                </div>
+
+                <!-- The Public Procurement and Disposal Act-->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Public Procurement and Disposal Act</div>
+                </div>
+
+                <!-- The Competition Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Competition Act</div>
+                </div>
+                <!-- The Investment Promotion Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Investment Promotion Act</div>
+                </div> 
+                
+                  <!-- The Employment Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Employment Act</div>
+                </div>
+
+                <!-- The Labour Relations Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Labour Relations Act</div>
+                </div>
+                
+                
+                <!-- The Labour Institutions Act-->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Labour Institutions Act</div>
+                </div>
+            </div>
+    </section>       
+    <section>
+            <h2>Form 4</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- The Land Act -->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Land Act</div>
+                </div>
+
+                <!-- The Environmental Management and Co-ordination Act-->
+                <div class="category" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Environmental Management and Co-ordination Act</div>
+                </div>
+
+                <!-- The Physical and Land Use Planning Act-->
+                <div class="category" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Physical and Land Use Planning Act</div>
+                </div>
+
+                <!-- The Water Act -->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Water Act</div>
+                </div>
+
+                <!-- The Forest Conservation and Management Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Forest Conservation and Management Act</div>
+                </div>
+
+                
+                <!-- The Wildlife Conservation and Management Act-->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Wildlife Conservation and Management Act</div>
+                </div>
+            </div>
+    </section>
+        
+        <section>
+            <h2>Setbooks</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- The Public Health Act-->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Public Health Act</div>
+                </div>
+
+                <!-- The Health Act -->
+                <div class="category" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Health Act</div>
+                </div>
+
+                <!-- The HIV and AIDS Prevention and Control Act-->
+                <div class="category" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The HIV and AIDS Prevention and Control Act</div>
+                </div>
+
+                <!-- The Persons With Disabilities Act-->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Persons With Disabilities Act</div>
+                </div>
+
+
+                
+                <!-- The National Hospital Insurance Fund Act-->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The National Hospital Insurance Fund Act</div>
+                </div>
+            </div>
+    </section>
+        <section>
+            <h2>Literature</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- The Kenya Defense Forces Act-->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Kenya Defense Forces Act</div>
+                </div>
+
+                <!-- The National Police Service Act-->
+                <div class="category" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The National Police Service Act</div>
+                </div>
+
+                <!-- The Prevention of Terrorism Act-->
+                <div class="category" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Prevention of Terrorism Act</div>
+                </div>
+
+                <!-- The National Intelligence Service Act-->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The National Intelligence Act</div>
+                </div>
+
+
+                
+                <!-- The Firearms Act-->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">6.Computer misuse And Cybercrime act</div>
+                </div>
+            </div>
+    </section>
+        <section>
+            <h2>Oral Skills</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- The Income Tax Act-->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Income Tax Act</div>
+                </div>
+
+                <!-- The V.A.T Act -->
+                <div class="category" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Value Added Tax (VAT) Act</div>
+                </div>
+
+                <!-- The Excise Duty Act -->
+                <div class="category" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Excise Duty Act</div>
+                </div>
+
+                <!-- The Banking Act-->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Banking Act</div>
+                </div>
+
+
+
+                
+                <!-- The Capital Markets Act-->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Capital Markets Act</div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Communication and Technology</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- The Kenya Information and Communication Act-->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Kenya Information and Communication Act</div>
+                </div>
+
+
+                <!-- The Computer Misuse and Cybercrimes Act-->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Computer Misuse and Cybercrimes Act</div>
+                </div>
+
+                <!-- The Data Protection Act-->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Data Protection Act</div>
+                </div>
+
+                
+                <!-- The Copyright Act-->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">The Copyright Act</div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Other Legal resources</h2>
+            <hr>
+            <hr>
+            <div class="categories">
+                <!-- Facebook Group -->
+                <div class="category" onclick="window.open('https://facebook.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">Constitution of Kenya 2010</div>
+                </div>
+
+                <!-- Twitter Group -->
+                <div class="category" onclick="window.open('https://twitter.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">2.Sexual Offences Act</div>
+                </div>
+
+                <!-- Instagram Group -->
+                <div class="category" onclick="window.open('https://instagram.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">3.Criminal Procedure Code</div>
+                </div>
+
+                <!-- LinkedIn Group -->
+                <div class="category" onclick="window.open('https://linkedin.com', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">4.County Governments Act</div>
+                </div>
+
+                <!-- WhatsApp Group -->
+                <div class="category" onclick="window.open('https://chat.whatsapp.com/FrozBwaDs8O4GSRiDMus20', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">5.Police service Act</div>
+                </div>
+
+                
+                <!-- Telegram Group -->
+                <div class="category" onclick="window.open('https://telegram.org', '_blank')">
+                    <i class="fa fa-balance-scale category-icon"></i>
+                    <div class="category-title">6.Computer misuse And Cybercrime act</div>
+                </div>
+            </div>
+        </section>
+
+        
+        
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-media">
+        <a href="https://Whatsapp.com" target="_blank" class="fab fa-whatsapp"></a>
+        <a href="https://facebook.com" target="_blank" class="fab fa-facebook-f"></a>
+        <a href="https://twitter.com" target="_blank" class="fab fa-twitter"></a>
+        <a href="https://instagram.com" target="_blank" class="fab fa-instagram"></a>
+        <a href="https://linkedin.com" target="_blank" class="fab fa-linkedin-in"></a>
+        <a href="https://tiktok.com" target="_blank" class="fab fa-tiktok"></a>
+        </div>
+        <p>&copy; 2024 LearnElite Hub. All Rights Reserved.</p>
+        <p>
+            <a href="privacy.html">Privacy Policy</a> |
+            <a href="terms.html">Terms of Service</a>
+        </p>
+    </footer>
+
+</body>
+</html>

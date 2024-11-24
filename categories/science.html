@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Books - LearnElite Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 5px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .category-header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .books {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .book {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 200px;
+            width: 100%;
+        }
+
+        .book img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .book h3 {
+            font-size: 18px;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+
+        .book p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .book button {
+            padding: 10px;
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .book button:hover {
+            background-color: #002244;
+        }
+
+        footer {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .book {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">LearnElite Hub</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="fiction.html">Fiction</a></li>
+                <li><a href="non-fiction.html">Non-Fiction</a></li>
+                <li><a href="self-help.html">Self-Help</a></li>
+                <li><a href="science.html">Science</a></li>
+                <li><a href="bestsellers.html">Bestsellers</a></li>
+                <li><a href="new-arrivals.html">New Arrivals</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login/Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="category-header">
+            <h1>Science Books</h1>
+            <p>Explore our collection of top science books.</p>
+        </section>
+
+        <section class="books">
+            <!-- Add specific books related to Science category -->
+            <div class="book">
+                <img src="https://via.placeholder.com/150" alt="Book Cover">
+                <h3>Science Book 1</h3>
+                <p>Author Name</p>
+                <p>$21.99</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="book">
+                <img src="https://via.placeholder.com/150" alt="Book Cover">
+                <h3>Science Book 2</h3>
+                <p>Author Name</p>
+                <p>$24.99</p>
+                <button>Add to Cart</button>
+            </div>
+            <!-- Add more books as needed -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LearnElite Hub. All Rights Reserved.</p>
+        <p>
+            <a href="privacy.html">Privacy Policy</a> |
+            <a href="terms.html">Terms of Service</a>
+        </p>
+    </footer>
+</body>
+</html>

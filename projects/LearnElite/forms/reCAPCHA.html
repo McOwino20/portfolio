@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>reCAPTCHA demo: Simple page</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </head>
+  <body>
+    <form action="https://formspree.io/f/xgvwynnv" method="POST">
+      Your Name:
+      <input type="text" name="Name" placeholder="Mc Owino" /> 
+      <br>
+      <br>
+      Phone Number:
+      <input type="number" name="Phone Number" placeholder="2547000000000" />    
+      <br>
+      <br>
+      Email Address:
+      <input type="email" name="email" placeholder="mcowino20@gmail.com" />
+      <br>
+      <br>
+      <div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div> <!-- replace with your recaptcha SITE key not secret key -->
+      <br/>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

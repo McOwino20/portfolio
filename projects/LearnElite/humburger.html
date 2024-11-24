@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnElite Hub</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg" type="image/x-icon">
+
+    <style>
+        /* Resetting some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Main Wrapper */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Hamburger Icon */
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 5px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+
+        /* Hide nav links for mobile and show hamburger */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                gap: 0;
+                background-color: #003366;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                border-radius: 5px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+                color: #fff;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 60px 20px;
+            background-blur: 10px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-direction: column;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ffcc00;
+            color: #003366;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #e6b800;
+        }
+
+        .error-message {
+            color: #d9534f;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 20px;
+            }
+
+            .search-bar input {
+                font-size: 14px;
+            }
+
+            .search-bar button {
+                font-size: 14px;
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">LearnElite Hub</div>
+        <nav>
+            <ul>
+                <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                <li><a href="#categories" onclick="showSection('categories')">Categories</a></li>
+                <li><a href="#bestsellers" onclick="showSection('bestsellers')">Bestsellers</a></li>
+                <li><a href="#new-arrivals" onclick="showSection('new-arrivals')">New Arrivals</a></li>
+                <li><a href="#blog" onclick="showSection('blog')">Blog</a></li>
+                <li><a href="#contact" onclick="showSection('contact')">Contact Us</a></li>
+                <li><a href="Social-media-groups/groups.html">Join Group!</a></li>
+                <li><a href="#login" onclick="showSection('login')">Login/Sign Up</a></li>
+            </ul>
+        </nav>
+        <!-- Hamburger icon -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <h1>Discover, Learn, and Grow with the Best Books</h1>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search for books, authors, genres...">
+                <button onclick="performSearch()">Search</button>
+            </div>
+            <div id="search-results" class="error-message" style="display: none;"></div>
+        </section>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav ul');
+            nav.classList.toggle('show');
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('main > section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>

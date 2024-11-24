@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Dismissable Button</title>
+    <style>
+        /* Style for the floating button */
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Style for the link inside the button */
+        #join-link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #join-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Dismiss button inside the floating button */
+        #dismiss-btn {
+            margin-left: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #dismiss-btn:hover {
+            color: #ff5c5c;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Button -->
+    <div id="floating-button" class="floating-btn">
+        <a href="your-page.html" id="join-link">Join Our Groups</a>
+        <span id="dismiss-btn">&times;</span>
+    </div>
+
+    <script>
+        // Check if the button has been dismissed
+        window.onload = function() {
+            if (localStorage.getItem('dismissed') === 'true') {
+                document.getElementById('floating-button').style.display = 'none';
+            }
+        }
+
+        // Add event listener to the dismiss button
+        document.getElementById('dismiss-btn').addEventListener('click', function() {
+            document.getElementById('floating-button').style.display = 'none';
+            localStorage.setItem('dismissed', 'true'); // Save dismissal state in localStorage
+        });
+
+        // Add event listener to reset the button visibility when the page is refreshed or reopened
+        window.onbeforeunload = function() {
+            localStorage.removeItem('dismissed'); // Remove the dismissed state
+        }
+    </script>
+
+</body>
+</html>

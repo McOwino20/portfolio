@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Groups - LearnElite Hub</title>
+    <!-- Font Awesome for the close icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        /* Floating Button Styles */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #003366;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .floating-button i {
+            margin-right: 10px;
+            font-size: 22px;
+        }
+
+        /* Dismiss Button Styles */
+        .dismiss-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        .dismiss-btn:hover {
+            background-color: #ff3333;
+        }
+
+        /* Hide the button when dismissed */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Button -->
+    <div class="floating-button" id="joinGroupsButton">
+        <i class="fas fa-users"></i> Join Our Groups
+        <button class="dismiss-btn" id="dismissButton">&times;</button>
+    </div>
+
+    <script>
+        // Check if the button was previously dismissed
+        if (localStorage.getItem('joinGroupsDismissed')) {
+            document.getElementById('joinGroupsButton').classList.add('hidden');
+        }
+
+        // JavaScript to handle the dismiss button
+        document.getElementById('dismissButton').addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevents triggering the redirect when dismissing
+            document.getElementById('joinGroupsButton').classList.add('hidden');
+            localStorage.setItem('joinGroupsDismissed', 'true'); // Store in localStorage
+        });
+
+        // Redirect to the group page when the floating button is clicked
+        document.getElementById('joinGroupsButton').addEventListener('click', function() {
+            window.location.href = 'group-page.html'; // Replace with the actual URL of your group page
+        });
+    </script>
+</body>
+          </html>

@@ -1,16 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <!--Adsense tag-->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7437293058722671"
-     crossorigin="anonymous"></script>
-    <!--end of Adsense tag-->
-
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="yellow">
     <title>LearnElite Hub</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -24,8 +17,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-
 
         /* Body and Main Wrapper */
         body {
@@ -56,12 +47,6 @@
         .logo {
             font-size: 24px;
             font-weight: bold;
-        }
-        .logo a {
-        color: white; /* Set the link color to white */
-        text-decoration: none; /* Remove underline from the link */
-        font-size: 24px; /* Adjust font size as needed */
-        font-weight: bold; /* Make the text bold if desired */
         }
 
         /* Hamburger Icon */
@@ -171,16 +156,12 @@
             margin-top: 20px;
         }
 
-
-
-
+        /* Image Slider Styling */
         .slider {
             position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 40px auto;
             overflow: hidden;
-            border-radius: 8px;
         }
 
         .slides {
@@ -189,58 +170,55 @@
         }
 
         .slide {
-            min-width: 100%;
             position: relative;
+            min-width: 100%;
         }
 
-        .slide img {
+        .slider img {
             width: 100%;
-            height: auto;
-            display: block;
+            height: 400px;
+            object-fit: cover;
         }
 
-        .text-overlay {
+        .slide-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            color: #ffcc00;
-            padding: 20px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             text-align: center;
-            border-radius: 8px;
-            width: calc(100% - 40px); /* Adjust width to fit padding */
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .text-overlay h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
+        .slide-overlay a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
-        .text-overlay p {
-            font-size: 18px;
+        .slide-overlay a:hover {
+            background: rgba(0, 0, 0, 0.9);
         }
-        
-
-         .text-overlay a{
-           color :white;
-         }
-
 
         .prev, .next {
             position: absolute;
             top: 50%;
-            width: 40px;
-            height: 40px;
+            transform: translateY(-50%);
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
-            border: none;
+            padding: 10px;
             cursor: pointer;
-            font-size: 24px;
-            line-height: 40px;
-            text-align: center;
-            border-radius: 50%;
-            transform: translateY(-50%);
+            border: none;
         }
 
         .prev {
@@ -249,10 +227,6 @@
 
         .next {
             right: 10px;
-        }
-
-        .prev:hover, .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
         }
 
 
@@ -290,9 +264,6 @@
             gap: 20px;
         }
 
-
-        
-        }
         .category {
             background-color: #f4f4f4;
             padding: 20px;
@@ -346,48 +317,6 @@
 
 
 
-/*added buttion with buy*/
-
-
-book button {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  border: none;
-  border-radius: 25px;
-  padding: 15px 30px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out, transform 0.2s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
-}
-
-button a {
-  color: white; /* Ensure the link text is white */
-  text-decoration: none;
-  font-weight: bold;
-  font-family: 'Arial', sans-serif;
-  display: inline-block; /* Ensure the anchor fills the button space */
-  width: 100%;
-  height: 100%;
-  text-align: center;
-}
-
-button:hover {
-  background: linear-gradient(135deg, #2575fc, #6a11cb);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  color :white;
-}
-
-button:active {
-  transform: translateY(1px);
-    }
-
-/*end of added buttion with buy*/
-
-    
-
-    
-
 
        /* Social media icons*/
         .social-media {
@@ -419,11 +348,11 @@ button:active {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #003366;
+            background-color: #28a745;
             color: white;
             padding: 15px 20px;
             border-radius: 50px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             font-size: 16px;
             cursor: pointer;
             display: flex;
@@ -449,17 +378,6 @@ button:active {
             font-size: 20px;
             font-weight: bold;
             cursor: pointer;
-            background:  #ff6666;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease;
         }
 
         #dismiss-btn:hover {
@@ -479,27 +397,6 @@ button:active {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /* Footer Styling */
         footer {
             background-color: #003366;
@@ -513,14 +410,12 @@ button:active {
 
         footer p {
             margin: 10px 0;
-            text-align : center;
         }
 
         footer a {
             color: #ffcc00;
             text-decoration: none;
             font-weight: 600;
-            text-align : center;
         }
 
         footer a:hover {
@@ -573,28 +468,21 @@ button:active {
     </style>
     
     
-    <!-- google-site-verification -->
-<meta name="google-site-verification" content="Hw8-5nJTTA3_68k9cbkdIyT8Ahn-c2CEzxtlBaku8j4" />  
+          
 
     
 </head>
 <body>
   
+
+
+
+
     <!-- Floating Button -->
     <div id="floating-button" class="floating-btn">
-        <a href="Social-media-groups/groups.html" id="join-link">
-            <i class="fas fa-users"></i> <!-- Font Awesome Icon -->
-            Join Our Groups
-        </a>
+        <a href="your-page.html" id="join-link">Join Our Groups</a>
         <span id="dismiss-btn">&times;</span>
     </div>
-
-
-
-
-    
-
-
 
 
     <script>
@@ -608,13 +496,7 @@ button:active {
 
     <!-- Header Section -->
     <header>
-
-        <!-- <div class="logo">LearnElite Hub</div> -->
-
-
-        <div class="logo"><a href="index.html">LearnElite</a></div>        
-        
-        
+        <div class="logo">LearnElite Hub</div>
         <nav>
             <ul>
                 <li><a href="#home" onclick="showSection('home')">Home</a></li>
@@ -623,13 +505,7 @@ button:active {
                 <li><a href="#new-arrivals" onclick="showSection('new-arrivals')">New Arrivals</a></li>
                 <li><a href="#blog" onclick="showSection('blog')">Blog</a></li>
                 <li><a href="#contact" onclick="showSection('contact')">Contact Us</a></li>
-
                 <li><a href="Social-media-groups/groups.html">Join Group!</a></li>
-                <li><a href="support-us/index.html">Support Us ✊</a></li>
-                
-                <li><a href="https://www.isa9.xyz/login1.html">Register</a></li>
-                <li><a href="https://isa9.xyz/login2(singlewebapplication).html">Sign up</a></li>
-                
                 <li><a href="#login" onclick="showSection('login')">Login/Sign Up</a></li>
             </ul>
         </nav>
@@ -649,66 +525,6 @@ button:active {
                 <button onclick="performSearch()">Search</button>
             </div>
             <div id="search-results" class="error-message" style="display: none;"></div>
-            
-            
-            
-<br>
-<br>
-
-            
-        <!-- Image Slider -->
-        
-    <div class="slider">
-        <div class="slides">
-            <div class="slide">
-                <img src="https://th.bing.com/th/id/OIG2.ZFayXU1kDot08iiP6C9g?pid=ImgGn" alt="Slide 1">
-                <div class="text-overlay">
-                    <h1>Lower Primay [Grade 1-3]</h1>
-<p>Delight young learners with our engaging and interactive materials that lay the groundwork for literacy, numeracy, and essential life skills. Designed with bright visuals and fun activities, these resources make foundational learning a joyful adventure.</p>
-                    
-                    <p>Discover the best ebooks available now!  <a href="lowerprimary.html">here</a></p>
-                </div>
-            </div>
-            <div class="slide">
-                <img src="https://th.bing.com/th/id/OIG3.PpOsMOcRyJ_9DnE4sb5h?pid=ImgGn" alt="Slide 2">
-                <div class="text-overlay">
-                    <h1>Upper Primary [Grade 4-6]</h1>
-<p>Elevate young minds with our comprehensive resources designed to boost proficiency in Mathematics, Science, English, and Social Studies. Featuring stimulating quizzes and problem-solving exercises, these tools foster critical thinking and prepare students for their academic journey ahead.</p>
-                    
-                    <p>Check out the latest additions to our library  <a href="upperprimary.html">here</a>.</p>
-                </div>
-            </div>
-
-
-            <div class="slide">
-                <img src="https://th.bing.com/th/id/OIG3.gMo6Vng_LUaz9_FdmKm3?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="Slide 2">
-                <div class="text-overlay">
-                    <h1>O'level Resources</h1>
-<p>Empower your academic success with our expertly crafted materials tailored for O'Level studies. Our resources include detailed study guides, past exam papers, and revision aids, all designed to help you excel in Mathematics, Sciences, Languages, and Humanities.</p>
-                    
-                    <p>Check out the latest additions to our library  <a href="o'level.html">here</a>.</p>
-                </div>
-            </div>
-
-
-
-            
-            <div class="slide">
-                <img src="https://th.bing.com/th/id/OIG4.dE9gZvlIG4UtIsUbjEi.?pid=ImgGn" alt="Slide 3">
-                <div class="text-overlay">
-                    <h1>Legal Resources</h1>
-<p>Navigate the complexities of law with our rich collection of case law, statutes, and expert commentaries. Whether you're a student or a professional, our legal resources provide deep insights and practical tools to enhance your understanding and application of legal concepts.</p>
-                    
-                    <p>Explore our top-selling ebooks today <a href="404/404.html">here</a>.</p>
-                </div>
-            </div>
-        </div>
-        <button class="prev" onclick="prevSlide()">&#10094;</button>
-        <button class="next" onclick="nextSlide()">&#10095;</button>
-    </div>
-           
-         
-            
         </section>
 
 
@@ -722,11 +538,10 @@ button:active {
         <section id="categories" style="display:none;">
             <h2>Explore Categories</h2>
             <div class="categories">
-                <a href="categories/lowerprimary.html" class="category">Lower Primary [Grade 1-3]</a>
-                <a href="categories/upperprimary.html" class="category">Upper Primary [Grade 4-6]</a>
-                <a href="categories/o'level.html" class="category">O'Level Resources [K.C.S.E]</a>
-                <a href="e-books/law.html" class="category">Legal Resources</a>
-                <a href="https://isa9.xyz/links.html" class="category">Registration</a>
+                <a href="categories/fiction.html" class="category">Fiction</a>
+                <a href="categories/non-fiction.html" class="category">Non-Fiction</a>
+                <a href="categories/self-help.html" class="category">Self-Help</a>
+                <a href="categories/science.html" class="category">Science</a>
             </div>
         </section>
 
@@ -739,14 +554,14 @@ button:active {
                     <h3>Book Title 1</h3>
                     <p>Author Name</p>
                     <p>$15.99</p>
-                    <button><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Purchase Book</a></button>
+                    <button>Add to Cart</button>
                 </div>
                 <div class="book">
                     <img src="https://via.placeholder.com/150" alt="Book Cover">
                     <h3>Book Title 2</h3>
                     <p>Author Name</p>
                     <p>$12.99</p>
-                    <button><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Purchase Book</a></button>                    
+                    <button>Add to Cart</button>
                 </div>
             </div>
         </section>
@@ -760,14 +575,14 @@ button:active {
                     <h3>New Book 1</h3>
                     <p>Author Name</p>
                     <p>$18.99</p>
-                <button><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Purchase Book</a></button>            
+                    <button>Add to Cart</button>
                 </div>
                 <div class="book">
                     <img src="https://via.placeholder.com/150" alt="Book Cover">
                     <h3>New Book 2</h3>
                     <p>Author Name</p>
                     <p>$20.99</p>
-                    <button><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Purchase Book</a></button>               
+                    <button>Add to Cart</button>
                 </div>
             </div>
         </section>
@@ -777,37 +592,12 @@ button:active {
             <h2>Our Blog</h2>
             <div class="categories">
                 <div class="category">
-                    <h3>Access to a World of Resources:</h3>
-                    <p> With e-learning, the sky's the limit. You have access to a vast range of resources, from video tutorials to industry reports and hands-on projects. No matter what field you’re in, e-learning platforms like LearnElite Hub provide the materials you need to expand your knowledge and skills.</p>
-                </div>
-
-
-
-
-                
-                <div class="category">
-                    <h3>Flexibility to Learn on Your Schedule:</h3>
-                    <p> Balancing work, personal life, and education can be challenging. E-learning offers the flexibility to learn at your own pace and on your own schedule. Whether it’s late at night or during your lunch break, you can access your courses whenever it suits you.</p>
-                </div>
-               <div class="category">
-                    <h3>Cost-Effective Learning:</h3>
-                    <p> Compared to traditional in-person courses, e-learning is often more affordable. With no need to commute or pay for additional resources, you can focus your budget on gaining the knowledge you need. This makes it an attractive option for professionals looking to improve without breaking the bank.</p>
+                    <h3>Blog Post 1</h3>
+                    <p>Short excerpt or description of the blog post.</p>
                 </div>
                 <div class="category">
-                    <h3>Tailored Learning Paths:</h3>
-                    <p> Not every learner has the same goals or learning style. E-learning allows you to create a personalized learning path that aligns with your career objectives. Whether you’re looking to master a new software or develop leadership skills, you can select the courses that best suit your needs.</p>
-                </div>       
-
-
-
-
-
-
-                
-                
-                <div class="category">
-                    <h3>Stay Up-to-Date with Industry Trends:</h3>
-                    <p> Industries are evolving faster than ever before. With e-learning, you can stay ahead of the curve by accessing up-to-date information, tools, and best practices. This gives you a competitive edge in your field and ensures that you remain relevant as industries change.</p>
+                    <h3>Blog Post 2</h3>
+                    <p>Short excerpt or description of the blog post.</p>
                 </div>
             </div>
         </section>
@@ -816,7 +606,6 @@ button:active {
         <section id="contact" style="display:none;">
             <h2>Contact Us</h2>
             <form>
-                <form action="https://formspree.io/f/mgegvboj" method="POST">
                 <label for="name">Your Name:</label>
                 <input type="text" id="name" name="name" required><br><br>
                 <label for="email">Your Email:</label>
@@ -852,16 +641,53 @@ button:active {
 
 
 
-        <!-- Something to be added below-->
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Image Slider -->
+        <div class="slider">
+            <div class="slides">
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1200x400/003366/ffffff?text=Book+1" alt="Book 1">
+                    <div class="slide-overlay">
+                        <span>Explore our amazing collection, including <a href="#book1">Book 1</a>!</span>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1200x400/004080/ffffff?text=Book+2" alt="Book 2">
+                    <div class="slide-overlay">
+                        <span>Discover new releases such as <a href="#book2">Book 2</a>!</span>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1200x400/0066cc/ffffff?text=Book+3" alt="Book 3">
+                    <div class="slide-overlay">
+                        <span>Check out <a href="#book3">Book 3</a> and more!</span>
+                    </div>
+                </div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="next" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
     </main>
     
-    <!--<section>
-  <iframe src="https://isa9.xyz/bookstore/Pdfbooks.html" width="100%" height="500px" style="border:none;">
-    Your browser does not support iframes.
-  </iframe>
-</section>-->
+    
+    
+
+
 
     
         <!-- Footer -->
@@ -879,8 +705,7 @@ button:active {
         <p>&copy; 2024 LearnElite Hub. All Rights Reserved.</p>
         <p>
             <a href="privacy/index.html">Privacy Policy</a> |
-            <a href="terms/index.html">Terms of Service</a> |
-            <a href="https://mcowino20.github.io/portfolio/">Developer</a>
+            <a href="terms/index.html">Terms of Service</a>
         </p>
     </footer>
 
@@ -985,39 +810,11 @@ button:active {
         });
        </script>
 
-
-<!--Enable sliding effect-->
-    <script>
-        let slideIndex = 0;
-
-        function showSlides() {
-            const slides = document.querySelector('.slides');
-            const totalSlides = document.querySelectorAll('.slide').length;
-
-            slideIndex++;
-            if (slideIndex >= totalSlides) slideIndex = 0;
-
-            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
-        }
-
-        function prevSlide() {
-            const slides = document.querySelector('.slides');
-            const totalSlides = document.querySelectorAll('.slide').length;
-
-            slideIndex--;
-            if (slideIndex < 0) slideIndex = totalSlides - 1;
-
-            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
-        }
-
-        function nextSlide() {
-            showSlides();
-        }
-
-        setInterval(nextSlide, 5000); // Change slide every 5 seconds
-    </script>
-
-
+   
     
+    
+    
+
+
 </body>
 </html>

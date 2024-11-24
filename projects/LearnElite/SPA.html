@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnElite Hub</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: navy;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-left: 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-bar input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: gold;
+            color: navy;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .categories, .books {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .category, .book {
+            background-color: lightgray;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .book img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .book h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .book button {
+            padding: 10px;
+            background-color: navy;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">LearnElite Hub</div>
+        <nav>
+            <ul>
+                <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                <li><a href="#categories" onclick="showSection('categories')">Categories</a></li>
+                <li><a href="#bestsellers" onclick="showSection('bestsellers')">Bestsellers</a></li>
+                <li><a href="#new-arrivals" onclick="showSection('new-arrivals')">New Arrivals</a></li>
+                <li><a href="#blog" onclick="showSection('blog')">Blog</a></li>
+                <li><a href="#contact" onclick="showSection('contact')">Contact Us</a></li>
+                <li><a href="#login" onclick="showSection('login')">Login/Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Discover, Learn, and Grow with the Best Books</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for books, authors, genres...">
+            <button>Search</button>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" style="display:none;">
+        <h2>Explore Categories</h2>
+        <div class="categories">
+            <div class="category">Fiction</div>
+            <div class="category">Non-Fiction</div>
+            <div class="category">Self-Help</div>
+            <div class="category">Science</div>
+        </div>
+    </section>
+
+    <!-- Bestsellers Section -->
+    <section id="bestsellers" style="display:none;">
+        <h2>Top Bestsellers</h2>
+        <div class="books">
+            <div class="book">
+                <img src="https://via.placeholder.com/150" alt="Book Cover">
+                <h3>Book Title 1</h3>
+                <p>Author Name</p>
+                <p>$15.99</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="book">
+                <img src="https://via.placeholder.com/150" alt="Book Cover">
+                <h3>Book Title 2</h3>
+                <p>Author Name</p>
+                <p>$12.99</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section id="new-arrivals" style="display:none;">
+        <h2>New Arrivals</h2>
+        <div class="books">
+            <div class="book">
+                <img src="https://via.placeholder.com/150" alt="Book Cover">
+                <h3>New Book 1</h3>
+                <p>Author Name</p>
+                <p>$18.99</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="book">
+                <img src="https://via.placeholder.com/150" alt="Book Cover">
+                <h3>New Book 2</h3>
+                <p>Author Name</p>
+                <p>$20.99</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" style="display:none;">
+        <h2>Our Blog</h2>
+        <div class="categories">
+            <div class="category">
+                <h3>Blog Post 1</h3>
+                <p>Short excerpt or description of the blog post.</p>
+            </div>
+            <div class="category">
+                <h3>Blog Post 2</h3>
+                <p>Short excerpt or description of the blog post.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" style="display:none;">
+        <h2>Contact Us</h2>
+        <form>
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" name="message" rows="6" required></textarea><br><br>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Login/Sign Up Section -->
+    <section id="login" style="display:none;">
+        <h2>Login</h2>
+        <form>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
+
+        <h3>Don't have an account? Sign Up!</h3>
+        <form>
+            <label for="signup-email">Email:</label>
+            <input type="email" id="signup-email" name="signup-email" required><br><br>
+            <label for="signup-password">Password:</label>
+            <input type="password" id="signup-password" name="signup-password" required><br><br>
+            <button type="submit">Sign Up</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LearnElite Hub. All Rights Reserved.</p>
+        <p>
+            <a href="#privacy">Privacy Policy</a> |
+            <a href="#terms">Terms of Service</a>
+        </p>
+    </footer>
+
+    <script>
+        // JavaScript function to handle section visibility
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>

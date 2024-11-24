@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Form to Google Sheets</title>
+    <!-- https://script.google.com/macros/library/d/1-wOfYOvrUKhCL4IRISwOnxxUhEyDR0b80rJE2nIVbL6f6BM8odNPQyjU/1 -->
+    <style>
+        /* Simple styling for the message */
+        .message {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h2>Contact Form</h2>
+    <form id="contactForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="responseMessage" class="message"></div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+
+            // Get form data
+            var formData = new FormData(this);
+            var responseMessage = document.getElementById('responseMessage');
+
+            // Send data using AJAX
+            fetch("https://script.google.com/macros/s/AKfycbyxxNrfsMwSkaQjem_wKE2-B8bg2r4fDtaBFiT6QzhWhMHOiFQ82niFEdn15zAyRxVCag/exec", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Display success message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message success';
+                } else {
+                    // Display error message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message error';
+                }
+                responseMessage.style.display = 'block';
+            })
+            .catch(error => {
+                // Display error message if there's an issue with the request
+                responseMessage.textContent = 'There was an error submitting the form.';
+                responseMessage.className = 'message error';
+                responseMessage.style.display = 'block';
+            });
+        });
+    </script>
+
+
+<!--The below is a Google sheet Apps script-->
+
+
+<!--
+    
+
+To automatically send emails to users when a form submission is made (or when data is updated), you can use Google Apps Script to send an email via the built-in MailApp service. You can trigger an email to be sent whenever a form submission is processed, whether it’s a new entry or an update.
+
+Here’s a guide on how to achieve this:
+
+Step 1: Modify Google Apps Script to Send Emails
+You can use the MailApp service in your Google Apps Script to send emails to the email address entered in the form.
+
+Here’s the updated script with email functionality:
+
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = e.parameter;
+
+    var name = data.name;
+    var email = data.email;
+    var message = data.message;
+
+    // Get all the data from the sheet starting from row 2 (row 1 is header)
+    var existingData = sheet.getRange(2, 1, sheet.getLastRow() - 1, 4).getValues(); // All columns A to D (Timestamp, Name, Email, Message)
+
+    // Find the row index if a duplicate entry exists (matching name, email, and message)
+    var rowIndex = existingData.findIndex(function(row) {
+      return row[1] === name && row[2] === email; // Check if name and email match
+    });
+
+    var subject, body;
+
+    if (rowIndex !== -1) {
+      // If duplicate exists, update the existing row with the new data
+      var actualRow = rowIndex + 2; // Adjust for zero-based index and header row
+
+      sheet.getRange(actualRow, 1).setValue(new Date()); // Update timestamp
+      sheet.getRange(actualRow, 2).setValue(name);        // Update name
+      sheet.getRange(actualRow, 3).setValue(email);       // Update email
+      sheet.getRange(actualRow, 4).setValue(message);     // Update message
+
+      // Prepare email content for an updated entry
+      subject = 'Your information has been updated';
+      body = 'Hi ' + name + ',\n\nYour form submission has been updated successfully with the following details:\n' +
+             'Name: ' + name + '\n' +
+             'Email: ' + email + '\n' +
+             'Message: ' + message + '\n\nThank you!';
+      
+    } else {
+      // If no duplicate exists, append the new row
+      var timestamp = new Date();
+      sheet.appendRow([timestamp, name, email, message]);
+
+      // Prepare email content for a new entry
+      subject = 'Thank you for your submission';
+      body = 'Hi ' + name + ',\n\nThank you for your form submission. Here are the details we received:\n' +
+             'Name: ' + name + '\n' +
+             'Email: ' + email + '\n' +
+             'Message: ' + message + '\n\nWe will get back to you shortly!';
+    }
+
+    // Send an email to the submitted email address
+    MailApp.sendEmail({
+      to: email,
+      subject: subject,
+      body: body
+    });
+
+    // Send success response for the website
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'success',
+      message: 'Form submitted successfully. An email has been sent to ' + email
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    // Send error response in case of failure
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: 'Form submission failed.'
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+
+  
+
+  
+-->
+    
+    
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Form to Google Sheets</title>
+    <!-- https://script.google.com/macros/library/d/1-wOfYOvrUKhCL4IRISwOnxxUhEyDR0b80rJE2nIVbL6f6BM8odNPQyjU/1 -->
+    <style>
+        /* Simple styling for the message */
+        .message {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h2>Contact Form</h2>
+    <form id="contactForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="responseMessage" class="message"></div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+
+            // Get form data
+            var formData = new FormData(this);
+            var responseMessage = document.getElementById('responseMessage');
+
+            // Send data using AJAX
+            fetch("https://script.google.com/macros/s/AKfycbwDRTF28kdUJE24YUW7uED9gOtX2iNik1_uN3PyN5KmfrGSclEMKXvCaxGEWv19YU4F/exec", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Display success message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message success';
+                } else {
+                    // Display error message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message error';
+                }
+                responseMessage.style.display = 'block';
+            })
+            .catch(error => {
+                // Display error message if there's an issue with the request
+                responseMessage.textContent = 'There was an error submitting the form.';
+                responseMessage.className = 'message error';
+                responseMessage.style.display = 'block';
+            });
+        });
+    </script>
+
+
+<!--The below is a Google sheet Apps script-->
+
+<!--
+
+
+Modify the Google Apps Script to Allow Editing
+
+
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = e.parameter;
+
+    var name = data.name;
+    var email = data.email;
+    var message = data.message;
+
+    // Get all the data from the sheet starting from row 2 (row 1 is header)
+    var existingData = sheet.getRange(2, 1, sheet.getLastRow() - 1, 4).getValues(); // All columns A to D (Timestamp, Name, Email, Message)
+
+    // Find the row index if a duplicate entry exists (matching name, email, and message)
+    var rowIndex = existingData.findIndex(function(row) {
+      return row[1] === name && row[2] === email; // Check if name and email match
+    });
+
+    if (rowIndex !== -1) {
+      // If duplicate exists, update the existing row with the new data
+      var actualRow = rowIndex + 2; // Adjust for zero-based index and header row
+
+      sheet.getRange(actualRow, 1).setValue(new Date()); // Update timestamp
+      sheet.getRange(actualRow, 2).setValue(name);        // Update name
+      sheet.getRange(actualRow, 3).setValue(email);       // Update email
+      sheet.getRange(actualRow, 4).setValue(message);     // Update message
+
+      // Send response for an updated entry
+      return ContentService.createTextOutput(JSON.stringify({
+        status: 'success',
+        message: 'Duplicate entry found. Data has been updated successfully.'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // If no duplicate exists, append the new row
+    var timestamp = new Date();
+    sheet.appendRow([timestamp, name, email, message]);
+
+    // Send success response for new entry
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'success',
+      message: 'Form submitted successfully.'
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    // Send error response in case of failure
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: 'Form submission failed.'
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+
+
+  
+    
+-->
+    
+    
+</body>
+</html>

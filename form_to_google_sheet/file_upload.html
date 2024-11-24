@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Collection Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #documentForm {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .message {
+            display: none;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Document Collection Form</h2>
+        <form id="documentForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="school">Your School:</label>
+            <input type="text" id="school" name="school" required>
+
+            <label for="document">Document (PDF/Word/Image):</label>
+            <input type="file" id="document" name="document" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+
+            <label for="dateOfCollection">Date of Collection:</label>
+            <input type="date" id="dateOfCollection" name="dateOfCollection" required>
+
+            <label for="dateOfSubmission">Date of Submission:</label>
+            <input type="date" id="dateOfSubmission" name="dateOfSubmission" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="responseMessage" class="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('documentForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+            
+            var formData = new FormData(this);
+            var responseMessage = document.getElementById('responseMessage');
+
+            // Handle file upload
+            var documentFile = document.getElementById('document').files[0];
+            if (documentFile) {
+                // Send the document to the Google Apps Script to upload to Google Drive
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    var fileBlob = Utilities.newBlob(reader.result, documentFile.type, documentFile.name);
+
+                    // Now call the Apps Script function to upload the file
+                    google.script.run.withSuccessHandler(function(documentUrl) {
+                        formData.append('documentUrl', documentUrl);
+                        submitForm(formData, responseMessage);
+                    }).uploadFile(fileBlob);
+                };
+                reader.readAsArrayBuffer(documentFile);
+            }
+        });
+
+        function submitForm(formData, responseMessage) {
+            fetch("https://script.google.com/macros/s/AKfycbyOVcRaxtCkLL6gqBNhJ5vfAcoGb_TJMkt5Q668FXdTv7cqUu57RocqTHZ1fdKlRPexvA/exec", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message success';
+                } else {
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message error';
+                }
+                responseMessage.style.display = 'block';
+            })
+            .catch(error => {
+                responseMessage.textContent = 'There was an error submitting the form.';
+                responseMessage.className = 'message error';
+                responseMessage.style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>

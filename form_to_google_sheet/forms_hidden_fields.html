@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Submission with Hidden Fields</title>
+  <!--reCAPTCHA script-->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .container { max-width: 600px; margin: 0 auto; }
+    label { display: block; margin-top: 10px; }
+    input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+    .response { margin-top: 20px; padding: 10px; border-radius: 5px; }
+    .response.success { background-color: #d4edda; color: #155724; }
+    .response.error { background-color: #f8d7da; color: #721c24; }
+    h1{  text-shadow: 3px 3px 0 #FF6347,    /* Red shadow */
+        -1px -1px 5px #000;   /* Black shadow */ }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Leave A Message</h1>
+    <form id="submissionForm">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name e.g McOwino" required>
+
+      <label for="country">Country of Origin:</label>
+      <input type="text" id="country" name="country" placeholder="Where do you come from e.g Kenya" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number e.g +254700663344" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email address here e.g mc-owino@gmail.com" required>
+
+      <label for="subject">Subject:</label>
+      <input type="text" id="subject" name="subject" placeholder="Enter your subject mattter here" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" placeholder="Enter your message here" required></textarea>
+
+      <!-- Hidden Fields -->
+      <input type="hidden" id="formID" name="formID" value="FORM12345"> <!-- Example static form ID -->
+      <input type="hidden" id="submissionDate" name="submissionDate" value="currentDate"> <!-- Will be set with current date -->
+      <br>
+      <br>
+      <!--reCAPTCHA field-->
+      <div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div> <!-- replace with your recaptcha SITE key not secret key --> 
+     
+      <button type="submit">Submit</button>
+
+      <div id="response" class="response" style="display: none;"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('submissionForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      var form = event.target;
+      var formData = new FormData(form);
+      
+      // Set submission date as hidden field (current date and time)
+      var currentDate = new Date().toISOString();
+      document.getElementById('submissionDate').value = currentDate;
+
+      // Submit the form data to the Google Apps Script
+      fetch('https://script.google.com/macros/s/AKfycbxvmEDpvTZuBMpHW4-Vi3KQpmvaElqSZiK3-igSHtnMPKz9QolqIfrNTN-1pqjzC7mg/exec', { // Replace with your actual script URL
+        method: 'POST',
+        body: new URLSearchParams(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        var responseDiv = document.getElementById('response');
+        responseDiv.style.display = 'block';
+
+        if (data.status === 'success') {
+          responseDiv.textContent = data.message;
+          responseDiv.className = 'response success';
+          form.reset(); // Clear the form upon successful submission
+        } else {
+          responseDiv.textContent = 'Error: ' + data.message;
+          responseDiv.className = 'response error';
+        }
+      })
+      .catch(error => {
+        var responseDiv = document.getElementById('response');
+        responseDiv.style.display = 'block';
+        responseDiv.textContent = 'Unexpected error: ' + error.message;
+        responseDiv.className = 'response error';
+      });
+    });
+  </script>
+
+</body>
+</html>

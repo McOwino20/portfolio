@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Form to Google Sheets</title>
+    <!-- https://script.google.com/macros/library/d/1-wOfYOvrUKhCL4IRISwOnxxUhEyDR0b80rJE2nIVbL6f6BM8odNPQyjU/1 -->
+    <style>
+        /* Simple styling for the message */
+        .message {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h2>Contact Form</h2>
+    <form id="contactForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="responseMessage" class="message"></div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+
+            // Get form data
+            var formData = new FormData(this);
+            var responseMessage = document.getElementById('responseMessage');
+
+            // Send data using AJAX
+            fetch("https://script.google.com/macros/s/AKfycby6L3-gAf-j-pj0Rwu3L0rzIAM7SB8qMwmF2Hft4qNsb6lPlmxdl96vHZAgyADmwR3g/exec", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Display success message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message success';
+                } else {
+                    // Display error message
+                    responseMessage.textContent = data.message;
+                    responseMessage.className = 'message error';
+                }
+                responseMessage.style.display = 'block';
+            })
+            .catch(error => {
+                // Display error message if there's an issue with the request
+                responseMessage.textContent = 'There was an error submitting the form.';
+                responseMessage.className = 'message error';
+                responseMessage.style.display = 'block';
+            });
+        });
+    </script>
+
+
+<!--The below is a Google sheet Apps script-->
+
+
+    <!--
+    
+    function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = e.parameter;
+    var timestamp = new Date();
+    // Append the timestamp and form data to the sheet
+    sheet.appendRow([timestamp, data.name, data.email, data.message]);
+    
+    // Send success response
+    return ContentService.createTextOutput(JSON.stringify({status: 'success', message: 'Form submitted successfully'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    // Send error response
+    return ContentService.createTextOutput(JSON.stringify({status: 'error', message: 'Form submission failed'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+    
+-->
+    
+    
+</body>
+</html>
+
+

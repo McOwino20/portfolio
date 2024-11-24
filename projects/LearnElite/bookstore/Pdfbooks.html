@@ -1,0 +1,1251 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+   <link rel="shortcut icon" type="jpg" href="https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg"> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content= 
+        "width=device-width, initial-scale=1.0"> 
+    <title>Book Store</title> 
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg" type="image/x-icon">
+    
+    
+   
+    <!-- start of fa fa-icon lib -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- end of fa fa-icon lib -->
+   
+      <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Incredible Offers. Get a book for as low as Ksh 50  !">
+  <meta property="og:description" content="Explore incredible discounts on top-quality products and services. Limited time offer – don't miss out!">
+  <meta property="og:image" content="https://edexec.co.uk/wp-content/uploads/2022/06/iStock-1059510610-678x509.jpg">
+  <meta property="og:url" content="https://mcowino20.github.io/developer254.mc/Offer-page/Offer-page().html">
+  <meta property="og:type" content="website">
+    <style> 
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f0f0; 
+            
+            overflow-y: scroll; /* vertical scrollbar */
+            scrollbar-width: thin; /* For Firefox */
+            scrollbar-color: #333 #eee; /* For Firefox */
+        } 
+        
+        
+        
+
+b{
+  background:  #003366;
+  color :white;
+}
+
+h1{
+  background: #003366;
+}
+
+        
+        .coupon:hover { 
+            transform: translateY(-5px); /* Move coupon up slightly on hover */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow effect on hover */
+            background-color: black; 
+        }
+        
+        .coupons-container {
+            display: flex;
+            flex-wrap: wrap; /* Items will wrap onto new line if space is insufficient */
+            justify-content: center; /* Centers items horizontally */
+            padding: 20px; /* Add padding for better spacing */
+        }
+        .coupon { 
+            background-color: #fff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            border-radius: 5px; 
+            padding: 20px; 
+            max-width: 300px; 
+            text-align: center; 
+            margin: 10px; /* Add margin between coupons */
+        } 
+        .coupon img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 5px; 
+        } 
+        .coupon h2 { 
+            color: #008930; 
+            margin-top: 10px; 
+        } 
+        .coupon p { 
+            color: #777; 
+            line-height: 1.5; 
+            margin-top: 10px; 
+        } 
+        .coupon .code { 
+            font-size: 24px; 
+            color: green; 
+            margin-bottom: 10px; 
+        } 
+        .coupon .expiration { 
+            color: #e80c0c; 
+            font-size: 14px; 
+        } 
+        .order-button {
+            background-color: #008CBA; /* Set button background color */
+            color: white; /* Set button text color */
+            border: none; /* Remove button border */
+            padding: 10px 20px; /* Add padding to button */
+            border-radius: 5px; /* Add border radius */
+            cursor: pointer; /* Add cursor pointer */
+            transition: background-color 0.3s; /* Add transition effect */
+        }
+        .order-button:hover {
+            background-color: #005f78; /* Change button background color on hover */
+        }
+
+       
+       
+
+
+
+
+/*added buttion with buy*/
+
+book button {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  border: none;
+  border-radius: 25px;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+}
+
+button a {
+  color: white; /* Ensure the link text is white */
+  text-decoration: none;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  display: inline-block; /* Ensure the anchor fills the button space */
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  color :white;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+
+/*end of added buttion with buy*/
+
+
+
+
+
+
+       
+       /* Define keyframes for the scrollbar animation */
+        @keyframes scroll {
+            0% {
+                background-color: #eee;
+            }
+            50% {
+                background-color: #999;
+            }
+            100% {
+                background-color: #eee;
+            }
+        }
+        
+        /* Apply animation to the scrollbar */
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #333;
+            animation: scroll 2s infinite;
+        }
+
+
+
+       /* Social media icons*/
+        .social-media {
+         margin-top: 10px;
+         display: flex;
+         justify-content: center;
+         gap: 20px;
+         }
+
+        .social-media a {
+         font-size: 24px;
+         color: #fff;
+         transition: transform 0.3s ease, color 0.3s ease;
+         }
+
+         .social-media a:hover {
+          transform: scale(1.2);
+          color: #ffcc00;
+         } 
+         
+         
+         
+         
+
+
+     footer {
+      position: fixed;
+      left:0;
+      bottom:0;
+      width: 100%;
+      text-align: center;
+      color: white;
+      background: #003366;
+      
+      color: #fff;
+}
+
+footer span a {
+  color: crimson;
+  text-decoration: none;
+}
+
+footer span a:hover {
+  text-decoration: underline;
+}
+    
+a,
+a:visited {
+
+  text-decoration: none;
+  color: crimpson;
+}
+
+
+
+
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+
+
+
+
+
+
+
+    </style> 
+</head> 
+<body> 
+<hr>
+<hr>
+<p>
+  
+  <center><h2><b><u>Choose a book of your Choice below</u></b></h2></center>
+  
+</p>
+<hr>
+<hr>
+        <!-- Content Writing  -->
+            <div class="coupons-container"> 
+        <div class="coupon"> 
+            <div class="logo"> 
+                <img src="../bookstore/book-img/agri1-4.jpg" 
+                    alt="GFG Logo"> 
+            </div> 
+            <h2>Agriculture Book 1-4</h2> 
+            <p>Get <span class="code">SAVE60</span> off your next course purchase!</p> 
+            <p>Use code at checkout to enjoy the discount.</p> 
+            <p>Expires: <span class="expiration">December 31, 2024</span></p> 
+            
+            
+
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+           
+        </div>
+        
+        <!-- Resume Writing  -->
+          <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/bio1-4.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Biology Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+
+            
+
+
+
+
+               
+            
+   
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+            
+
+    </div> 
+            <!-- Web Development  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/bus1.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Business Studies Book 1</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+
+            
+
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+
+    </div> 
+            <!-- Search Engine Optimization  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/bus2.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Business Studies Book 2</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+            
+
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+            
+    </div> 
+            <!-- API Development  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/book.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Kiswahili Lugha</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+
+               
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+    </div> 
+            <!-- Web Design  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/bus3.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Business Studies Book 3</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+            
+     
+                     <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+                
+
+    </div> 
+            <!-- Game Development  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/bus4.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Business Studies Book 4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+            
+
+    </div> 
+            <!-- Academic Writing  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/bus1-4.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Business Studies Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+
+      
+              
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+
+    </div> 
+        <!-- E-book  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/C.R.E1-4.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>C.R.E Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+
+
+
+            
+
+                
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+
+    </div> 
+        <!-- E-Learning Services  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/chem1-4.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Chemistry Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+            
+   
+   
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+    </div> 
+        
+        <!-- Logo Design  -->
+           <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/geo.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Geography Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+            
+
+                
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+
+    </div> 
+            <!-- Letter Writing  -->
+    
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/histo.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>History Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+     
+                
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+
+    </div> 
+        <!-- Social Media Integration  -->
+        
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/maths1-4.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Mathematics Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+           
+    </div> 
+    
+        <!-- Proofreading  -->
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/physics1-4.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Physics Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31,2024</span> 
+
+        </p> 
+            
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+           
+            
+    </div>
+        <!-- Research Project  -->
+          <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/tumbo.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Tumbo Lisiloshiba</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+           
+    </div> 
+         <!-- Research Proposal  -->
+    
+        <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/kigogo.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Kigogo</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+           
+           
+    </div> 
+         <!-- Form Integration  -->
+          <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/Damu-nyeusi.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+
+        <h2>Damu Nyeusi</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+  
+                   <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+           
+    </div> 
+         <!-- Web Hosting Services -->
+        <div class="coupon"> 
+        
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/chozi.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Chozi La Heri</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+               
+            
+   
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+           
+    </div> 
+
+        <!-- Dormain Name Acquisition  -->
+       <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/chem.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Chemistry Book 1-4</h2> 
+
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+              
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+           
+    </div> 
+    
+        <!-- Online Chat Services  -->
+       <div class="coupon"> 
+
+        <div class="logo"> 
+
+            <img src= "../bookstore/book-img/physics.jpg" 
+
+                alt="GFG Logo"> 
+
+        </div> 
+
+  
+
+        <h2>Physics Book 1-4</h2> 
+<a href="https://rb.gy/axwcyh">✌️</a>
+        <p> 
+
+            Get <span class="code">SAVE60</span>  
+
+            off your next course purchase! 
+
+        </p> 
+
+          
+
+        <p> 
+
+            Use code at checkout to  
+
+            enjoy the discount. 
+
+        </p> 
+
+          
+
+        <p>Expires: <span class="expiration"> 
+
+            December 31, 2024</span> 
+
+        </p> 
+
+
+               
+                <button type="submit" class="order-button"><a href="https://payment.intasend.com/pay/fcbe2f05-63cb-4400-a3f2-b04940464fa1/">Buy Book</a></button> <!-- Add order button -->
+                       
+            
+            
+            
+          
+    </div> 
+
+
+      
+      
+      
+      
+      
+      
+      
+   
+        
+    </div> 
+   <br>
+   <br>
+   <br>
+
+         <!-- Formbutton docs at formspree.io/formbutton/ -->
+<script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+<script>
+  /* paste this line in verbatim */
+  window.formbutton = window.formbutton || function() {
+    (formbutton.q = formbutton.q || []).push(arguments) };
+  /* customize formbutton below*/
+  formbutton("create", {
+    action: "https://formspree.io/f/mleqdkyn",
+    title: "<p>Hi there. Let's talk !</p>",
+    fields: [
+      {
+        type: "email",
+        label: "Email:",
+        name: "email",
+        required: true,
+        placeholder: "Eg. mcowino20@email.com"
+      },
+      {
+        type: "textarea",
+        label: "Message:",
+        name: "message",
+        placeholder: "Eg. Hi Mc, I would like to...",
+      },
+      { type: "submit" }
+    ],
+    styles: {
+      title: {
+        backgroundColor: "blue"
+      },
+      button: {
+        backgroundColor: "blue"
+      }
+    }
+  });
+        </script>
+    <!-- end of form button -->
+    
+    
+        <!-- Footer -->
+        <footer>
+
+        <div class="social-media">
+        <a href="https://Whatsapp.com" target="_blank" class="fab fa-whatsapp"></a>
+        <a href="https://facebook.com" target="_blank" class="fab fa-facebook-f"></a>
+        <a href="https://twitter.com" target="_blank" class="fab fa-twitter"></a>
+        <a href="https://instagram.com" target="_blank" class="fab fa-instagram"></a>
+        <a href="https://linkedin.com" target="_blank" class="fab fa-linkedin-in"></a>
+        <a href="https://tiktok.com" target="_blank" class="fab fa-tiktok"></a>
+        </div>
+        
+        <p>&copy; 2024 LearnElite Hub. All Rights Reserved.</p>
+        <p>
+            <a href="privacy/index.html">Privacy Policy</a> |
+            <a href="terms/index.html">Terms of Service</a>|
+            <a href="terms/index.html">Developer</a>
+        </p>
+    </footer>
+
+</body> 
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://unpkg.com/intasend-inlinejs-sdk@4.0.1/build/intasend-inline.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  <span style="display:block; text-align: center">        <a href="https://intasend.com/security" target="_blank"><img src="https://intasend-prod-static.s3.amazonaws.com/img/trust-badges/intasend-trust-badge-with-mpesa-hr-dark.png" width="375px" alt="IntaSend Secure Payments (PCI-DSS Compliant)"></a>        <strong><a style="display: block; color: #fafafa; text-decoration: none; font-size: 0.8em; margin-top: 0.6em;" href="https://intasend.com/security" target="_blank">Secured by IntaSend Payments</a></strong>        </span>
+  
+  
+  <hr>
+  <hr>
+
+
+<span style="display:block; text-align: center">        <a href="https://intasend.com/security" target="_blank"><img src="https://intasend-prod-static.s3.amazonaws.com/img/trust-badges/intasend-trust-badge-no-mpesa-hr-light.png" width="375px" alt="IntaSend Secure Payments (PCI-DSS Compliant)"></a>        <strong><a style="display: block; color: #454545; text-decoration: none; font-size: 0.8em; margin-top: 0.6em;" href="https://intasend.com/security" target="_blank">Secured by IntaSend Payments</a></strong>        </span>
+
+
+  <hr>  <hr>
+
+<span style="display:block; text-align: center">        <a href="https://intasend.com/security" target="_blank"><img src="https://intasend-prod-static.s3.amazonaws.com/img/trust-badges/intasend-trust-badge-v-dark.png" width="375px" alt="IntaSend Secure Payments (PCI-DSS Compliant)"></a>        <strong><a style="display: block; color: #fafafa; text-decoration: none; font-size: 0.8em; margin-top: 0.6em;" href="https://intasend.com/security" target="_blank">Secured by IntaSend Payments</a></strong>        </span>
+  <hr>  <hr>
+
+<span style="display:block; text-align: center">        <a href="https://intasend.com/security" target="_blank"><img src="https://intasend-prod-static.s3.amazonaws.com/img/trust-badges/intasend-trust-badge-v-light.png" width="375px" alt="IntaSend Secure Payments (PCI-DSS Compliant)"></a>        <strong><a style="display: block; color: #454545; text-decoration: none; font-size: 0.8em; margin-top: 0.6em;" href="https://intasend.com/security" target="_blank">Secured by IntaSend Payments</a></strong>        </span>
+
+
+  <hr>  <hr>
+<span style="display:block; text-align: center">        <a href="https://intasend.com/security" target="_blank"><img src="https://intasend-prod-static.s3.amazonaws.com/img/trust-badges/intasend-trust-badge-with-mpesa-hr-light.png" width="375px" alt="IntaSend Secure Payments (PCI-DSS Compliant)"></a>        <strong><a style="display: block; color: #454545; text-decoration: none; font-size: 0.8em; margin-top: 0.6em;" href="https://intasend.com/security" target="_blank">Secured by IntaSend Payments[Support us]</a></strong>        </span>
+
+
+
+  <hr>  <hr>
+
+  
+  <button class="intaSendPayButton" data-amount="10" data-currency="KES">Show 💞</button>
+</body>
+<script>
+
+  new window.IntaSend({
+  publicAPIKey: "ISPubKey_live_79fff6a0-2a9e-4e38-b442-d00c56a58789",
+  live: true //set to true when going live
+  })
+  .on("COMPLETE", (results) => {console.log("Do something on success", results)})
+  .on("FAILED", (results) => {console.log("Do something on failure", results)})
+  .on("IN-PROGRESS", (results) => {console.log("Payment in progress status", results)})
+
+</script>
+
+
+</html>

@@ -13,6 +13,21 @@
     .response { margin-top: 20px; padding: 10px; border-radius: 5px; }
     .response.success { background-color: #d4edda; color: #155724; }
     .response.error { background-color: #f8d7da; color: #721c24; }
+
+     .back-home {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1rem;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.2);
+      background-color:blue;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    
   </style>
 </head>
 <body>
@@ -39,6 +54,7 @@
     </form>
   </div>
 
+ <a href="https://www.isa9.xyz" class="back-home">Back Home</a>
   <script>
     document.getElementById('submissionForm').addEventListener('submit', function(event) {
       event.preventDefault(); // Prevent default form submission

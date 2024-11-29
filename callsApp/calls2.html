@@ -49,81 +49,7 @@
             method: method,
             mode: 'cors',
             headers: {
-          <!--
-
-Name
-
-Call Application
-App ID
-
-0798a179cb33d8e6b52df5d6f94d19cf
-Click to copy
-API Token
-
-a8460727adeffacac348d30b28fb2d756d984f3fb6624e46b16135c73710a150
-Click to copy
-Make sure to copy your API Token now. You won’t be able to see it again.
-Build a Web Echo Demo
-Copy and paste the code snippet below into an html file to create your first calls web-app. In this example, you will see two local tracks (audio and video) being pushed to Cloudflare Calls, and then pulled back for playback.
-
-When deploying to production, your API token should be kept server-side.
--->
-
-
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- This adapter normalizes cross-browser differences in WebRTC APIs. Currently necessary in order to support Firefox. -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/8.1.2/adapter.min.js"
-      integrity="sha512-l40eBFtXx+ve5RryIELC3y6/OM6Nu89mLGQd7fg1C93tN6XrkC3supb+/YiD/Y+B8P37kdJjtG1MT1kOO2VzxA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-  </head>
-
-
-  <body>
-    <div class="grid">
-      <h1>Calls Echo Demo</h1>
-      <div>
-        <h2>Local stream</h2>
-        <video id="local-video" autoplay muted></video>
-      </div>
-      <div>
-        <h2>Remote echo stream</h2>
-        <video id="remote-video" autoplay></video>
-      </div>
-    </div>
-
-
-    <script type="module">
-      // This is a class the defines the Calls API interactions.
-      // It's not an SDK but a example of how Calls API can be used.
-
-
-      // This is the App Id provided by the dashboard that identifies this Calls Application.
-      const appId = '0798a179cb33d8e6b52df5d6f94d19cf';
-      // DO NOT USE YOUR SECRET IN THE BROWSER FOR PRODUCTION. It should be kept and used server-side.
-      const appSecret = 'a8460727adeffacac348d30b28fb2d756d984f3fb6624e46b16135c73710a150';
-
-
-      class CallsApp {
-        constructor(appId, basePath = 'https://rtc.live.cloudflare.com/v1') {
-          this.prefixPath = `${basePath}/apps/${appId}`;
-        }
-
-
-        async sendRequest(url, body, method = 'POST') {
-          const request = {
-            method: method,
-            mode: 'cors',
-            headers: {
               'content-type': 'application/json',
-              Authorization: `Bearer ${appSecret}`    'content-type': 'application/json',
               Authorization: `Bearer ${appSecret}`
             },
             body: JSON.stringify(body)
@@ -336,8 +262,6 @@ When deploying to production, your API token should be kept server-side.
     <style>
       /* Styles are safe to ignore, just here for demo */
 
-
-<style>
   /* General Styling */
   html {
     color-scheme: light dark;
@@ -410,8 +334,7 @@ When deploying to production, your API token should be kept server-side.
   }
 </style>
 
-
-
-    </style>
+    
   </body>
 </html>
+

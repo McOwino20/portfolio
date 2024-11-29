@@ -14,17 +14,33 @@
 
 
   <body>
-    <div class="grid">
-      <h1>Calls Echo Demo</h1>
-      <div>
-        <h2>Local stream</h2>
-        <video id="local-video" autoplay muted></video>
-      </div>
-      <div>
-        <h2>Remote echo stream</h2>
-        <video id="remote-video" autoplay></video>
+
+  <div class="grid">
+    <h1>Calls Echo Demo</h1>
+    <div>
+      <h2>Local Stream</h2>
+      <video id="local-video" autoplay muted></video>
+      <div class="controls">
+        <button id="toggle-audio">Mute Audio</button>
+        <button id="toggle-video">Turn Off Video</button>
       </div>
     </div>
+    <div>
+      <h2>Remote Echo Stream</h2>
+      <video id="remote-video" autoplay></video>
+    </div>
+  </div>
+  <div class="footer">
+    <button id="end-call" class="end-call">End Call</button>
+    <p id="status">Status: <span id="connection-status">Not Connected</span></p>
+  </div>
+
+
+
+
+
+
+    
 
 
     <script type="module">
@@ -334,6 +350,54 @@
   }
 </style>
 
+
+
+
+
+
+  <script type="module">
+    // Controls for mute/unmute and video toggle
+    const toggleAudioButton = document.getElementById("toggle-audio");
+    const toggleVideoButton = document.getElementById("toggle-video");
+    const endCallButton = document.getElementById("end-call");
+    const statusSpan = document.getElementById("connection-status");
+
+    let isAudioEnabled = true;
+    let isVideoEnabled = true;
+
+    // Update connection status
+    self.pc.addEventListener("iceconnectionstatechange", (event) => {
+      statusSpan.textContent = event.target.iceConnectionState;
+      if (event.target.iceConnectionState === "disconnected") {
+        alert("Connection lost!");
+      }
+    });
+
+    // Toggle audio
+    toggleAudioButton.addEventListener("click", () => {
+      localStream.getAudioTracks().forEach((track) => {
+        track.enabled = !track.enabled;
+      });
+      isAudioEnabled = !isAudioEnabled;
+      toggleAudioButton.textContent = isAudioEnabled ? "Mute Audio" : "Unmute Audio";
+    });
+
+    // Toggle video
+    toggleVideoButton.addEventListener("click", () => {
+      localStream.getVideoTracks().forEach((track) => {
+        track.enabled = !track.enabled;
+      });
+      isVideoEnabled = !isVideoEnabled;
+      toggleVideoButton.textContent = isVideoEnabled ? "Turn Off Video" : "Turn On Video";
+    });
+
+    // End call
+    endCallButton.addEventListener("click", () => {
+      self.pc.close();
+      alert("Call ended.");
+      window.location.reload();
+    });
+  </script>
     
   </body>
 </html>

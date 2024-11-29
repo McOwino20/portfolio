@@ -11,83 +11,6 @@
       referrerpolicy="no-referrer"
     ></script>
 
-
-
-      <script type="module">
-    const localVideoElement = document.getElementById("local-video");
-    const remoteVideoElement = document.getElementById("remote-video");
-    const toggleMicButton = document.getElementById("toggle-mic");
-    const toggleVideoButton = document.getElementById("toggle-video");
-    const switchCameraButton = document.getElementById("switch-camera");
-    const endCallButton = document.getElementById("end-call");
-    const statusSpan = document.getElementById("connection-status");
-
-    let localStream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "user" }, // Default to front camera
-      audio: true,
-    });
-
-    localVideoElement.srcObject = localStream;
-
-    let isMicEnabled = true;
-    let isVideoEnabled = true;
-    let usingFrontCamera = true;
-
-    // Update connection status
-    self.pc.addEventListener("iceconnectionstatechange", (event) => {
-      statusSpan.textContent = event.target.iceConnectionState;
-      if (event.target.iceConnectionState === "disconnected") {
-        alert("Connection lost!");
-      }
-    });
-
-    // Toggle microphone
-    toggleMicButton.addEventListener("click", () => {
-      localStream.getAudioTracks().forEach((track) => {
-        track.enabled = !track.enabled;
-      });
-      isMicEnabled = !isMicEnabled;
-      toggleMicButton.textContent = isMicEnabled ? "Mute Microphone" : "Unmute Microphone";
-    });
-
-    // Toggle video
-    toggleVideoButton.addEventListener("click", () => {
-      localStream.getVideoTracks().forEach((track) => {
-        track.enabled = !track.enabled;
-      });
-      isVideoEnabled = !isVideoEnabled;
-      toggleVideoButton.textContent = isVideoEnabled ? "Turn Off Video" : "Turn On Video";
-    });
-
-    // Switch camera
-    switchCameraButton.addEventListener("click", async () => {
-      usingFrontCamera = !usingFrontCamera;
-      const facingMode = usingFrontCamera ? "user" : "environment";
-      const newStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode },
-        audio: true,
-      });
-
-      // Stop old tracks and replace them
-      localStream.getTracks().forEach((track) => track.stop());
-      localStream = newStream;
-      localVideoElement.srcObject = localStream;
-
-      // Re-add tracks to the peer connection
-      self.pc.getSenders().forEach((sender, index) => {
-        const newTrack = localStream.getTracks()[index];
-        sender.replaceTrack(newTrack);
-      });
-    });
-
-    // End call
-    endCallButton.addEventListener("click", () => {
-      self.pc.close();
-      localStream.getTracks().forEach((track) => track.stop());
-      alert("Call ended.");
-      window.location.reload();
-    });
-  </script>
     
   </head>
 
@@ -440,55 +363,88 @@
   }
 </style>
 
+      <script type="module">
+    const localVideoElement = document.getElementById("local-video");
+    const remoteVideoElement = document.getElementById("remote-video");
+    const toggleMicButton = document.getElementById("toggle-mic");
+    const toggleVideoButton = document.getElementById("toggle-video");
+    const switchCameraButton = document.getElementById("switch-camera");
+    const endCallButton = document.getElementById("end-call");
+    const statusSpan = document.getElementById("connection-status");
 
+    let localStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user" }, // Default to front camera
+      audio: true,
+    });
+
+    localVideoElement.srcObject = localStream;
+
+    let isMicEnabled = true;
+    let isVideoEnabled = true;
+    let usingFrontCamera = true;
+
+    // Update connection status
+    self.pc.addEventListener("iceconnectionstatechange", (event) => {
+      statusSpan.textContent = event.target.iceConnectionState;
+      if (event.target.iceConnectionState === "disconnected") {
+        alert("Connection lost!");
+      }
+    });
+
+    // Toggle microphone
+    toggleMicButton.addEventListener("click", () => {
+      localStream.getAudioTracks().forEach((track) => {
+        track.enabled = !track.enabled;
+      });
+      isMicEnabled = !isMicEnabled;
+      toggleMicButton.textContent = isMicEnabled ? "Mute Microphone" : "Unmute Microphone";
+    });
+
+    // Toggle video
+    toggleVideoButton.addEventListener("click", () => {
+      localStream.getVideoTracks().forEach((track) => {
+        track.enabled = !track.enabled;
+      });
+      isVideoEnabled = !isVideoEnabled;
+      toggleVideoButton.textContent = isVideoEnabled ? "Turn Off Video" : "Turn On Video";
+    });
+
+    // Switch camera
+    switchCameraButton.addEventListener("click", async () => {
+      usingFrontCamera = !usingFrontCamera;
+      const facingMode = usingFrontCamera ? "user" : "environment";
+      const newStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode },
+        audio: true,
+      });
+
+      // Stop old tracks and replace them
+      localStream.getTracks().forEach((track) => track.stop());
+      localStream = newStream;
+      localVideoElement.srcObject = localStream;
+
+      // Re-add tracks to the peer connection
+      self.pc.getSenders().forEach((sender, index) => {
+        const newTrack = localStream.getTracks()[index];
+        sender.replaceTrack(newTrack);
+      });
+    });
+
+    // End call
+    endCallButton.addEventListener("click", () => {
+      self.pc.close();
+      localStream.getTracks().forEach((track) => track.stop());
+      alert("Call ended.");
+      window.location.reload();
+    });
+  </script>
 
      
 
 
 
 
-    <script>
-
-let usingFrontCamera = true;
-
-// Switch camera functionality
-switchCameraButton.addEventListener("click", async () => {
-  try {
-    // Toggle between front and back cameras
-    usingFrontCamera = !usingFrontCamera;
-    const facingMode = usingFrontCamera ? "user" : "environment";
-
-    // Request the new video stream
-    const newStream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode },
-      audio: isMicEnabled, // Preserve microphone state
-    });
-
-    // Stop old video tracks and replace them in the local stream
-    const oldVideoTrack = localStream.getVideoTracks()[0];
-    const newVideoTrack = newStream.getVideoTracks()[0];
-
-    localStream.removeTrack(oldVideoTrack);
-    localStream.addTrack(newVideoTrack);
-
-    // Update the video element to show the new stream
-    localVideoElement.srcObject = localStream;
-
-    // Replace the video track in the peer connection
-    const videoSender = self.pc.getSenders().find((sender) => sender.track?.kind === "video");
-    if (videoSender) {
-      await videoSender.replaceTrack(newVideoTrack);
-    }
-
-    // Stop the old video track to free resources
-    oldVideoTrack.stop();
-  } catch (error) {
-    console.error("Error switching camera:", error);
-    alert("Unable to switch camera. Please ensure permissions are granted.");
-  }
-});
-</script>
-
+    
 
 <script>
 // Timer variables

@@ -439,6 +439,50 @@
       window.location.reload();
     });
   </script>
+
+
+    <script>
+
+let usingFrontCamera = true;
+
+// Switch camera functionality
+switchCameraButton.addEventListener("click", async () => {
+  try {
+    // Toggle between front and back cameras
+    usingFrontCamera = !usingFrontCamera;
+    const facingMode = usingFrontCamera ? "user" : "environment";
+
+    // Request the new video stream
+    const newStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode },
+      audio: isMicEnabled, // Preserve microphone state
+    });
+
+    // Stop old video tracks and replace them in the local stream
+    const oldVideoTrack = localStream.getVideoTracks()[0];
+    const newVideoTrack = newStream.getVideoTracks()[0];
+
+    localStream.removeTrack(oldVideoTrack);
+    localStream.addTrack(newVideoTrack);
+
+    // Update the video element to show the new stream
+    localVideoElement.srcObject = localStream;
+
+    // Replace the video track in the peer connection
+    const videoSender = self.pc.getSenders().find((sender) => sender.track?.kind === "video");
+    if (videoSender) {
+      await videoSender.replaceTrack(newVideoTrack);
+    }
+
+    // Stop the old video track to free resources
+    oldVideoTrack.stop();
+  } catch (error) {
+    console.error("Error switching camera:", error);
+    alert("Unable to switch camera. Please ensure permissions are granted.");
+  }
+});
+</script>
+    
   </body>
 </html>
 

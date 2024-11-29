@@ -14,19 +14,31 @@
 
 
   <body>
-    <div class="grid">
-      <h1>Calls Echo Demo</h1>
+  <div class="container">
+    <h1>Calls Echo Demo</h1>
+    <div class="video-container">
       <div>
-        <h2>Local stream</h2>
+        <h2>Local Stream</h2>
         <video id="local-video" autoplay muted></video>
+        <div class="controls">
+          <button id="toggle-mic">Mute Microphone</button>
+          <button id="toggle-video">Turn Off Video</button>
+          <button id="switch-camera">Switch Camera</button>
+        </div>
       </div>
       <div>
-        <h2>Remote echo stream</h2>
+        <h2>Remote Stream</h2>
         <video id="remote-video" autoplay></video>
       </div>
     </div>
+    <div class="footer">
+      <button id="end-call" class="end-call">End Call</button>
+      <p id="status">Status: <span id="connection-status">Not Connected</span></p>
+    </div>
+  </div>
 
 
+    
     <script type="module">
       // This is a class the defines the Calls API interactions.
       // It's not an SDK but a example of how Calls API can be used.
@@ -313,7 +325,86 @@
         }
       }
     </style>
+
+      <script type="module">
+    const localVideoElement = document.getElementById("local-video");
+    const remoteVideoElement = document.getElementById("remote-video");
+    const toggleMicButton = document.getElementById("toggle-mic");
+    const toggleVideoButton = document.getElementById("toggle-video");
+    const switchCameraButton = document.getElementById("switch-camera");
+    const endCallButton = document.getElementById("end-call");
+    const statusSpan = document.getElementById("connection-status");
+
+    let localStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user" }, // Default to front camera
+      audio: true,
+    });
+
+    localVideoElement.srcObject = localStream;
+
+    let isMicEnabled = true;
+    let isVideoEnabled = true;
+    let usingFrontCamera = true;
+
+    // Update connection status
+    self.pc.addEventListener("iceconnectionstatechange", (event) => {
+      statusSpan.textContent = event.target.iceConnectionState;
+      if (event.target.iceConnectionState === "disconnected") {
+        alert("Connection lost!");
+      }
+    });
+
+    // Toggle microphone
+    toggleMicButton.addEventListener("click", () => {
+      localStream.getAudioTracks().forEach((track) => {
+        track.enabled = !track.enabled;
+      });
+      isMicEnabled = !isMicEnabled;
+      toggleMicButton.textContent = isMicEnabled ? "Mute Microphone" : "Unmute Microphone";
+    });
+
+    // Toggle video
+    toggleVideoButton.addEventListener("click", () => {
+      localStream.getVideoTracks().forEach((track) => {
+        track.enabled = !track.enabled;
+      });
+      isVideoEnabled = !isVideoEnabled;
+      toggleVideoButton.textContent = isVideoEnabled ? "Turn Off Video" : "Turn On Video";
+    });
+
+    // Switch camera
+    switchCameraButton.addEventListener("click", async () => {
+      usingFrontCamera = !usingFrontCamera;
+      const facingMode = usingFrontCamera ? "user" : "environment";
+      const newStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode },
+        audio: true,
+      });
+
+      // Stop old tracks and replace them
+      localStream.getTracks().forEach((track) => track.stop());
+      localStream = newStream;
+      localVideoElement.srcObject = localStream;
+
+      // Re-add tracks to the peer connection
+      self.pc.getSenders().forEach((sender, index) => {
+        const newTrack = localStream.getTracks()[index];
+        sender.replaceTrack(newTrack);
+      });
+    });
+
+    // End call
+    endCallButton.addEventListener("click", () => {
+      self.pc.close();
+      localStream.getTracks().forEach((track) => track.stop());
+      alert("Call ended.");
+      window.location.reload();
+    });
+  </script>
   </body>
 </html>
+
+
+
 
 

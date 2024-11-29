@@ -21,6 +21,7 @@
         <h2>Local Stream</h2>
         <video id="local-video" autoplay muted></video>
         <div class="controls">
+        <span id="call-timer">00:00:00</span>
           <button id="toggle-mic">Mute Microphone</button>
           <button id="toggle-video">Turn Off Video</button>
           <button id="switch-camera">Switch Camera</button>
@@ -482,6 +483,78 @@ switchCameraButton.addEventListener("click", async () => {
   }
 });
 </script>
+
+
+<script>
+// Timer variables
+let timerInterval;
+let startTime;
+
+// Format time (HH:MM:SS)
+function formatTime(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+
+  return `${hours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Start timer
+function startTimer() {
+  const timerElement = document.getElementById('call-timer');
+  startTime = Date.now();
+
+  timerInterval = setInterval(() => {
+    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    timerElement.textContent = formatTime(elapsedTime);
+  }, 1000);
+}
+
+// Stop timer
+function stopTimer() {
+  clearInterval(timerInterval);
+  const timerElement = document.getElementById('call-timer');
+  timerElement.textContent = '00:00:00';
+}
+
+// Example usage with WebRTC
+async function initMedia() {
+  localStream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: usingFrontCamera ? 'user' : 'environment' },
+    audio: true,
+  });
+  localVideo.srcObject = localStream;
+
+  pc = new RTCPeerConnection();
+  localStream.getTracks().forEach((track) => pc.addTrack(track, localStream));
+
+  pc.ontrack = (event) => {
+    if (!remoteVideo.srcObject) {
+      remoteVideo.srcObject = new MediaStream();
+    }
+    remoteVideo.srcObject.addTrack(event.track);
+  };
+
+  // Start the call timer when the peer connection is established
+  pc.onconnectionstatechange = () => {
+    if (pc.connectionState === 'connected') {
+      startTimer();
+    } else if (pc.connectionState === 'disconnected' || pc.connectionState === 'closed') {
+      stopTimer();
+    }
+  };
+
+  // Simulate remote video (loopback for testing)
+  pc.addTransceiver('video');
+  pc.createOffer().then((offer) => {
+    pc.setLocalDescription(offer);
+    pc.setRemoteDescription(offer);
+  });
+}
+</script>
+    
     
   </body>
 </html>

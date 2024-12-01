@@ -1498,6 +1498,24 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 <!--End of Tawk.to Script-->
 
+<!--Script for dismissable box-->
+  <script>
+    // Show the box after 2 seconds on page load
+    setTimeout(function() {
+      document.getElementById('dismissable-box').classList.add('show');
+    }, 2000); // Show box after 2 seconds
+
+    // Dismiss the box and hide it with animation
+    function dismissBox() {
+      const box = document.getElementById('dismissable-box');
+      box.classList.remove('show');
+      setTimeout(function() {
+        box.style.display = 'none';
+      }, 500); // Wait for the fade-out animation to complete
+    }
+  </script>
+  <!--End of Script for dismissable box-->
+
 </body>
 
 </html>

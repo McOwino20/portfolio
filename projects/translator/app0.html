@@ -110,6 +110,8 @@
         <div>
           <button id="clipboardBtn">Paste from Clipboard</button>
           <button id="translateBtn">Translate</button>
+          <button id="clearBtn">Clear Text</button>
+          
         </div>
         <div class="translations" id="translations"></div>
       </div>
@@ -175,6 +177,16 @@
       }
     });
   </script>
+
+
+  <script>
+  const clearBtn = document.getElementById("clearBtn");
+
+clearBtn.addEventListener("click", () => {
+  sourceText.value = ""; // Clears the textarea
+});
+  </script>
+  
 </body>
 </html>
 

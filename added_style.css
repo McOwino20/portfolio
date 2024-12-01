@@ -230,3 +230,85 @@
             visibility: visible;
             opacity: 1;
        }
+
+
+
+
+    /* Dismissable Box Styling */
+    .dismissable-box {
+      background-color: #e7f7e7;
+      color: #3c763d;
+      padding: 15px 20px;
+      border: 1px solid #d6e9c6;
+      border-radius: 8px;
+      position: fixed;
+      top: 70px; /* Position it just below the header */
+      left: 20px; /* Align the box to the left */
+      width: calc(100% - 40px); /* Full width minus padding */
+      max-width: 600px; /* Maximum width */
+      display: none;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 1000;
+      box-sizing: border-box;
+      padding-left: 20px; /* Add some padding to the left for icon space */
+    }
+
+    .dismissable-box.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dismissable-box button {
+      background: transparent;
+      border: none;
+      color: black;
+      font-size: 20px;
+      font-weight: bold;
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    .dismissable-box button:hover {
+      color: #c1e2b3;
+    }
+
+    .dismissable-box i {
+      font-size: 22px;
+      position: absolute;
+      left: 10px; /* Align the icon to the left of the box */
+      top: 50%; /* Position the icon vertically in the center */
+      transform: translateY(-50%); /* Center the icon perfectly */
+    }
+
+    .dismissable-box p {
+      font-size: 16px;
+      margin: 0;
+      word-wrap: break-word;
+      display: block; /* Ensures text appears below the icon */
+      line-height: 1.5;
+      padding-left: 30px; /* Space between icon and text */
+    
+    }
+
+
+
+    @media (max-width: 600px) {
+      .dismissable-box {
+        width: calc(100% - 40px); /* Adjust width for smaller screens */
+      }
+
+      .dismissable-box i {
+        font-size: 20px;
+      }
+
+      .dismissable-box p {
+        font-size: 14px;
+      }
+    }
+    
+      /* End of Dismissable Box Styling */

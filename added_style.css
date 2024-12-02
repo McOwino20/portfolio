@@ -312,3 +312,11 @@
     }
     
       /* End of Dismissable Box Styling */
+
+
+
+        /* Link styling inside box */
+        .dismissable-box a {
+            color: #0056b3; /* Link color */
+            text-decoration: underline;
+        }

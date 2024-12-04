@@ -4,7 +4,7 @@
   ![GitHub stars](https://img.shields.io/github/star/mcowino20/portfolio?style=social)
   ![GitHub forks](https://img.shields.io/github/forks/mcowino20/portfolio?style=social)
 [![Twitter Follow](https://img.shields.io/twitter/follow/MOwinoz254_?style=social)](https://twitter.com/intent/follow?screen_name=codewithsadee_)
-  [![YouTube Video Views](https://img.shields.io/youtube/views/BbCLWdF3Bnc?style=social)](https://youtu.be/BbCLWdF3Bnc)
+  
 
   <br />
   <br />
@@ -21,7 +21,7 @@
 
 ### Demo Screeshots
 
-![Smith-portfolio Desktop Demo](./readme-images/desktop.png (////)"Desktop Demo")
+
 
 ### Prerequisites
 
@@ -47,7 +47,7 @@ git clone https://github.com/mcowino20/portfolio.git
 
 ### Contact
 
-If you want to contact with me you can reach me at [Email](mailto:developer254@gmail.com).
+If you want to contact with me you can reach me at [Email](mailto:info@isa9.xyz).
 
 ### License
 

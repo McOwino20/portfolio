@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/IMG_20241130_190757.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centering the content */
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* Default to 1 column */
+            gap: 20px;
+            width: 100%;
+            justify-content: center; /* Ensures cards are centered */
+        }
+        .project-item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.8); /* Transparent background */
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            max-width: 350px; /* Limit card size */
+            width: 100%;
+            margin: 0 auto; /* Center the cards */
+        }
+        .project-item:hover {
+            transform: translateY(-3px);
+        }
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .project-header h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .project-header button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .project-header button:hover {
+            background-color: #0056b3;
+        }
+        .project-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Responsive breakpoints */
+        @media (min-width: 600px) {
+            .project-list {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+            }
+        }
+        @media (min-width: 900px) {
+            .project-list {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns on larger screens */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .project-header h2 {
+                font-size: 16px;
+            }
+            .project-header button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            .project-description {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Projects</h1>
+        <div class="project-list" id="projectList">
+            <!-- Projects will be populated dynamically -->
+        </div>
+    </div>
+
+    <script>
+        const projects = [
+            { 
+                name: "Online Payment API Integration", 
+                description: "Provides seamless integration of online payment gateways, such as IntaSend, enabling businesses to accept payments safely and efficiently. This includes support for multiple currencies and payment methods.", 
+                link: "https://isa9.xyz/projects/payments/int" 
+            },
+            { 
+                name: "Identity and Security Solutions", 
+                description: "Focuses on integrating robust security measures like Auth0, Cloudflare, and reCAPTCHA to protect websites against unauthorized access and cyber threats. It also ensures user identity management with secure authentication systems.", 
+                link: "https://isa9.xyz/projects/authentication/auth0" 
+            },
+            { 
+                name: "LearnElite", 
+                description: "LearnElite serves to provide high-quality, accessible, and engaging e-educational solutions tailored for students and learners of all levels. Through a range of services and resources, it aims to simplify learning and empower individuals with knowledge and skills for academic and personal growth.", 
+                link: "https://isa9.xyz/projects/LearnElite/index" 
+            },
+            { 
+                name: "Google Sheets Integration", 
+                description: "Google Sheets integration connects a website's frontend with Google Sheets as a backend using Google Apps Script. The frontend handles user input and displays data, while Sheets stores and organizes information. Apps Script acts as the middleware, automating data transfer, processing, and interaction, enabling real-time updates and seamless communication between the website and Sheets.", 
+                link: "https://isa9.xyz/projects/google_sheets/form1" 
+            },
+            { 
+                name: "Ultimate Translator", 
+                description: "Ultimate Translator is a project aimed at providing efficient translation capabilities, featuring support for multiple languages and a clipboard functionality for copying and translating text seamlessly. It focuses on enhancing usability and accessibility for diverse user needs.", 
+                link: "https://isa9.xyz/projects/translator/app0" 
+            },
+            
+            
+            { 
+                name: "Online Chat Assistant", 
+                description: "Offers automated customer support through a chatbot embedded on your website, providing instant responses and handling common inquiries. More complex queries can be escalated to human agents. Tawk.to is one of the popular third-party tools for this integration, offering free live chat with chatbot functionality.", 
+                link: "https://isa9.xyz/projects/chats/tawk.to" 
+            },
+                        
+            { 
+                name: "Forms Integration", 
+                description: "Forms Integration Services allows the creation and embedding of interactive forms on your website for data collection, such as registrations, surveys, or feedback. The data is securely stored and easily accessible for analysis or follow-up, providing a streamlined way to capture and manage user input.", 
+                link: "#" 
+            },
+                        { 
+                name: "Social Media Integration", 
+                description: "This connects your website with various social media platforms, enabling features like social sharing buttons, live feeds, and login options. It enhances user engagement and expands your online presence by allowing easy content sharing and interaction with social networks.", 
+                link: "#" 
+            },
+            
+            
+            { 
+                name: "CallApp Application", 
+                description: "CallApp is in its early stages and open for collaboration. It aims to enhance communication with features like caller ID, contact management, call history tracking, and video calling. Collaboration opportunities are available to expand its functionality and integrate new features.", 
+                link: "https://isa9.xyz/callsApp/Tester" 
+            }
+        ];
+
+        const projectList = document.getElementById("projectList");
+
+        projects.forEach(project => {
+            const projectItem = document.createElement("div");
+            projectItem.className = "project-item";
+
+            const projectHeader = document.createElement("div");
+            projectHeader.className = "project-header";
+
+            const projectName = document.createElement("h2");
+            projectName.textContent = project.name;
+
+            const viewButton = document.createElement("button");
+            viewButton.textContent = "View";
+            viewButton.onclick = () => {
+                window.open(project.link, "_blank");
+            };
+
+            const projectDescription = document.createElement("p");
+            projectDescription.className = "project-description";
+            projectDescription.textContent = project.description;
+
+            projectHeader.appendChild(projectName);
+            projectHeader.appendChild(viewButton);
+            projectItem.appendChild(projectHeader);
+            projectItem.appendChild(projectDescription);
+
+            projectList.appendChild(projectItem);
+        });
+    </script>
+</body>
+</html>
+

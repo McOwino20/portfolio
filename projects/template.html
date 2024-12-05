@@ -80,6 +80,20 @@
             line-height: 1.6;
         }
 
+     .back-home {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1rem;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.2);
+      background-color:blue;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+      }
+
         /* Responsive breakpoints */
         @media (min-width: 600px) {
             .project-list {
@@ -124,29 +138,29 @@
             { 
                 name: "Identity and Security Solutions", 
                 description: "Focuses on integrating robust security measures like Auth0, Cloudflare, and reCAPTCHA to protect websites against unauthorized access and cyber threats. It also ensures user identity management with secure authentication systems.", 
-                link: "https://isa9.xyz/projects/authentication/auth0" 
+                link: "../projects/authentication/auth0" 
             },
             { 
                 name: "LearnElite", 
                 description: "LearnElite serves to provide high-quality, accessible, and engaging e-educational solutions tailored for students and learners of all levels. Through a range of services and resources, it aims to simplify learning and empower individuals with knowledge and skills for academic and personal growth.", 
-                link: "https://isa9.xyz/projects/LearnElite/index" 
+                link: "../projects/LearnElite/index" 
             },
             { 
                 name: "Google Sheets Integration", 
                 description: "Google Sheets integration connects a website's frontend with Google Sheets as a backend using Google Apps Script. The frontend handles user input and displays data, while Sheets stores and organizes information. Apps Script acts as the middleware, automating data transfer, processing, and interaction, enabling real-time updates and seamless communication between the website and Sheets.", 
-                link: "https://isa9.xyz/projects/google_sheets/form1" 
+                link: "../projects/google_sheets/form1" 
             },
             { 
                 name: "Ultimate Translator", 
                 description: "Ultimate Translator is a project aimed at providing efficient translation capabilities, featuring support for multiple languages and a clipboard functionality for copying and translating text seamlessly. It focuses on enhancing usability and accessibility for diverse user needs.", 
-                link: "https://isa9.xyz/projects/translator/app0" 
+                link: "../projects/translator/app0" 
             },
             
             
             { 
                 name: "Online Chat Assistant", 
                 description: "Offers automated customer support through a chatbot embedded on your website, providing instant responses and handling common inquiries. More complex queries can be escalated to human agents. Tawk.to is one of the popular third-party tools for this integration, offering free live chat with chatbot functionality.", 
-                link: "https://isa9.xyz/projects/chats/tawk.to" 
+                link: "../projects/chats/tawk.to" 
             },
                         
             { 
@@ -164,7 +178,7 @@
             { 
                 name: "CallApp Application", 
                 description: "CallApp is in its early stages and open for collaboration. It aims to enhance communication with features like caller ID, contact management, call history tracking, and video calling. Collaboration opportunities are available to expand its functionality and integrate new features.", 
-                link: "https://isa9.xyz/callsApp/Tester" 
+                link: "../callsApp/Tester" 
             }
         ];
 
@@ -198,6 +212,7 @@
             projectList.appendChild(projectItem);
         });
     </script>
+    <a href="https://www.isa9.xyz" class="back-home">Back Home</a>
 </body>
 </html>
 

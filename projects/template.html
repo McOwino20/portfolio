@@ -80,19 +80,25 @@
             line-height: 1.6;
         }
 
-     .back-home {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      font-size: 1rem;
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.2);
-      background-color:blue;
-      color: #fff;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background 0.3s ease;
-      }
+        /* Button at the bottom left of the page */
+        .bottom-left-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .bottom-left-button:hover {
+         background-color: #0056b3;
+        }
+        
 
         /* Responsive breakpoints */
         @media (min-width: 600px) {
@@ -128,6 +134,9 @@
         </div>
     </div>
 
+    <button class="bottom-left-button" onclick="window.location.href = 'https://isa9.xyz';">Go to Home</button> <!-- Button positioned at the bottom-left -->
+    
+    
     <script>
         const projects = [
             { 

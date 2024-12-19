@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get In Touch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('/IMG_20241130_190757.jpg') no-repeat center center/cover;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Reduced opacity for better visibility */
+            z-index: -1;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.8); /* Transparent background */
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            backdrop-filter: blur(10px); /* Blurs the background photo behind */
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.9); /* Light transparency */
+            color: #333;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: rgba(255, 255, 255, 1); /* Fully opaque on focus */
+        }
+        textarea {
+            resize: none;
+            height: 150px;
+        }
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .info {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .info a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Get In Touch</h1>
+        <p>We'd love to hear from you! Fill out the form below to get in touch.</p>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <input type="text" placeholder="Subject" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit" class="button">Send Message</button>
+        </form>
+        <div class="info">
+            <p>Or reach us directly at <a href="mailto:info@isa9.xyz">info@isa9.xyz</a></p>
+        </div>
+    </div>
+</body>
+</html>

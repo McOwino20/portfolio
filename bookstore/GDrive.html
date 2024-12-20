@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #loading {
+      display: none;
+      font-size: 16px;
+      color: #888;
+      margin-top: 10px;
+    }
+    #results {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+    a {
+      display: block;
+      color: #4CAF50;
+      text-decoration: none;
+      font-size: 16px;
+      margin: 5px 0;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Search Documents</h1>
+    <input type="text" id="searchQuery" placeholder="Enter search term" />
+    <button onclick="search()">Search</button>
+    <div id="loading">Searching...</div>
+    <div id="results"></div>
+  </div>
+  <script>
+    function search() {
+      const query = document.getElementById('searchQuery').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+
+      // Clear previous results and show loading
+      resultsDiv.innerHTML = '';
+      loadingDiv.style.display = 'block';
+
+      if (!query) {
+        resultsDiv.innerHTML = '<p class="error">Please enter a search term.</p>';
+        loadingDiv.style.display = 'none';
+        return;
+      }
+
+      // Call Apps Script backend
+      google.script.run
+        .withSuccessHandler(displayResults)
+        .withFailureHandler(handleError)
+        .searchDocuments(query);
+    }
+
+    function displayResults(data) {
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      loadingDiv.style.display = 'none';
+
+      if (data.length === 0) {
+        resultsDiv.innerHTML = '<p>No documents found.</p>';
+        return;
+      }
+
+      data.forEach(doc => {
+        const link = document.createElement('a');
+        link.href = doc.url;
+        link.target = '_blank';
+        link.textContent = doc.name;
+        resultsDiv.appendChild(link);
+      });
+    }
+
+    function handleError(error) {
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      loadingDiv.style.display = 'none';
+      resultsDiv.innerHTML = `<p class="error">An error occurred: ${error}</p>`;
+    }
+  </script>
+</body>
+</html>

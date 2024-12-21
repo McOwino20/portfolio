@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration and Login System</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #d9534f;
+            margin-top: 10px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Our Website</h1>
+
+        <!-- Registration Section -->
+        <div class="form-section">
+            <h2>Register</h2>
+            <input type="text" id="regUsername" placeholder="Username">
+            <input type="password" id="regPassword" placeholder="Password">
+            <input type="email" id="regEmail" placeholder="Email">
+            <button onclick="registerUser()">Register</button>
+            <p id="registerResult"></p>
+        </div>
+
+        <!-- Login Section -->
+        <div class="form-section">
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="loginUser()">Login</button>
+            <p id="loginResult"></p>
+        </div>
+    </div>
+
+    <script>
+        // Google Apps Script Web App URL
+        const apiUrl = "https://script.google.com/macros/s/AKfycbzl3RBUS7KARNQlzy21KgUvpUOGKgO2-z5FFsfpLYqwYZYg0JaOHWXRoga3F_0SaGacsw/exec"; // Replace with your Google Apps Script URL
+
+        // Register User Function
+        async function registerUser() {
+            const username = document.getElementById("regUsername").value;
+            const password = document.getElementById("regPassword").value;
+            const email = document.getElementById("regEmail").value;
+
+            if (!username || !password || !email) {
+                document.getElementById("registerResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to register user
+            const response = await fetch(apiUrl + `?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&email=${encodeURIComponent(email)}`);
+            const result = await response.text();
+            document.getElementById("registerResult").innerText = result;
+        }
+
+        // Login User Function
+        async function loginUser() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            if (!username || !password) {
+                document.getElementById("loginResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to log in user
+            const response = await fetch(apiUrl + `?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+            const result = await response.text();
+
+            if (result === "Login successful") {
+                window.location.href = "redirect-page.html"; // Replace with your redirect page URL
+            } else {
+                document.getElementById("loginResult").innerText = result;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,129 +1,192 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Document Search</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Interface</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+    /* General Reset */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('https://raw.githubusercontent.com/McOwino20/portfolio/refs/heads/main/assets/images/McOwino.png') no-repeat center center/cover;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      color: #333;
     }
-    .container {
-      background: white;
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      padding: 20px;
+      padding: 40px 30px;
+      max-width: 400px;
       width: 100%;
-      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       text-align: center;
     }
-    h1 {
-      color: #4CAF50;
+
+    .logo img {
+      max-width: 150px;
+      margin-bottom: 20px;
+      border-radius: 50%; /* Make the logo rounded */
+      
     }
-    input {
-      width: 90%;
-      padding: 10px;
+
+    .login-container h2 {
+      font-size: 24px;
       margin-bottom: 10px;
+      color: #006494;
+    }
+
+    .login-container p {
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    .form-group {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    .login-container input[type="email"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
       border: 1px solid #ddd;
       border-radius: 5px;
+      outline: none;
     }
-    button {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
+
+    .login-container input:focus {
+      border-color: #006494;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background: none;
       border: none;
-      border-radius: 5px;
       cursor: pointer;
+      font-size: 14px;
+      color: #006494;
     }
-    button:hover {
-      background-color: #45a049;
-    }
-    #loading {
-      display: none;
+
+    .login-button {
+      background: #006494;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 5px;
+      width: 100%;
       font-size: 16px;
-      color: #888;
-      margin-top: 10px;
-    }
-    #results {
       margin-top: 20px;
-      text-align: left;
+      transition: background 0.3s;
     }
-    .error {
-      color: red;
+
+    .login-button:hover {
+      background: #005073;
+    }
+
+    .footer {
+      margin-top: 20px;
       font-size: 14px;
     }
-    a {
-      display: block;
-      color: #4CAF50;
+
+    .footer a {
+      color: #006494;
       text-decoration: none;
-      font-size: 16px;
-      margin: 5px 0;
     }
-    a:hover {
-      text-decoration: underline;
+
+    .error-message {
+      color:red;
+      font-size: 14px;
+      margin-top: 10px;
+    
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Search Documents</h1>
-    <input type="text" id="searchQuery" placeholder="Enter search term" />
-    <button onclick="search()">Search</button>
-    <div id="loading">Searching...</div>
-    <div id="results"></div>
+  <div class="login-container">
+    <div class="logo">
+      <!-- Replace with your company logo -->
+      <img src="https://raw.githubusercontent.com/McOwino20/portfolio/refs/heads/main/assets/images/McOwino.png" alt="Company Logo">
+    </div>
+    <h2>Welcome Back</h2>
+    <p>Please log in to access your account</p>
+
+    <!-- Email Input -->
+    <div class="form-group">
+      <input type="email" id="email" placeholder="Email Address" required>
+    </div>
+
+    <!-- Password Input with Show/Hide option -->
+    <div class="form-group">
+      <input type="password" id="password" placeholder="Password" required>
+      <button class="toggle-password" onclick="togglePasswordVisibility()">Show</button>
+    </div>
+
+    <!-- Error Message -->
+    <p id="errorMessage" class="error-message"></p>
+
+    <!-- Login Button -->
+    <button class="login-button" onclick="login()">Login</button>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Get In Touch via our <a href="https://isa9.xyz">website</a></p>
+      
+     <p>© 2024. All rights reserved by <a href="https://isa9.xyz">McOwino</a></p>
+    </div>
   </div>
+
   <script>
-    function search() {
-      const query = document.getElementById('searchQuery').value.trim();
-      const resultsDiv = document.getElementById('results');
-      const loadingDiv = document.getElementById('loading');
+    // Function to toggle password visibility
+    function togglePasswordVisibility() {
+      const passwordField = document.getElementById("password");
+      const toggleButton = passwordField.nextElementSibling;
 
-      // Clear previous results and show loading
-      resultsDiv.innerHTML = '';
-      loadingDiv.style.display = 'block';
-
-      if (!query) {
-        resultsDiv.innerHTML = '<p class="error">Please enter a search term.</p>';
-        loadingDiv.style.display = 'none';
-        return;
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleButton.textContent = "Hide";
+      } else {
+        passwordField.type = "password";
+        toggleButton.textContent = "Show";
       }
-
-      // Call Apps Script backend
-      google.script.run
-        .withSuccessHandler(displayResults)
-        .withFailureHandler(handleError)
-        .searchDocuments(query);
     }
 
-    function displayResults(data) {
-      const resultsDiv = document.getElementById('results');
-      const loadingDiv = document.getElementById('loading');
-      loadingDiv.style.display = 'none';
+    // Function to simulate login process
+    function login() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMessage = document.getElementById("errorMessage");
 
-      if (data.length === 0) {
-        resultsDiv.innerHTML = '<p>No documents found.</p>';
-        return;
+      // Simulate login credentials validation
+      const correctEmail = "info@isa9.xyz"; // Example email
+      const correctPassword = "password123";  // Example password
+
+      // Clear previous error message
+      errorMessage.textContent = "";
+
+      // Validate credentials
+      if (email === correctEmail && password === correctPassword) {
+        // Redirect on successful login
+        window.location.href = "#"; // Replace with your target URL
+      } else {
+        // Show error message on failure
+        errorMessage.textContent = "Invalid email or password. Please try again.";
       }
-
-      data.forEach(doc => {
-        const link = document.createElement('a');
-        link.href = doc.url;
-        link.target = '_blank';
-        link.textContent = doc.name;
-        resultsDiv.appendChild(link);
-      });
-    }
-
-    function handleError(error) {
-      const resultsDiv = document.getElementById('results');
-      const loadingDiv = document.getElementById('loading');
-      loadingDiv.style.display = 'none';
-      resultsDiv.innerHTML = `<p class="error">An error occurred: ${error}</p>`;
     }
   </script>
 </body>

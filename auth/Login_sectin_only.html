@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration and Login System</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/IMG_20241130_190757.jpg'); /* Replace with your desired background image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        /* Logo styling */
+        .logo {
+            width: 150px; /* Adjust logo size */
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #d9534f;
+            margin-top: 10px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .register-link {
+            font-size: 1rem;
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Section -->
+        <img src="/IMG_20241130_190757.jpg" alt="Logo" class="logo"> <!-- Replace with your logo file -->
+
+        <h1>Welcome to Our Website</h1>
+
+        <!-- Login Section -->
+        <div class="form-section">
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="loginUser()">Login</button>
+            <p id="loginResult"></p>
+        </div>
+
+        <!-- Register Link Section -->
+        <a href="register.html" class="register-link">Don't have an account? Register here.</a> <!-- Link to your registration page -->
+
+    </div>
+
+    <script>
+        // Google Apps Script Web App URL
+        const apiUrl = "https://script.google.com/macros/s/AKfycbzl3RBUS7KARNQlzy21KgUvpUOGKgO2-z5FFsfpLYqwYZYg0JaOHWXRoga3F_0SaGacsw/exec"; // Replace with your Google Apps Script URL
+
+        // Register User Function
+        async function registerUser() {
+            const username = document.getElementById("regUsername").value;
+            const password = document.getElementById("regPassword").value;
+            const email = document.getElementById("regEmail").value;
+
+            if (!username || !password || !email) {
+                document.getElementById("registerResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to register user
+            const response = await fetch(apiUrl + `?action=register&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&email=${encodeURIComponent(email)}`);
+            const result = await response.text();
+            document.getElementById("registerResult").innerText = result;
+        }
+
+        // Login User Function
+        async function loginUser() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            if (!username || !password) {
+                document.getElementById("loginResult").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // API call to log in user
+            const response = await fetch(apiUrl + `?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+            const result = await response.text();
+
+            if (result === "Login successful") {
+                window.location.href = "redirect-page.html"; // Replace with your redirect page URL
+            } else {
+                document.getElementById("loginResult").innerText = result;
+            }
+        }
+    </script>
+</body>
+</html>

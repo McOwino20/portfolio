@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://raw.githubusercontent.com/McOwino20/portfolio/main/assets/images/McOwino.png') no-repeat center center/cover;
+      margin: 0;
+      padding: 0;
+      display: flex; /* Use flexbox to center the content */
+      justify-content: center; /* Horizontally center the container */
+      align-items: center; /* Vertically center the container */
+      height: 100vh; /* Full viewport height */
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px; /* Maximum width for the container */
+      margin: 0 20px; /* Margin to prevent the container from touching the edges on small screens */
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      box-sizing: border-box; /* Ensure padding doesn't affect width */
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .results,
+    .uploads-preview {
+      margin-top: 15px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .results p,
+    .uploads-preview p {
+      text-align: left;
+      margin: 5px 0;
+    }
+
+    .message {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Document Management System</h2>
+
+    <!-- Search Section -->
+    <div class="form-group">
+      <label for="searchQuery">Search Documents</label>
+      <input type="text" id="searchQuery" placeholder="Enter document name">
+      <button id="searchBtn">Search</button>
+    </div>
+    <div id="searchStatus" class="message"></div>
+    <div id="searchResults" class="results"></div>
+
+    <!-- Upload Section -->
+    <div class="form-group">
+      <label for="fileInput">Upload Documents</label>
+      <input type="file" id="fileInput" multiple>
+      <button id="uploadBtn">Upload</button>
+    </div>
+    <div id="uploadPreview" class="uploads-preview"></div>
+    <div id="uploadMessage" class="message"></div>
+  </div>
+
+  <script>
+    // Replace this with your Apps Script Web App URL
+    const APP_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_APP_SCRIPT_ID/exec";
+
+    // Handle Search
+    document.getElementById('searchBtn').addEventListener('click', function() {
+      const query = document.getElementById('searchQuery').value;
+      const searchStatus = document.getElementById('searchStatus');
+      const searchResults = document.getElementById('searchResults');
+
+      if (!query) {
+        searchStatus.textContent = 'Please enter a search query.';
+        return;
+      }
+
+      searchStatus.textContent = 'Searching...';
+      searchResults.innerHTML = '';
+
+      fetch(`${APP_SCRIPT_URL}?action=search&query=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+          searchStatus.textContent = '';
+          if (data.length === 0) {
+            searchResults.textContent = 'No results found.';
+          } else {
+            data.forEach(doc => {
+              const p = document.createElement('p');
+              p.innerHTML = `<a href="${doc.url}" target="_blank">${doc.name}</a>`;
+              searchResults.appendChild(p);
+            });
+          }
+        })
+        .catch(error => {
+          searchStatus.textContent = `Error: ${error.message}`;
+        });
+    });
+
+    // Handle Upload
+    document.getElementById('uploadBtn').addEventListener('click', function() {
+      const files = document.getElementById('fileInput').files;
+      const uploadPreview = document.getElementById('uploadPreview');
+      const uploadMessage = document.getElementById('uploadMessage');
+
+      if (files.length === 0) {
+        uploadMessage.textContent = 'Please select files to upload.';
+        return;
+      }
+
+      uploadMessage.textContent = 'Uploading...';
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const fileData = {
+            name: file.name,
+            mimeType: file.type,
+            base64: e.target.result.split(',')[1],
+          };
+
+          fetch(`${APP_SCRIPT_URL}?action=upload`, {
+            method: 'POST',
+            body: JSON.stringify(fileData),
+            headers: { 'Content-Type': 'application/json' },
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.error) {
+                uploadMessage.textContent = `Error: ${data.error}`;
+              } else {
+                const p = document.createElement('p');
+                p.innerHTML = `Uploaded: <a href="${data.url}" target="_blank">${data.name}</a>`;
+                uploadPreview.appendChild(p);
+                uploadMessage.textContent = 'Upload successful.';
+              }
+            })
+            .catch(error => {
+              uploadMessage.textContent = `Error: ${error.message}`;
+            });
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://raw.githubusercontent.com/McOwino20/portfolio/refs/heads/main/assets/images/McOwino.png') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #00c8ff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    input[type="file"],
+    input[type="text"],
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+
+    input[type="file"] {
+      background: #333;
+      color: #fff;
+    }
+
+    input[type="text"] {
+      border: 1px solid #555;
+      background: #222;
+      color: #fff;
+    }
+
+    button {
+      background: #00c8ff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0099cc;
+    }
+
+    .message {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .results,
+    .uploads-preview {
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #444;
+      padding: 10px;
+      border-radius: 5px;
+      background: #222;
+      color: #fff;
+      text-align: left;
+    }
+
+    .results p,
+    .uploads-preview p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .scrollable {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Secure Document Management</h2>
+
+    <!-- Search Section -->
+    <div class="form-group">
+      <label for="search">Search Documents</label>
+      <input type="text" id="search" placeholder="Enter document name" />
+      <button onclick="searchDocuments()">Search</button>
+      <div id="searchStatus" class="status"></div>
+    </div>
+
+    <div class="results" id="searchResults">
+      <!-- Search results will be dynamically populated here -->
+    </div>
+
+    <!-- Upload Section -->
+    <div class="form-group">
+      <label for="fileUpload">Upload Documents</label>
+      <input type="file" id="fileUpload" multiple />
+      <button onclick="uploadFiles()">Upload</button>
+      <div id="uploadStatus" class="status"></div>
+    </div>
+
+    <div class="uploads-preview" id="uploadsPreview">
+      <!-- Uploaded file previews will appear here -->
+    </div>
+  </div>
+
+  <script>
+    const webAppUrl = "https://script.google.com/macros/s/AKfycbzzWSdrLS2CgCBpkVPJLV5QYLbOhm_OVKBjFUdDkXT-Rl81d2ZRgJcG2VLMwH3_3_DFUA/exec"; // Replace with your Apps Script Web App URL
+
+    function searchDocuments() {
+      const searchQuery = document.getElementById("search").value.trim();
+      const searchStatus = document.getElementById("searchStatus");
+      const searchResults = document.getElementById("searchResults");
+
+      if (!searchQuery) {
+        searchStatus.textContent = "Please enter a document name to search.";
+        return;
+      }
+
+      searchStatus.textContent = "Searching...";
+      searchResults.innerHTML = "";
+
+      fetch(`${webAppUrl}?action=search&query=${encodeURIComponent(searchQuery)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          searchStatus.textContent = "";
+
+          if (data.status === "success") {
+            data.results.forEach((doc) => {
+              const p = document.createElement("p");
+              p.textContent = doc;
+              searchResults.appendChild(p);
+            });
+          } else {
+            searchResults.textContent = data.message;
+          }
+        })
+        .catch(() => {
+          searchStatus.textContent = "An error occurred while searching.";
+        });
+    }
+
+    function uploadFiles() {
+      const files = document.getElementById("fileUpload").files;
+      const uploadStatus = document.getElementById("uploadStatus");
+      const uploadsPreview = document.getElementById("uploadsPreview");
+
+      if (files.length === 0) {
+        uploadStatus.textContent = "Please select files to upload.";
+        return;
+      }
+
+      uploadStatus.textContent = "Uploading...";
+      uploadsPreview.innerHTML = "";
+
+      const formData = new FormData();
+      formData.append("action", "upload");
+
+      Array.from(files).forEach((file) => {
+        formData.append("files", file);
+        const p = document.createElement("p");
+        p.textContent = `Selected: ${file.name}`;
+        uploadsPreview.appendChild(p);
+      });
+
+      fetch(webAppUrl, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          uploadStatus.textContent = "";
+
+          if (data.status === "success") {
+            data.uploaded.forEach((doc) => {
+              const p = document.createElement("p");
+              p.textContent = doc;
+              uploadsPreview.appendChild(p);
+            });
+          } else {
+            uploadStatus.textContent = data.message;
+          }
+        })
+        .catch(() => {
+          uploadStatus.textContent = "An error occurred during upload.";
+        });
+    }
+  </script>
+  
+  <!--
+  
+  
+function doPost(e) {
+  const action = e.parameter.action || JSON.parse(e.postData.contents).action;
+
+  if (action === "upload") {
+    return handleSafeUpload(e);
+  }
+
+  return ContentService.createTextOutput(
+    JSON.stringify({ status: "error", message: "Invalid action" })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  if (e.parameter.action === "search") {
+    return handleSearch(e.parameter.query);
+  }
+
+  return ContentService.createTextOutput(
+    JSON.stringify({ status: "error", message: "Invalid action" })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+// File upload logic
+function handleSafeUpload(e) {
+  const folderId = "1UJHoIXdlJv2X6ID5Hz1mKKIkOTRCNIRW"; // Replace with your folder ID
+  const folder = DriveApp.getFolderById(folderId);
+
+  try {
+    const files = e.parameter.files;
+    const allowedMimeTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "image/jpeg",
+      "image/png",
+      "text/plain",
+    ];
+    const maxFileSize = 10 * 1024 * 1024;
+
+    const uploadedFiles = [];
+
+    for (let file of files) {
+      const { name, mimeType, length } = file;
+
+      if (!allowedMimeTypes.includes(mimeType) || length > maxFileSize) {
+        return ContentService.createTextOutput(
+          JSON.stringify({ status: "error", message: `Invalid file: ${name}` })
+        ).setMimeType(ContentService.MimeType.JSON);
+      }
+
+      const blob = Utilities.newBlob(file.contents, mimeType, name);
+      folder.createFile(blob);
+      uploadedFiles.push(name);
+    }
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "success", uploaded: uploadedFiles })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: "Upload failed." })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Search logic
+function handleSearch(query) {
+  const folderId = "1UJHoIXdlJv2X6ID5Hz1mKKIkOTRCNIRW"; // Replace with your folder ID
+  const folder = DriveApp.getFolderById(folderId);
+  const files = folder.getFiles();
+  const results = [];
+
+  while (files.hasNext()) {
+    const file = files.next();
+    if (file.getName().toLowerCase().includes(query.toLowerCase())) {
+      results.push(file.getName());
+    }
+  }
+
+  return ContentService.createTextOutput(
+    JSON.stringify({
+      status: "success",
+      results: results.length ? results : ["No documents found"],
+    })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+ -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</body>
+</html>
+
+

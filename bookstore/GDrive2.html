@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Upload and Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://raw.githubusercontent.com/McOwino20/portfolio/refs/heads/main/assets/images/McOwino.png') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #00c8ff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    input[type="file"],
+    input[type="text"],
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+
+    input[type="file"] {
+      background: #333;
+      color: #fff;
+    }
+
+    input[type="text"] {
+      border: 1px solid #555;
+      background: #222;
+      color: #fff;
+    }
+
+    button {
+      background: #00c8ff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0099cc;
+    }
+
+    .message {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Secure Document Management</h2>
+
+    <!-- Search Section -->
+    <div class="form-group">
+      <label for="search">Search Documents</label>
+      <input type="text" id="search" placeholder="Enter document name" />
+      <button onclick="searchDocuments()">Search</button>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="form-group">
+      <label for="fileUpload">Upload Documents</label>
+      <input type="file" id="fileUpload" multiple />
+      <button onclick="uploadFiles()">Upload</button>
+    </div>
+
+    <p id="message" class="message"></p>
+  </div>
+
+  <script>
+    const webAppUrl = "https://script.google.com/macros/s/AKfycbxNcDp1syDvSpEVPq2S5wI0-NHFn0d476EGdCvN-B9FMpcHlNjC2kLfy513NqpS7Oco/exec"; // Replace with your Apps Script Web App URL
+
+    function uploadFiles() {
+      const files = document.getElementById("fileUpload").files;
+      const message = document.getElementById("message");
+
+      if (files.length === 0) {
+        message.textContent = "Please select files to upload.";
+        message.className = "message error";
+        return;
+      }
+
+      const allowedTypes = [
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "image/jpeg",
+        "image/png",
+        "text/plain",
+      ];
+      const maxFileSize = 10 * 1024 * 1024; // 10MB
+
+      const formData = new FormData();
+      formData.append("action", "upload");
+
+      let allValid = true;
+      Array.from(files).forEach((file) => {
+        if (!allowedTypes.includes(file.type)) {
+          allValid = false;
+          message.textContent = `Unsupported file type: ${file.name}`;
+          message.className = "message error";
+        } else if (file.size > maxFileSize) {
+          allValid = false;
+          message.textContent = `File size exceeds limit: ${file.name}`;
+          message.className = "message error";
+        } else {
+          formData.append("files", file);
+        }
+      });
+
+      if (!allValid) return;
+
+      fetch(webAppUrl, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            message.textContent = data.message;
+            message.className = "message success";
+          } else {
+            message.textContent = data.message;
+            message.className = "message error";
+          }
+        })
+        .catch(() => {
+          message.textContent = "An error occurred during upload.";
+          message.className = "message error";
+        });
+    }
+
+    function searchDocuments() {
+      const searchQuery = document.getElementById("search").value.trim();
+      const message = document.getElementById("message");
+
+      if (searchQuery === "") {
+        message.textContent = "Please enter a document name to search.";
+        message.className = "message error";
+        return;
+      }
+
+      fetch(`${webAppUrl}?action=search&query=${encodeURIComponent(searchQuery)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            message.textContent = `Search results: ${data.results.join(", ")}`;
+            message.className = "message success";
+          } else {
+            message.textContent = data.message;
+            message.className = "message error";
+          }
+        })
+        .catch(() => {
+          message.textContent = "An error occurred during search.";
+          message.className = "message error";
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Search and Upload</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://raw.githubusercontent.com/McOwino20/portfolio/refs/heads/main/assets/images/McOwino.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    /* Container for the form */
+    .container {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    /* Input field styling */
+    input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* Results and Messages */
+    #results {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    #uploadMessage {
+      margin-top: 20px;
+    }
+
+    /* Loading state */
+    #loading {
+      font-size: 18px;
+      color: #999;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Search and Upload Documents</h1>
+
+    <!-- Search Section -->
+    <input type="text" id="searchQuery" placeholder="Enter search term">
+    <button onclick="search()">Search</button>
+    <div id="loading">Searching...</div>
+    <div id="results"></div>
+
+    <!-- Upload Section -->
+    <div id="uploadSection">
+      <h2>Upload Document</h2>
+      <form id="uploadForm">
+        <input type="file" id="fileInput" name="file" required>
+        <button type="submit">Upload</button>
+      </form>
+      <button onclick="https://script.google.com/macros/s/AKfycbyiooa8TLFF1GhPp1LHZk9ROPLi7vuYMxZA5FUIuvvCXXEGfBYj6bxhFjKIIj_BEi6GvQ/exec">Refresh Page</button>
+      <div id="uploadMessage"></div>
+    </div>
+  </div>
+
+  <script>
+    // Search functionality (same as before)
+    function search() {
+      const query = document.getElementById('searchQuery').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+
+      // Clear previous results and show loading indicator
+      resultsDiv.innerHTML = '';
+      loadingDiv.style.display = 'block';
+
+      if (!query) {
+        resultsDiv.innerHTML = '<p style="color: red;">Please enter a search term.</p>';
+        loadingDiv.style.display = 'none';
+        return;
+      }
+
+      // Call Apps Script backend for search results
+      google.script.run
+        .withSuccessHandler(displayResults)
+        .withFailureHandler(handleError)
+        .searchDocuments(query);
+    }
+
+    function displayResults(data) {
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      loadingDiv.style.display = 'none';
+
+      if (data.length === 0) {
+        resultsDiv.innerHTML = '<p>No documents found.</p>';
+        return;
+      }
+
+      data.forEach(doc => {
+        const link = document.createElement('a');
+        link.href = doc.url;
+        link.target = '_blank';
+        link.textContent = doc.name;
+        resultsDiv.appendChild(link);
+        resultsDiv.appendChild(document.createElement('br'));
+      });
+    }
+
+    function handleError(error) {
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      loadingDiv.style.display = 'none';
+      resultsDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+    }
+
+    // Handle document upload with enhanced safety and duplicate check
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      const fileInput = document.getElementById('fileInput');
+      const uploadMessageDiv = document.getElementById('uploadMessage');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        uploadMessageDiv.innerHTML = '<p style="color: red;">Please select a file to upload.</p>';
+        return;
+      }
+
+      uploadMessageDiv.innerHTML = 'Uploading...';
+
+      // Convert file to base64
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        const base64Data = reader.result.split(',')[1]; // Get the base64 part
+        const mimeType = file.type;
+        const fileName = file.name;
+
+        // Call Apps Script backend to upload the file
+        google.script.run
+          .withSuccessHandler(function(fileId) {
+            uploadMessageDiv.innerHTML = `<p>File uploaded successfully! <a href="https://drive.google.com/file/d/${fileId}/view" target="_blank">View Document</a>. For any inquiry get in touch  <a href="https://isa9.xyz" target="_blank">here</a></p>`;
+          })
+          .withFailureHandler(function(error) {
+            uploadMessageDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+          })
+          .uploadFile({ base64: base64Data, mimeType: mimeType, name: fileName });
+      };
+      reader.readAsDataURL(file); // Read the file as base64
+    });
+  </script>
+</body>
+</html>

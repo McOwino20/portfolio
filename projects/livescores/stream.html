@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LiveScore</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Light Theme */
+    body.light {
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    /* Dark Theme */
+    body.dark {
+      background-color: #121212;
+      color: #f4f4f9;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1e88e5, #1565c0);
+      color: white;
+      padding: 35px 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Logo fixed at left side */
+    .logo {
+      position: fixed;
+      top: 15px;
+      left: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo img {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+
+.logo span {
+  font-size: 28px; /* Make the font larger for better visibility */
+  font-weight: 700; /* Bold for emphasis */
+  letter-spacing: 1px; /* Adds some spacing between the letters for a clean look */
+  text-transform: ; /* Make the text uppercase for a bold, strong look */
+  color: white; /* Text color matching the header */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Choose a modern sans-serif font */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow effect to make it pop */
+  transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Optional Hover Effect */
+.logo span:hover {
+  color: #ffcc00; /* Bright yellow when hovered */
+  text-shadow: 2px 2px 6px rgba(255, 204, 0, 0.7); /* More prominent text shadow on hover */
+}
+
+
+
+
+
+
+
+    /* Hamburger Menu and Navigation */
+    #hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+
+    #hamburger div {
+      width: 30px;
+      height: 4px;
+      background-color: white;
+      border-radius: 5px;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    header nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      color: #ffcc00;
+    }
+
+    /* Mode Toggle */
+    footer #theme-toggle {
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    /* Hamburger Menu - Open */
+    .hamburger-menu.open {
+      display: flex;
+      position: absolute;
+      top: 70px;
+      right: 30px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 8px;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .hamburger-menu ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hamburger-menu ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    /* Main content styles */
+    main {
+      flex: 1;
+      padding: 30px;
+    }
+
+    #live-scores h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #1e88e5;
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    .score-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .score-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .score-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .score-card h3 {
+      font-size: 22px;
+      color: #333;
+    }
+
+    .score-card p {
+      font-size: 16px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    body.dark .score-card {
+      background: #2c2c2c;
+      color: #f4f4f9;
+    }
+
+    footer {
+      background: #1e88e5;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    footer .social-icons {
+      margin-top: 15px;
+    }
+
+    footer .social-icons a {
+      color: white;
+      margin: 0 15px;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+
+    footer .social-icons a:hover {
+      color: #ffcc00;
+    }
+
+    footer #theme-toggle {
+      position: absolute;
+      top: 10px;
+      right: 30px;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        justify-content: space-between;
+      }
+
+      header nav ul {
+        display: none;
+      }
+
+      #hamburger {
+        display: flex;
+      }
+
+      .hamburger-menu.open {
+        display: flex;
+      }
+
+      .logo {
+        left: 15px;
+        top: 15px;
+      }
+    }
+  </style>
+</head>
+<body class="light">
+  <header>
+    <!-- Clickable Photo Logo (Fixed at Left Edge) -->
+    <a href="index.html" class="logo">
+      <img src="/IMG_20241130_190757.jpg" alt="Logo">
+      <span>LiveScore</span>
+    </a>
+    
+    <!-- Hamburger Icon (Right Side) -->
+    <div id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Football</a></li>
+        <li><a href="#">Basketball</a></li>
+        <li><a href="#">Cricket</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu" id="hamburgerMenu">
+    <ul>
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#">Football</a></li>
+      <li><a href="#">Basketball</a></li>
+      <li><a href="#">Cricket</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <section id="live-scores">
+      <h1>Live Scores</h1>
+      <div class="score-container" id="scoreContainer">
+        <!-- Scores will be dynamically added here -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 LiveScore. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <!-- Mode Toggle Icon in Footer -->
+    <i id="theme-toggle" class="fas fa-moon"></i>
+  </footer>
+
+  <script>
+    // Theme Toggle Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+      const isLight = body.classList.contains('light');
+      body.classList.toggle('light', !isLight);
+      body.classList.toggle('dark', isLight);
+      themeToggle.classList.toggle('fa-moon', isLight);
+      themeToggle.classList.toggle('fa-sun', !isLight);
+    });
+
+    // Hamburger Menu Logic
+    const hamburger = document.getElementById('hamburger');
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburgerMenu.classList.toggle('open');
+    });
+
+    // Fetch live scores from API (Replace with your API endpoint and key)
+    const API_URL = 'https://api.sportsdata.io/v4/soccer/scores/json/CurrentSeason';
+    const API_KEY = 'b3b53607c49946d4b92d1e7a1c403065';
+
+    async function fetchLiveScores() {
+      try {
+        const response = await fetch(API_URL, {
+          headers: { 'Ocp-Apim-Subscription-Key': API_KEY }
+        });
+        if (!response.ok) throw new Error('Failed to fetch live scores');
+
+        const data = await response.json();
+        renderScores(data);
+      } catch (error) {
+        console.error(error);
+        document.getElementById('scoreContainer').innerHTML = '<p>Unable to load scores.</p>';
+      }
+    }
+
+    function renderScores(scores) {
+      const container = document.getElementById('scoreContainer');
+      container.innerHTML = scores.map(score => `
+        <div class="score-card">
+          <h3>${score.HomeTeam} vs ${score.AwayTeam}</h3>
+          <p>${score.Score || 'Score not available'}</p>
+          <p>${score.DateTime}</p>
+        </div>
+      `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchLiveScores);
+  </script>
+</body>
+</html>

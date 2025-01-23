@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive URL Shortener</title>
+  <style>
+    /* Global styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url('https://source.unsplash.com/random/1920x1080/?tech') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    input, button {
+      padding: 12px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input {
+      width: 80%;
+      max-width: 400px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #shortened-url {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    #shortened-url a {
+      color: #17a2b8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #shortened-url a:hover {
+      text-decoration: underline;
+    }
+
+    h3 {
+      margin-top: 30px;
+    }
+
+    #url-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    #url-list li {
+      margin: 10px 0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    #url-list a {
+      color: #ffc107;
+      text-decoration: none;
+    }
+
+    #url-list a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      input {
+        width: 90%;
+      }
+
+      button {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Responsive URL Shortener</h1>
+  <input type="text" id="long-url" placeholder="Enter a long URL" />
+  <button onclick="shortenURL()">Shorten URL</button>
+  <div id="shortened-url"></div>
+  <h3>All Shortened URLs</h3>
+  <ul id="url-list"></ul>
+
+  <script>
+    // Local storage key for URL data
+    const STORAGE_KEY = "urlShortenerData";
+
+    // Function to shorten the URL
+    function shortenURL() {
+      const longURL = document.getElementById("long-url").value;
+
+      if (!longURL) {
+        alert("Please enter a valid URL!");
+        return;
+      }
+
+      // Generate a random 6-character key
+      const shortKey = Math.random().toString(36).substring(2, 8);
+
+      // Retrieve existing data from local storage
+      let urlData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+
+      // Save the long URL with the short key
+      urlData[shortKey] = longURL;
+
+      // Update local storage
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(urlData));
+
+      // Display the shortened URL
+      document.getElementById("shortened-url").innerHTML =
+        `Shortened URL: <a href="${longURL}" target="_blank">https://short.ly/${shortKey}</a>`;
+
+      // Refresh the URL list
+      displayURLs();
+    }
+
+    // Function to display all stored URLs
+    function displayURLs() {
+      const urlData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      const urlList = document.getElementById("url-list");
+
+      // Clear the existing list
+      urlList.innerHTML = "";
+
+      // Add each shortened URL to the list
+      Object.keys(urlData).forEach((key) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<a href="${urlData[key]}" target="_blank">https://short.ly/${key}</a> → ${urlData[key]}`;
+        urlList.appendChild(listItem);
+      });
+    }
+
+    // Display URLs on page load
+    displayURLs();
+  </script>
+</body>
+</html>

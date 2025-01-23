@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://source.unsplash.com/1600x900/?weather') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    input {
+      padding: 10px;
+      width: calc(100% - 22px);
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .weather-info {
+      margin-top: 20px;
+    }
+
+    .weather-info img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .error {
+      color: #ff6347;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Weather App</h1>
+    <input type="text" id="city" placeholder="Enter city name">
+    <button id="get-weather">Get Weather</button>
+    <div class="weather-info" id="weather-info" style="display: none;">
+      <h2 id="city-name"></h2>
+      <p id="description"></p>
+      <img id="icon" alt="Weather Icon">
+      <p><span id="temperature"></span>°C</p>
+    </div>
+    <p class="error" id="error-message" style="display: none;"></p>
+  </div>
+
+  <script>
+    const apiKey = "43d2e7741a4403f999fc45a023265248"; // Replace with your OpenWeatherMap API key
+    const weatherBtn = document.getElementById("get-weather");
+    const weatherInfo = document.getElementById("weather-info");
+    const errorMessage = document.getElementById("error-message");
+
+    weatherBtn.addEventListener("click", () => {
+      const city = document.getElementById("city").value.trim();
+      if (city === "") {
+        alert("Please enter a city name!");
+        return;
+      }
+
+      fetchWeather(city);
+    });
+
+    const fetchWeather = async (city) => {
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (response.ok) {
+          displayWeather(data);
+          errorMessage.style.display = "none";
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        errorMessage.style.display = "block";
+        errorMessage.textContent = error.message;
+        weatherInfo.style.display = "none";
+      }
+    };
+
+    const displayWeather = (data) => {
+      const cityName = document.getElementById("city-name");
+      const description = document.getElementById("description");
+      const icon = document.getElementById("icon");
+      const temperature = document.getElementById("temperature");
+
+      cityName.textContent = data.name + ", " + data.sys.country;
+      description.textContent = data.weather[0].description;
+      icon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      temperature.textContent = data.main.temp;
+
+      weatherInfo.style.display = "block";
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note-Taking App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden; /* Prevent page scrolling */
+      
+      
+      
+      background: url('/IMG_20241130_190757.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      height: 90vh; /* Use 90% of viewport height */
+      max-height: 700px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      resize: none;
+      flex-grow: 0; /* Prevent growing when content is added */
+      height: 120px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px 0;
+      flex-grow: 0; /* Prevent growing */
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    /* Container for notes */
+    #notesContainer {
+      flex-grow: 1; /* Allow notes container to expand */
+      overflow-y: auto; /* Enable vertical scrolling if notes exceed container height */
+      padding: 10px;
+      margin-top: 10px;
+      max-height: 400px; /* Limit notes container height */
+      border-top: 1px solid #ddd;
+    }
+
+    .note {
+      background: #f9f9f9;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .note-buttons {
+      text-align: right;
+    }
+
+    .note-buttons button {
+      background: #dc3545;
+    }
+
+    .note-buttons button:hover {
+      background: #a71d2a;
+    }
+
+    /* Prevent body from scrolling */
+    html, body {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Note-Taking App</h1>
+    <textarea id="noteInput" rows="4" placeholder="Write your note here..."></textarea>
+    <button id="addNote">Add Note</button>
+    <div id="notesContainer"></div>
+  </div>
+
+  <script>
+    const noteInput = document.getElementById("noteInput");
+    const addNoteBtn = document.getElementById("addNote");
+    const notesContainer = document.getElementById("notesContainer");
+
+    // Load notes from local storage on page load
+    document.addEventListener("DOMContentLoaded", loadNotes);
+
+    // Add a new note
+    addNoteBtn.addEventListener("click", () => {
+      const noteText = noteInput.value.trim();
+      if (noteText) {
+        saveNoteToLocalStorage(noteText);
+        displayNotes();
+        noteInput.value = "";
+      } else {
+        alert("Please write something before adding a note!");
+      }
+    });
+
+    // Load notes from local storage
+    function loadNotes() {
+      displayNotes();
+    }
+
+    // Display all notes
+    function displayNotes() {
+      const notes = getNotesFromLocalStorage();
+      notesContainer.innerHTML = "";
+
+      notes.forEach((note, index) => {
+        const noteDiv = document.createElement("div");
+        noteDiv.className = "note";
+
+        const noteText = document.createElement("p");
+        noteText.textContent = note;
+
+        const noteButtons = document.createElement("div");
+        noteButtons.className = "note-buttons";
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+        editBtn.addEventListener("click", () => editNote(index));
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => deleteNote(index));
+
+        noteButtons.appendChild(editBtn);
+        noteButtons.appendChild(deleteBtn);
+        noteDiv.appendChild(noteText);
+        noteDiv.appendChild(noteButtons);
+
+        notesContainer.appendChild(noteDiv);
+      });
+    }
+
+    // Save a note to local storage
+    function saveNoteToLocalStorage(note) {
+      const notes = getNotesFromLocalStorage();
+      notes.push(note);
+      localStorage.setItem("notes", JSON.stringify(notes));
+    }
+
+    // Get notes from local storage
+    function getNotesFromLocalStorage() {
+      const notes = localStorage.getItem("notes");
+      return notes ? JSON.parse(notes) : [];
+    }
+
+    // Edit a note
+    function editNote(index) {
+      const notes = getNotesFromLocalStorage();
+      const newNote = prompt("Edit your note:", notes[index]);
+      if (newNote !== null) {
+        notes[index] = newNote.trim();
+        localStorage.setItem("notes", JSON.stringify(notes));
+        displayNotes();
+      }
+    }
+
+    // Delete a note
+    function deleteNote(index) {
+      const notes = getNotesFromLocalStorage();
+      if (confirm("Are you sure you want to delete this note?")) {
+        notes.splice(index, 1);
+        localStorage.setItem("notes", JSON.stringify(notes));
+        displayNotes();
+      }
+    }
+  </script>
+</body>
+</html>

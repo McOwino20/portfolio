@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Period Tracker</title>
+  <style>
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('https://source.unsplash.com/1600x900/?flowers,wellness') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+  color: #ff6781;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  resize: none;
+  height: 80px;
+}
+
+button {
+  background-color: #ff6781;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #ff4a67;
+}
+
+.results, .history, .graph {
+  margin-top: 20px;
+  background: #f7f7f7;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  padding: 5px 10px;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- For Graphs -->
+</head>
+<body>
+  <div class="container">
+    <h1>Enhanced Period Tracker</h1>
+
+    <!-- Input Section -->
+    <div class="tracker-form">
+      <h2>Track Your Cycle</h2>
+      <label for="lastPeriod">Last Period Start Date:</label>
+      <input type="date" id="lastPeriod">
+
+      <label for="periodDuration">Period Duration (days):</label>
+      <input type="number" id="periodDuration" placeholder="e.g., 5">
+
+      <label for="cycleLength">Average Cycle Length (days):</label>
+      <input type="number" id="cycleLength" placeholder="e.g., 28">
+
+      <label for="symptoms">Log Symptoms (optional):</label>
+      <textarea id="symptoms" placeholder="e.g., cramps, mood swings"></textarea>
+
+      <button id="trackButton">Track Period</button>
+    </div>
+
+    <!-- Output Section -->
+    <div class="results">
+      <h2>Cycle Predictions</h2>
+      <p id="nextPeriod"></p>
+      <p id="fertileWindow"></p>
+      <p id="ovulationDay"></p>
+    </div>
+
+    <!-- History Section -->
+    <div class="history">
+      <h2>Cycle History</h2>
+      <ul id="cycleHistory"></ul>
+    </div>
+
+    <!-- Graph Section -->
+    <div class="graph">
+      <h2>Cycle Length Trends</h2>
+      <canvas id="cycleGraph"></canvas>
+    </div>
+  </div>
+
+  <script>
+ // script.js
+document.getElementById("trackButton").addEventListener("click", function () {
+  const lastPeriodDate = document.getElementById("lastPeriod").value;
+  const periodDuration = parseInt(document.getElementById("periodDuration").value);
+  const cycleLength = parseInt(document.getElementById("cycleLength").value);
+  const symptoms = document.getElementById("symptoms").value;
+
+  if (!lastPeriodDate || !periodDuration || !cycleLength || cycleLength <= 0 || periodDuration <= 0) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  const lastPeriod = new Date(lastPeriodDate);
+
+  // Calculate next period date
+  const nextPeriodDate = new Date(lastPeriod.getTime());
+  nextPeriodDate.setDate(lastPeriod.getDate() + cycleLength);
+
+  // Calculate ovulation day
+  const ovulationDate = new Date(nextPeriodDate.getTime());
+  ovulationDate.setDate(nextPeriodDate.getDate() - 14);
+
+  // Calculate fertile window
+  const fertileStart = new Date(ovulationDate.getTime());
+  fertileStart.setDate(ovulationDate.getDate() - 5);
+
+  const fertileEnd = new Date(ovulationDate.getTime());
+
+  // Display results
+  document.getElementById("nextPeriod").innerText =
+    `Next Period Start Date: ${nextPeriodDate.toDateString()}`;
+  document.getElementById("fertileWindow").innerText =
+    `Fertile Window: ${fertileStart.toDateString()} to ${fertileEnd.toDateString()}`;
+  document.getElementById("ovulationDay").innerText =
+    `Ovulation Day: ${ovulationDate.toDateString()}`;
+
+  // Save cycle data to localStorage
+  const cycleData = {
+    lastPeriod: lastPeriodDate,
+    nextPeriod: nextPeriodDate.toDateString(),
+    fertileWindow: `${fertileStart.toDateString()} to ${fertileEnd.toDateString()}`,
+    ovulationDay: ovulationDate.toDateString(),
+    periodDuration: periodDuration,
+    symptoms: symptoms || "No symptoms logged",
+  };
+
+  let cycleHistory = JSON.parse(localStorage.getItem("cycleHistory")) || [];
+  cycleHistory.push(cycleData);
+  localStorage.setItem("cycleHistory", JSON.stringify(cycleHistory));
+
+  // Update history
+  updateHistory();
+
+  // Update graph
+  updateGraph(cycleHistory);
+});
+
+// Update history function
+function updateHistory() {
+  const cycleHistory = JSON.parse(localStorage.getItem("cycleHistory")) || [];
+  const historyList = document.getElementById("cycleHistory");
+  historyList.innerHTML = "";
+
+  cycleHistory.forEach((cycle, index) => {
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `
+      <div>
+        <strong>Cycle ${index + 1}:</strong><br>
+        Last Period: ${cycle.lastPeriod}<br>
+        Next Period: ${cycle.nextPeriod}<br>
+        Fertile Window: ${cycle.fertileWindow}<br>
+        Ovulation Day: ${cycle.ovulationDay}<br>
+        Period Duration: ${cycle.periodDuration} days<br>
+        Symptoms: ${cycle.symptoms}
+      </div>
+      <div class="actions">
+        <button class="edit" onclick="editCycle(${index})">Edit</button>
+        <button class="delete" onclick="deleteCycle(${index})">Delete</button>
+      </div>
+    `;
+    historyList.appendChild(listItem);
+  });
+}
+
+// Edit cycle function
+function editCycle(index) {
+  const cycleHistory = JSON.parse(localStorage.getItem("cycleHistory")) || [];
+  const cycle = cycleHistory[index];
+
+  if (confirm("Do you want to edit this cycle?")) {
+    document.getElementById("lastPeriod").value = cycle.lastPeriod;
+    document.getElementById("periodDuration").value = cycle.periodDuration;
+    document.getElementById("cycleLength").value = parseInt(
+      (new Date(cycle.nextPeriod) - new Date(cycle.lastPeriod)) / (1000 * 60 * 60 * 24)
+    );
+    document.getElementById("symptoms").value = cycle.symptoms;
+    cycleHistory.splice(index, 1);
+    localStorage.setItem("cycleHistory", JSON.stringify(cycleHistory));
+    updateHistory();
+  }
+}
+
+// Delete cycle function
+function deleteCycle(index) {
+  const cycleHistory = JSON.parse(localStorage.getItem("cycleHistory")) || [];
+  if (confirm("Are you sure you want to delete this cycle?")) {
+    cycleHistory.splice(index, 1);
+    localStorage.setItem("cycleHistory", JSON.stringify(cycleHistory));
+    updateHistory();
+  }
+}
+
+// Update graph function
+function updateGraph(cycleHistory) {
+  const cycleLengths = cycleHistory.map((cycle) => cycle.periodDuration);
+  const labels = cycleHistory.map((_, index) => `Cycle ${index + 1}`);
+
+  const ctx = document.getElementById("cycleGraph").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Cycle Duration (Days)",
+          data: cycleLengths,
+          backgroundColor: "#ff6781",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+// Initialize history and graph on page load
+updateHistory();
+updateGraph(JSON.parse(localStorage.getItem("cycleHistory")) || []);
+  </script>
+</body>
+</html>

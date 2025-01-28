@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f8f9fa;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 90%;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .short-url {
+      margin-top: 20px;
+    }
+    .short-url a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>URL Shortener</h1>
+    <input type="url" id="longUrl" placeholder="Enter Long URL" required />
+    <button onclick="shortenUrl()">Shorten URL</button>
+    <div id="shortenedUrl" class="short-url"></div>
+  </div>
+
+  <script>
+    const backendURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+
+    async function shortenUrl() {
+      const longUrl = document.getElementById("longUrl").value;
+
+      if (!longUrl) {
+        alert("Please enter a valid URL!");
+        return;
+      }
+
+      try {
+        const response = await fetch(backendURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ longUrl }),
+        });
+
+        if (!response.ok) throw new Error("Failed to shorten URL");
+
+        const shortUrl = await response.text();
+        document.getElementById("shortenedUrl").innerHTML = `
+          <p>Shortened URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a></p>
+        `;
+      } catch (error) {
+        console.error(error);
+        alert("Error: Could not shorten the URL.");
+      }
+    }
+  </script>
+  
+  <!--Appscript code
+// Handles incoming requests
+function doGet(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+  // If 'short' parameter is present, redirect to original URL
+  if (e.parameter.short) {
+    const shortCode = e.parameter.short;
+    const data = sheet.getDataRange().getValues();
+
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][1] === shortCode) {
+        return HtmlService.createHtmlOutput(`<script>window.location.href="${data[i][0]}";</script>`);
+      }
+    }
+    return HtmlService.createHtmlOutput('<h3>Error: Short URL not found</h3>');
+  }
+
+  // Default response for invalid requests
+  return HtmlService.createHtmlOutput('<h3>Invalid Request</h3>');
+}
+
+// Shorten a URL and return the short link
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const longUrl = e.parameter.longUrl;
+  const shortCode = generateShortCode();
+  const scriptUrl = ScriptApp.getService().getUrl();
+  const shortUrl = `${scriptUrl}?short=${shortCode}`;
+
+  // Save the new entry in Google Sheets
+  sheet.appendRow([longUrl, shortCode, shortUrl]);
+
+  return ContentService.createTextOutput(shortUrl);
+}
+
+// Generate a random short code
+function generateShortCode() {
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let code = '';
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
+  -->
+  <!--Google Sheet Structure
+  
+  Original URL, Short Code, and Shortened URL
+
+  -->
+</body>
+</html>

@@ -1,0 +1,39 @@
+//Appscript code for EmailSender
+function sendEmails() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("EmailList"); // Sheet name
+  var data = sheet.getDataRange().getValues();
+  var adminEmail = "admin@example.com"; // Replace with your admin email
+  var sentCount = 0;
+  var failedEmails = [];
+
+  for (var i = 1; i < data.length; i++) { // Start from row 2 (skip header)
+    var email = data[i][0];  // Column A - Email Address
+    var subject = data[i][1]; // Column B - Subject
+    var message = data[i][2]; // Column C - Message
+    var status = data[i][3];  // Column D - Status
+    
+    if (email && subject && message && status !== "Sent") { 
+      try {
+        MailApp.sendEmail(email, subject, message);
+        sheet.getRange(i + 1, 4).setValue("Sent"); // Update Status to 'Sent'
+        sheet.getRange(i + 1, 5).setValue(new Date()); // Update Timestamp
+        sentCount++;
+      } catch (error) {
+        failedEmails.push(email);
+        Logger.log("Failed to send to " + email + ": " + error.toString());
+      }
+    }
+  }
+
+  // Send summary report to admin
+  if (sentCount > 0 || failedEmails.length > 0) {
+    var summary = "Email Automation Summary:\n\n";
+    summary += "✅ Emails Sent Successfully: " + sentCount + "\n";
+    summary += "❌ Failed Emails: " + (failedEmails.length > 0 ? failedEmails.join(", ") : "None") + "\n";
+    summary += "🕒 Process Time: " + new Date().toLocaleString();
+
+    MailApp.sendEmail(adminEmail, "Email Automation Report", summary);
+  }
+
+  Logger.log("Email process completed.");
+}

@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Drive File Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        h2 { color: #333; }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover { background: #0056b3; }
+        #document-list {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .doc-item {
+            background: white;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: left;
+        }
+        .doc-item a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .hidden { display: none; }
+        .loading {
+            font-size: 14px;
+            color: #007BFF;
+            display: block;
+            margin-top: 10px;
+        }
+        #status-message {
+            margin-top: 10px;
+            font-size: 14px;
+            padding: 8px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+    <h2>Study Room - McOwino</h2>
+    
+    <input type="text" id="search-query" placeholder="Search documents...">
+    <button onclick="searchDocuments()">Search</button>
+    <span id="loading-search" class="loading hidden">Searching...</span>
+
+    <div id="document-list"></div>
+
+    <button id="load-more-btn" onclick="fetchDocuments()" class="hidden">Load More</button>
+
+    <h3>Upload a Document</h3>
+    <input type="file" id="file-input">
+    <button onclick="uploadFile()">Upload</button>
+    <span id="loading-upload" class="loading hidden">Uploading...</span>
+    <div id="status-message"></div>
+
+    <script>
+        let start = 0;
+        let isSearching = false; 
+        const API_URL = "https://script.google.com/macros/s/AKfycbxsc-YsjY2igGlKgvBr9uMlNRDOaZJJxftqiA6nogO0HXoh5dZV0l-nrpv3FEhCwibfnQ/exec"; // Replace with your deployed Apps Script URL
+
+        function fetchDocuments(reset = false) {
+            if (isSearching) return; // Prevent fetch during search
+
+            let documentList = document.getElementById('document-list');
+            let loadMoreBtn = document.getElementById('load-more-btn');
+
+            if (reset) {
+                start = 0;
+                documentList.innerHTML = "";
+            }
+
+            fetch(`${API_URL}?start=${start}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(doc => {
+                        documentList.innerHTML += `
+                            <div class="doc-item">
+                                <strong>${doc.name}</strong> (${doc.type}) <br>
+                                <a href="${doc.url}" target="_blank">View</a>
+                            </div>
+                        `;
+                    });
+                    start += 5;
+                    loadMoreBtn.classList.toggle('hidden', data.length < 5);
+                })
+                .catch(() => alert("Error loading documents."));
+        }
+
+        function searchDocuments() {
+            let query = document.getElementById('search-query').value.trim();
+            let loadingSearch = document.getElementById('loading-search');
+            let documentList = document.getElementById('document-list');
+            let loadMoreBtn = document.getElementById('load-more-btn');
+
+            if (!query) {
+                alert("Please enter a search term.");
+                return;
+            }
+
+            isSearching = true; 
+            loadingSearch.classList.remove('hidden');
+            documentList.innerHTML = ""; 
+            loadMoreBtn.classList.add('hidden');
+
+            fetch(`${API_URL}?search=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        documentList.innerHTML = "<p>No documents found.</p>";
+                    } else {
+                        data.forEach(doc => {
+                            documentList.innerHTML += `
+                                <div class="doc-item">
+                                    <strong>${doc.name}</strong> (${doc.type}) <br>
+                                    <a href="${doc.url}" target="_blank">View</a>
+                                </div>
+                            `;
+                        });
+                    }
+                })
+                .catch(() => alert("Error searching documents."))
+                .finally(() => {
+                    loadingSearch.classList.add('hidden');
+                    isSearching = false; 
+                });
+        }
+
+        fetchDocuments(); 
+    </script>
+    
+    <!--
+Google Appscript available on Google workspace 
+    -->
+    
+    
+</body>
+</html>
